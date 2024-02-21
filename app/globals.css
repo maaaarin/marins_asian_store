@@ -30,8 +30,8 @@
   }
 }
 
-@layer components {
+/* @layer components {
   .container {
     @apply !min-w-full;
   }
-}
+} */
