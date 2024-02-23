@@ -1,17 +1,10 @@
 
-.main {
-    // padding-top: 6.5rem;
-}
-
 .bannersHeader {
     height: 5.25rem;
 
-    div > div {
-        // width: calc(calc(24.375% - 3rem) - (1.25rem / 2)) ;
-        // 3rem: half padding. 1.25rem: margin-top
-        width: calc(25% - 6.5rem);
+    div {
+        width: calc(20% - 1.25rem);
     }
-
 }
 
 .bannersMain {
@@ -27,7 +20,7 @@
     width: 25%;
 }
 
-.bannerHeaderCornerLightYellow::after{
+.bannerHeaderCornerLightYellow::after {
     content: '';
     width: 1.5rem;
     height: 1.5rem;
@@ -37,7 +30,7 @@
     background: radial-gradient(circle at top right, transparent 1.5rem, #F9F2A2 1.5rem);
 }
 
-.bannerHeaderCornerDarkBlue::after{
+.bannerHeaderCornerDarkBlue::after {
     content: '';
     width: 1.5rem;
     height: 1.5rem;
@@ -47,7 +40,7 @@
     background: radial-gradient(circle at top left, transparent 1.5rem, #2E2DDD 1.5rem);
 }
 
-.bannerCornerLightYellow::after{
+.bannerCornerLightYellow::after {
     content: '';
     width: 1.5rem;
     height: 1.5rem;
@@ -57,7 +50,7 @@
     background: radial-gradient(circle at bottom left, transparent 1.5rem, #007BD0 1.5rem);
 }
 
-.bannerSquareOrange{
+.bannerSquareOrange {
     height: calc(100% - 1.25rem);
 }
 

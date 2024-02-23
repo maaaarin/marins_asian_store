@@ -5,13 +5,14 @@ import Image from "next/image";
 export const Header = () => {
   return (
     <header
-      className={`${styles.header} w-1/2 h-16 flex justify-between items-center p-4 z-50 fixed top-5 right-16 left-16 rounded-2xl bg-white border border-black mx-auto`}>
+      className={`${styles.header} container h-16 z-50 fixed top-5 right-0 left-0  flex justify-center items-center`}>
+      <nav className="w-3/5 h-full flex justify-between items-center p-4 bg-white border border-black rounded-2xl">
         <svg
-          className="w-auto h-3/4 object-contain"
+          className="w-auto h-3/4 object-contain cursor-pointer"
           viewBox="0 0 123 30"
           fill="none"
           xmlns="http://www.w3.org/2000/svg">
-          <g clip-path="url(#clip0_80_316)">
+          <g clipPath="url(#clip0_80_316)">
             <path
               d="M0 0.168427H5.7199L18.1776 25.5999L28.9812 0.168427H33.6418C32.032 0.676701 31.6089 2.03013 31.6089 3.552V26.3593C31.6089 27.8812 32.032 29.2789 33.6418 29.7872H26.6938C28.3036 29.2789 28.7711 27.9255 28.7711 26.3593V1.98876L16.9466 29.7458L3.51538 2.1572V26.0224C3.51538 28.0526 4.78779 29.1962 6.60762 29.7872H0C1.82279 29.1962 3.05081 28.0112 3.05081 26.0224V3.72339C3.05081 1.86169 1.65117 0.676701 0 0.168427Z"
               fill="#1D1D1B"
@@ -44,43 +45,44 @@ export const Header = () => {
           </defs>
         </svg>
         <ul className="flex items-center gap-4 font-normal text-lg">
-          <li>Explore</li>
-          <li>Features</li>
-          <li>About</li>
+          <li className="">Explore</li>
+          <li className="">Features</li>
+          <li className="">About</li>
         </ul>
         <ul className="flex gap-4 h-auto items-center">
-          <li>
+          <li className="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
               fill="currentColor"
-              className="w-7 h-7 cursor-pointer"
+              className="w-7 h-7 "
               viewBox="0 0 16 16">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
             </svg>
           </li>
-          <li>
+          <li className="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
               fill="currentColor"
-              className="w-7 h-7 cursor-pointer"
+              className="w-7 h-7 "
               viewBox="0 0 16 16">
               <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z" />
             </svg>
           </li>
-          <li>
+          <li className="">
             <Image
               src="/assets/img/profile.jpg"
               alt="Profile Picture"
               width={100}
               height={100}
-              className="rounded-full w-11 h-11 cursor-pointer object-cover border-2 border-primary"
+              className="rounded-full w-11 h-11  object-cover border-2 border-primary"
             />
           </li>
         </ul>
+      </nav>
     </header>
   );
 };
