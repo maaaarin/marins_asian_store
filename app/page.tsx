@@ -6,7 +6,10 @@ import { Main } from "../components/Main/Main";
 import { Footer } from "../components/Footer/Footer";
 import { Product } from "../components/Product/Product";
 
-export default function Home() {
+export default async function Home() {
+
+  const users = await handler();
+
   return (
     <>
       <Header />
