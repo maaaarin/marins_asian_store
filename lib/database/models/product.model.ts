@@ -8,6 +8,6 @@ const productSchema = new Schema({
   picture: { type: String, required: true },
 });
 
-const Product = models.Product || model("products", productSchema);
+const Product = models.Product || model("Product", productSchema);
 
 export default Product;

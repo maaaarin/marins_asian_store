@@ -7,7 +7,7 @@ export async function GET(){
   // return new NextResponse('connected');
 
   return NextResponse.json(await Product.find());;
- 
+
   // const small = new Product({ name: 'dasd', description: 'dd', price: 123, color: 'dad', picture: 'dasd' });
   // await small.save();
 

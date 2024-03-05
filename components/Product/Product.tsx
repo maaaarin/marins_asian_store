@@ -7,7 +7,7 @@ export const Product = (Props: { productId: String; productBg: String }) => {
     <div
       className={`${styles.product} w-3/12 rounded-3xl cursor-pointer border border-gray-100`}>
       <div
-        className={`${styles.productImage} h-3/4 flex items-center justify-center  rounded-t-2xl`}
+        className={`${styles.productImage} h-3/4 flex items-center justify-center  rounded-t-3xl`}
         style={{
           background: `linear-gradient(to top, transparent 10%, #${Props.productBg} 90%);`,
         }}>

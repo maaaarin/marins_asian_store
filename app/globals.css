@@ -5,11 +5,13 @@
 * {
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 li{
   cursor: pointer;
 }
+
 
 @layer utilities {
   .text-balance {

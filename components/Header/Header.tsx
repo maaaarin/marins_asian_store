@@ -1,14 +1,24 @@
-import React from "react";
-import styles from "./Header.module.scss";
+"use client"
+
+import React, { useState } from "react";
 import Image from "next/image";
+import clsx from "clsx";
+import styles from "./Header.module.scss";
+import 'animate.css';
+// Components
+import { Search } from "../Search/Search";
 
 export const Header = () => {
+
+  // Search
+  const [display, setDisplay] = useState(false);
+
   return (
     <header
       className={`${styles.header} container h-16 z-50 fixed top-5 right-0 left-0  flex justify-center items-center`}>
-      <nav className="w-3/5 h-full flex justify-between items-center p-4 bg-white border border-black rounded-2xl">
+      <nav className="w-3/5 h-full flex justify-between items-center px-4 py-2 bg-white z-50 border border-black rounded-2xl">
         <svg
-          className="w-auto h-3/4 object-contain cursor-pointer"
+          className="w-20 h-auto object-contain cursor-pointer"
           viewBox="0 0 123 30"
           fill="none"
           xmlns="http://www.w3.org/2000/svg">
@@ -44,45 +54,41 @@ export const Header = () => {
             </clipPath>
           </defs>
         </svg>
-        <ul className="flex items-center gap-4 font-normal text-lg">
+        <ul className={clsx('flex items-center gap-4 font-normal text-lg', { 'hidden': display })}>
           <li className="">Explore</li>
           <li className="">Features</li>
           <li className="">About</li>
         </ul>
+        { (display && <Search display={display} setDisplay={setDisplay} />) }
         <ul className="flex gap-4 h-auto items-center">
-          <li className="">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="w-7 h-7 "
-              viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          <li id="search" onClick={() => setDisplay(true) }>
+            <svg className={clsx('w-6 h-6', { 'hidden': display })} xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20.26 20.72">
+              <path d="M9.74,19.48C4.37,19.48,0,15.11,0,9.74S4.37,0,9.74,0s9.74,4.37,9.74,9.74-4.37,9.74-9.74,9.74ZM9.74,1.5C5.2,1.5,1.5,5.2,1.5,9.74s3.7,8.24,8.24,8.24,8.24-3.7,8.24-8.24S14.28,1.5,9.74,1.5Z" />
+              <path d="M19.51,20.72c-.19,0-.38-.07-.53-.22l-3.52-3.52c-.29-.29-.29-.77,0-1.06,.29-.29,.77-.29,1.06,0l3.52,3.52c.29,.29,.29,.77,0,1.06-.15,.15-.34,.22-.53,.22Z" />
             </svg>
+
           </li>
-          <li className="">
+          <li id="bag">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
               fill="currentColor"
-              className="w-7 h-7 "
+              className="w-7 h-7"
               viewBox="0 0 16 16">
               <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z" />
             </svg>
           </li>
-          <li className="">
+          <li id="user">
             <Image
               src="/assets/img/profile.jpg"
               alt="Profile Picture"
-              width={100}
+              width={150}
               height={100}
-              className="rounded-full w-11 h-11  object-cover border-2 border-primary"
+              className="rounded-full w-12 h-12 aspect-square max-w-none object-cover border-2 border-primary"
             />
           </li>
         </ul>
       </nav>
+      <div className={clsx(`${styles.overlayScreen} animate__animated animate__fadeIn animate__faster fade w-screen h-screen fixed top-0 left-0`, { 'hidden': !display }) }></div>
     </header>
   );
 };
