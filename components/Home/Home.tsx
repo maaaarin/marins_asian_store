@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./Main.module.scss";
+import styles from "./Home.module.scss";
 import Image from "next/image";
 
-export const Main = () => {
+export const Home = () => {
   return (
     <main className={`${styles.main} container mt-5`}>
       <div className={`${styles.bannersHeader} w-full flex justify-between`}>

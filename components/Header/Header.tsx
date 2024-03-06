@@ -1,15 +1,14 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import styles from "./Header.module.scss";
-import 'animate.css';
+import "animate.css";
 // Components
-import { Search } from "../Search/Search";
+import { SearchBar } from "../Search/SearchBar";
 
 export const Header = () => {
-
   // Search
   const [display, setDisplay] = useState(false);
 
@@ -54,19 +53,25 @@ export const Header = () => {
             </clipPath>
           </defs>
         </svg>
-        <ul className={clsx('flex items-center gap-4 font-normal text-lg', { 'hidden': display })}>
+        <ul
+          className={clsx("flex items-center gap-4 font-normal text-lg", {
+            hidden: display,
+          })}>
           <li className="">Explore</li>
           <li className="">Features</li>
           <li className="">About</li>
         </ul>
-        { (display && <Search display={display} setDisplay={setDisplay} />) }
+        {display && <SearchBar display={display} setDisplay={setDisplay} />}
         <ul className="flex gap-4 h-auto items-center">
-          <li id="search" onClick={() => setDisplay(true) }>
-            <svg className={clsx('w-6 h-6', { 'hidden': display })} xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20.26 20.72">
+          <li id="search" onClick={() => setDisplay(true)}>
+            <svg
+              className={clsx("w-6 h-6", { hidden: display })}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20.26 20.72">
               <path d="M9.74,19.48C4.37,19.48,0,15.11,0,9.74S4.37,0,9.74,0s9.74,4.37,9.74,9.74-4.37,9.74-9.74,9.74ZM9.74,1.5C5.2,1.5,1.5,5.2,1.5,9.74s3.7,8.24,8.24,8.24,8.24-3.7,8.24-8.24S14.28,1.5,9.74,1.5Z" />
               <path d="M19.51,20.72c-.19,0-.38-.07-.53-.22l-3.52-3.52c-.29-.29-.29-.77,0-1.06,.29-.29,.77-.29,1.06,0l3.52,3.52c.29,.29,.29,.77,0,1.06-.15,.15-.34,.22-.53,.22Z" />
             </svg>
-
           </li>
           <li id="bag">
             <svg
@@ -88,7 +93,11 @@ export const Header = () => {
           </li>
         </ul>
       </nav>
-      <div className={clsx(`${styles.overlayScreen} animate__animated animate__fadeIn animate__faster fade w-screen h-screen fixed top-0 left-0`, { 'hidden': !display }) }></div>
+      <div
+        className={clsx(
+          `${styles.overlayScreen} animate__animated animate__fadeIn animate__faster fade w-screen h-screen fixed top-0 left-0`,
+          { hidden: !display }
+        )}></div>
     </header>
   );
 };
