@@ -1,15 +1,12 @@
-import { getAllProducts } from "@/lib/actions/product.actions";
 import React from "react";
+
+// Actions
+import { getAllProducts } from "@/lib/actions/product.actions";
+
+// Components
 import { Product } from "../Product/Product";
 
-export const SearchResults = ({
-  SearchParams,
-}: {
-  SearchParams?: { query?: string };
-}) => {
-  const searchQuery = (SearchParams?.query as string) || "cheetos";
-  // const products = await getAllProducts({query: searchQuery});
-  console.log(SearchParams);
+export const SearchResults = ({ products, query }: { products: any, query: string }) => {
 
   return (
     <div className="size-full bg-white rounded-3xl px-8 py-10">
@@ -26,9 +23,9 @@ export const SearchResults = ({
             <span>Sort</span>
           </button>
           <div className="flex gap-1 text-lg">
-            {/* <span>{products.length}</span> */}
+            <span>{products.length}</span>
             results for
-            <span className="font-bold">{searchQuery}</span>
+            <span className="font-bold">{query}</span>
           </div>
           <button className="py-2 px-5 flex items-center gap-3 border border-slate-300 rounded-full">
             <svg
@@ -44,11 +41,11 @@ export const SearchResults = ({
             <span>Filters</span>
           </button>
         </div>
-        <div className="size-full overflow-auto pt-5">
+        <div className="size-full overflow-auto pt-5 rounded-3xl">
           <div className="size-full grid grid-cols-4 gap-4">
-            {/* {products.map((product: any) => (
-                            <Product key={product._id} name={product.name} price={product.price} color={product.color} picture={product.picture} />
-                        ))} */}
+            {products.map((product: any) => (
+              <Product key={product._id} name={product.name} price={product.price} color={product.color} picture={product.picture} />
+            ))}
           </div>
         </div>
       </div>

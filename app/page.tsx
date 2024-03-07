@@ -2,7 +2,15 @@
 import { Home } from "../components/Home/Home";
 import { Product } from "../components/Product/Product";
 
-export default async function App() {
+export default async function App({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+  };
+}) {
+  const searchQuery = (searchParams?.query as string) || "cheetos";
+
   return (
     <>
       <Home />

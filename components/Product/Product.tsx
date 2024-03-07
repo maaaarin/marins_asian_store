@@ -7,9 +7,9 @@ export const Product = (Product: { name: string, price: number, color: string, p
     <div
       className={`${styles.product} w-full rounded-3xl cursor-pointer border border-slate-300`}>
       <div
-        className="h-3/4 flex items-center justify-center  rounded-t-3xl"
+        className="h-3/4 flex items-center justify-center  rounded-t-3xl px-8"
         style={{
-          background: `linear-gradient(to top, transparent 20%, ${Product.color} 100%)`,
+          background: `linear-gradient(to top, transparent 10%, ${Product.color} 60%)`,
         }}>
         <Image
           src={Product.picture}

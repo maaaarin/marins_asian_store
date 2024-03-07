@@ -90,9 +90,9 @@ export const SearchMenu = () => {
                     <div className="size-full flex gap-3">
                         <div
                             className="w-52 h-auto rounded-2xl flex p-3 items-center justify-center relative"
-                            style={{ backgroundColor: "#CAE7FF" }}>
+                            style={{ backgroundColor: "#8AC7FF" }}>
                             <Image
-                                src={`/assets/products/1.webp`}
+                                src="https://i.imgur.com/VqrZ1a6.png"
                                 alt="alt"
                                 width={150}
                                 height={0}
@@ -106,7 +106,7 @@ export const SearchMenu = () => {
                             className="w-52 h-auto rounded-2xl flex p-3 items-center justify-center relative"
                             style={{ backgroundColor: "#FFCEE1" }}>
                             <Image
-                                src={`/assets/products/2.webp`}
+                                src="https://i.imgur.com/AlPogiS.png"
                                 alt="alt"
                                 width={150}
                                 height={0}
@@ -120,7 +120,7 @@ export const SearchMenu = () => {
                             className="w-52 h-auto rounded-2xl flex p-3 items-center justify-center relative"
                             style={{ backgroundColor: "#FFAD5C" }}>
                             <Image
-                                src={`/assets/products/3.webp`}
+                                src="https://i.imgur.com/Nt6nTJ1.png"
                                 alt="alt"
                                 width={150}
                                 height={0}
@@ -132,9 +132,9 @@ export const SearchMenu = () => {
                         </div>
                         <div
                             className="w-52 h-auto rounded-2xl flex p-3 items-center justify-center relative"
-                            style={{ backgroundColor: "#8AC7FF" }}>
+                            style={{ backgroundColor: "#FF663E" }}>
                             <Image
-                                src={`/assets/products/4.webp`}
+                                src="https://i.imgur.com/fLTx3n8.png"
                                 alt="alt"
                                 width={150}
                                 height={0}
