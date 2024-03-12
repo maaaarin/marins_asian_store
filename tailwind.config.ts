@@ -18,6 +18,7 @@ const config: Config = {
     colors: {
       'primary': '#2E2DDD',
       'secondary': '#EF9EE5',
+      'pink': '#FF86F8',
       'light-yellow': '#F9F2A2',
       'orange': '#FF4900',
       'beige': '#FFEAD9',

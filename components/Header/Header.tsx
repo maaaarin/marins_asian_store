@@ -1,22 +1,64 @@
-'use client'
+"use client";
 
-import clsx from 'clsx';
-import React, { useState } from 'react'
-import styles from './Header.module.scss'
-import Image from 'next/image';
-import Search from '../Search/Search';
-import { useSearchParams } from 'next/navigation';
+import clsx from "clsx";
+import React, { useState } from "react";
+import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+// Styles
+import styles from "./Header.module.scss";
+
+// Components
+import { Search } from "../Search/Search";
+import { Bag } from "../Bag/Bag";
+import { SearchBar } from "../Search/SearchBar";
 
 export const Header = () => {
 
-    // Search
-
-    // Search Display
-    const [display, setDisplay] = useState(false);
-
-    // Search Query
+    // Search Query / Reload
     const searchParams = useSearchParams();
     const query = searchParams.get("query") || "";
+
+    // Display
+    const [search, setSearch] = useState(false),
+        [bag, setBag] = useState(false),
+        [user, setUser] = useState(false),
+        [overlay, setOverlay] = useState(false);
+
+    function closeDisplay(){
+        setSearch(false);
+        setBag(false);
+        setUser(false);
+        setOverlay(false);
+    }
+
+    const { replace } = useRouter();
+    const pathName = usePathname();
+
+    function handleDisplay(id: string) {
+
+        // Clear params query
+        const params = new URLSearchParams(searchParams);
+        params.delete("query");
+        replace(`${pathName}?${params.toString()}`);
+
+        // Handle display
+        switch (id) {
+            case "search":
+                closeDisplay()
+                setSearch(true);
+                break;
+            case "bag":
+                closeDisplay();
+                setBag(true);
+                break;
+            case "user":
+                closeDisplay();
+                setUser(true);
+                break;
+        }
+        setOverlay(true);
+    }
 
     return (
         <header
@@ -61,17 +103,17 @@ export const Header = () => {
                 </svg>
                 <ul
                     className={clsx("flex items-center gap-4 font-normal text-lg", {
-                        hidden: display || query,
+                        hidden: search || query,
                     })}>
                     <li>Explore</li>
                     <li>Features</li>
                     <li>About</li>
                 </ul>
-                {(display || query) && <Search setDisplay={setDisplay} />}
+                {(search || query) && <SearchBar closeDisplay={closeDisplay}/>}
                 <ul className="flex gap-4 h-auto items-center">
-                    <li id="search" onClick={() => setDisplay(true)}>
+                    <li id="search" onClick={(e) => handleDisplay(e.currentTarget.id)}>
                         <svg
-                            className={clsx("w-6 h-6", { hidden: display || query })}
+                            className={clsx("w-6 h-6", { hidden: search || query })}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor"
                             viewBox="0 0 20.26 20.72">
@@ -79,7 +121,7 @@ export const Header = () => {
                             <path d="M19.51,20.72c-.19,0-.38-.07-.53-.22l-3.52-3.52c-.29-.29-.29-.77,0-1.06,.29-.29,.77-.29,1.06,0l3.52,3.52c.29,.29,.29,.77,0,1.06-.15,.15-.34,.22-.53,.22Z" />
                         </svg>
                     </li>
-                    <li id="bag">
+                    <li id="bag" onClick={(e) => handleDisplay(e.currentTarget.id)}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor"
@@ -88,9 +130,9 @@ export const Header = () => {
                             <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z" />
                         </svg>
                     </li>
-                    <li id="user">
+                    <li id="user" onClick={(e) => handleDisplay(e.currentTarget.id)}>
                         <Image
-                            src="/assets/img/profile.jpg"
+                            src="/assets/img/profile.webp"
                             alt="Profile Picture"
                             width={150}
                             height={100}
@@ -99,11 +141,13 @@ export const Header = () => {
                     </li>
                 </ul>
             </nav>
+            {(search || query) && <Search />}
+            {bag && <Bag closeDisplay={closeDisplay} />}
             <div
                 className={clsx(
-                    `${styles.overlayScreen} animate__animated animate__fadeIn animate__faster fade w-screen h-screen fixed top-0 left-0`,
-                    { hidden: !display  && !query }
+                    `${styles.overlayScreen} animate__animated animate__fadeIn animate__faster fade w-screen h-screen fixed top-0 left-0 -z-10`,
+                    { hidden: (!overlay && !query) }
                 )}></div>
         </header>
-    )
-}
+    );
+};

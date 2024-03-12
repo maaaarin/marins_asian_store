@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getServerSideProps } from "next/dist/build/templates/pages";
 import { useSearchParams } from "next/navigation";
+import 'animate.css';
 
 // Styles
 import styles from './Search.module.scss';
@@ -9,13 +10,10 @@ import styles from './Search.module.scss';
 import { getAllProducts } from "@/lib/actions/product.actions";
 
 // Components
-import { SearchBar } from "./SearchBar";
 import { SearchMenu } from "./SearchMenu";
 import { SearchResults } from "./SearchResults";
 
-type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
-
-export default function Search({ setDisplay }: Props) {
+export const Search = () => {
 
     // Products
     const [products, setProducts] = useState<any[]>([]);
@@ -25,6 +23,7 @@ export default function Search({ setDisplay }: Props) {
     const query = searchParams.get("query") || "";
 
     useEffect(() => {
+        console.log(query)
         // Products Fetch
         const getProducts = async () => {
             const productsList = await getAllProducts({ query: query });
@@ -45,7 +44,6 @@ export default function Search({ setDisplay }: Props) {
 
     return (
         <>
-            <SearchBar setDisplay={setDisplay} />
             <div
                 className={`${styles.searchContainer} container fixed left-0 right-0 animate__animated animate__slideInDown animate__faster `}>
                 {!query && <SearchMenu />}

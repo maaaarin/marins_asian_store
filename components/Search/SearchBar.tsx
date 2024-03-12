@@ -10,7 +10,7 @@ import styles from "./Search.module.scss";
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 
-export const SearchBar = ({ setDisplay }: Props) => {
+export const SearchBar = ({ closeDisplay }: Props) => {
 
     // Search Input
     const searchInput = useRef<HTMLInputElement>(null);
@@ -46,13 +46,12 @@ export const SearchBar = ({ setDisplay }: Props) => {
 
     // Close Search
     function handleCloseSearch() {
-        setDisplay(false);
+        closeDisplay();
         handleSearch('');
     }
 
     useEffect(() => {
         searchInput.current?.focus();
-
         if (searchInput.current?.value) {
             setIsSearching(true);
         } else {
