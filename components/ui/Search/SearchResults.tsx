@@ -4,10 +4,15 @@ import React from "react";
 import { getAllProducts } from "@/lib/actions/product.actions";
 
 // Components
-import { Product } from "../Product/Product";
+import { ProductCard } from "../Product/ProductCard";
+import { Product } from "@/types";
 
-export const SearchResults = ({ products, query }: { products: any, query: string }) => {
+type Props = {
+  products: Product[];
+  query: string;
+};
 
+export const SearchResults = ({ products, query }: Props) => {
   return (
     <div className="size-full bg-white rounded-3xl px-8 py-10">
       <div className="size-full flex flex-col gap-3">
@@ -43,8 +48,8 @@ export const SearchResults = ({ products, query }: { products: any, query: strin
         </div>
         <div className="size-full overflow-auto pt-5 rounded-3xl">
           <div className="size-full grid grid-cols-4 gap-4">
-            {products.map((product: any) => (
-              <Product key={product._id} name={product.name} price={product.price} color={product.color} picture={product.picture} />
+            {products.map((product: Product) => (
+              <ProductCard key={product._id} product={product} />
             ))}
           </div>
         </div>

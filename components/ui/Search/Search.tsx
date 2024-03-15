@@ -12,11 +12,12 @@ import { getAllProducts } from "@/lib/actions/product.actions";
 // Components
 import { SearchMenu } from "./SearchMenu";
 import { SearchResults } from "./SearchResults";
+import { Product } from "@/types";
 
 export const Search = () => {
 
     // Products
-    const [products, setProducts] = useState<any[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
 
     // Search Query
     const searchParams = useSearchParams();

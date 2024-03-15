@@ -1,13 +1,19 @@
+import { Product } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-export const ProductBag = () => {
+type Props = {
+  product: Product
+}
+
+export const ProductBag = ({product}: Props) => {
+
   return (
     <div className="w-full h-48 bg-gray-50 rounded-3xl p-4 flex items-center justify-between pr-10">
       <div className="h-full flex items-center gap-5">
         <div
           className="w-56 h-full rounded-2xl flex items-center justify-center relative"
-          style={{ backgroundColor: "#C8E6FF" }}>
+          style={{ backgroundColor: `${product.color}` }}>
           <button className="size-10 flex items-center justify-center bg-white rounded-full absolute top-0 right-0 m-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -21,16 +27,16 @@ export const ProductBag = () => {
             </svg>
           </button>
           <Image
-            src="https://i.imgur.com/2chtIZL.png"
+            src={product.picture}
             alt="Product Image"
             width={250}
             height={250}
             className="h-4/5 object-contain"
           />
         </div>
-        <span className="w-52">Oyatsu Butamen Instant Ramen Noodles</span>
+        <span className="w-52">{product.name}</span>
       </div>
-      <span>3.50 €</span>
+      <span>{product.price}</span>
       <button className="size-10 bg-gray-200 rounded-full flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
