@@ -4,7 +4,7 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { totalBagItemsSelector } from "@/lib/store/bag.slice";
+import { totalBagItemsSelector } from "@/lib/store/slices/bag.slice";
 
 // Styles
 import styles from "./Header.module.scss";

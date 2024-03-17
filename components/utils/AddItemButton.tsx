@@ -1,4 +1,4 @@
-import { addItem } from "@/lib/store/bag.slice";
+import { addItem } from "@/lib/store/slices/bag.slice";
 import { Product } from "@/types";
 import React from "react";
 import { useDispatch } from "react-redux";

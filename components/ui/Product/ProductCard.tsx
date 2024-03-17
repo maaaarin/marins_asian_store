@@ -46,7 +46,7 @@ export const ProductCard = ({product}: Props) => {
       <div className="h-1/4 flex items-center justify-between px-4 py-2 gap-2">
         <span className="size-fit line-clamp-2">{product.name}</span>
         <span className="size-fit text-nowrap text-lg bg-black text-white rounded-full py-1 px-3">
-          {product.price} €
+          {product.price.toFixed(2)} €
         </span>
       </div>
     </div>
