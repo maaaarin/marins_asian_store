@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const Home = () => {
   return (
-    <main className={`${styles.main} container mt-5`}>
+    <main className="container mt-4">
       <div className={`${styles.bannersHeader} w-full flex justify-between`}>
         <div
           className={`${styles.bannerHeaderCornerLightYellow} bg-light-yellow rounded-t-2xl relative`}></div>

@@ -17,7 +17,7 @@ export const AddItemButton = ({product}: Props) => {
 
   return (
     <button
-      className="size-14 bg-primary rounded-full grid place-items-center"
+      className="size-14 bg-primary rounded-full grid place-items-center z-20"
       onClick={() => {
         handleAddItem();
       }}>

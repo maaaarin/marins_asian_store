@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Bag.module.scss";
 import "animate.css";
-import { ProductBag } from "../Product/ProductBag";
+import { ItemBag } from "../Item/ItemBag";
 import { getServerSideProps } from "next/dist/build/templates/pages";
 import { useSelector } from "react-redux";
 import { Item } from "@/types";
@@ -70,7 +70,7 @@ export const Bag = ({ closeDisplay }: Props) => {
           <>
             <div className="size-full flex flex-col overflow-auto px-4 rounded-3xl">
               {bag.items.map((item: Item) => (
-                <ProductBag key={item.product._id} item={item} />
+                <ItemBag key={item.product._id} item={item} />
               ))}
             </div>
             <div className="w-full h-auto flex py-3 pr-3 pl-8 bg-gray-100 rounded-full justify-between">

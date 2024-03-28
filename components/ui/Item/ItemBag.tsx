@@ -1,6 +1,6 @@
 import { ModifyItemQuantity } from "@/components/utils/ModifyItemQuantity";
 import { removeItem } from "@/lib/store/slices/bag.slice";
-import { Item, Product } from "@/types";
+import { Item } from "@/types";
 import Image from "next/image";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -9,14 +9,9 @@ type Props = {
   item: Item;
 };
 
-export const ProductBag = ({ item }: Props) => {
-  const dispatch = useDispatch();
-
-  const product = item.product;
-
-  function handleRemoveItem() {
-    dispatch(removeItem({ item }));
-  }
+export const ItemBag = ({ item }: Props) => {
+  const dispatch = useDispatch(),
+  product = item.product;
 
   return (
     <div className="w-full h-48 bg-gray-50 rounded-3xl p-4 flex items-center justify-between pr-8">
@@ -38,7 +33,7 @@ export const ProductBag = ({ item }: Props) => {
           </button>
           <button
             onClick={() => {
-              handleRemoveItem();
+              dispatch(removeItem({ item }));
             }}
             className="size-9 bg-white rounded-full flex items-center justify-center absolute bottom-0 right-0 m-3">
             <svg

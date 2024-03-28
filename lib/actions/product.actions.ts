@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import { mongoConnect } from "@/lib/database/connection";
 import Product from "@/lib/database/models/product.model";
@@ -9,17 +9,16 @@ export async function getAllProducts({ query }: { query?: string }) {
         // Connect to the database
         await mongoConnect();
 
-        const productName = query ? { name: { $regex: query, $options: 'i' } } : {};
+        const productName = query ? { name: { $regex: query, $options: "i" } } : {};
 
         const filters = {
-            $and: [productName]
-        }
+            $and: [productName],
+        };
 
         // Search for products
         const products = await Product.find(filters);
 
         return JSON.parse(JSON.stringify(products));
-
     } catch (error) {
         console.log(error);
     }
@@ -32,9 +31,7 @@ export async function getLatestProducts({ limit }: { limit: number }) {
         await mongoConnect();
 
         // Sort Products
-        const products = await Product.find()
-            .sort({$natural: -1})
-            .limit(limit)
+        const products = await Product.find().sort({ _id: -1 }).limit(limit);
 
         return JSON.parse(JSON.stringify(products));
     } catch (error) {
@@ -42,3 +39,18 @@ export async function getLatestProducts({ limit }: { limit: number }) {
     }
 }
 
+// Get Product by ID
+
+export async function getProductById(id: string) {
+    try {
+        await mongoConnect();
+
+        // Get Product
+        const product= await Product.findOne({ _id: id });
+
+        return JSON.parse(JSON.stringify(product));
+
+    } catch (error) {
+        console.log(error);
+    }
+}

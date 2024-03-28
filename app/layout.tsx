@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Provider } from "react-redux";
 
 // Font and Styling
-import { Roboto } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
 // Components
@@ -10,9 +10,9 @@ import { Footer } from "@/components/ui/Footer/Footer";
 import { Header } from "@/components/ui/Header/Header";
 import { Providers } from "./Providers";
 
-const roboto = Roboto({
+const openSans = Open_Sans({
   subsets: ["latin"],
-  weight: ["100", "300", "400", "500"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} text-base`}>
+      <body className={`${openSans.className} text-base`}>
         <Providers>
           <Header />
           {children}
