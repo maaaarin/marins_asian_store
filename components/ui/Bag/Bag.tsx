@@ -10,10 +10,15 @@ import {
   totalBagItemsSelector,
 } from "@/lib/store/slices/bag.slice";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+// const DynamicItemBag = dynamic(() => import("../Item/ItemBag"), {
+//   ssr: false,
+// });
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 
-export const Bag = ({ closeDisplay }: Props) => {
+export const Bag = ({ closeDisplay, cartIconAnimation }: Props) => {
   const bag = useSelector((state: any) => state.bag),
     totalBagItems = useSelector(totalBagItemsSelector),
     subtotalBag = useSelector(subtotalBagSelector);
@@ -21,10 +26,6 @@ export const Bag = ({ closeDisplay }: Props) => {
   function handleCloseBag() {
     closeDisplay();
   }
-
-  useEffect(() => {
-    console.log(bag.items);
-  });
 
   return (
     <div
@@ -47,7 +48,7 @@ export const Bag = ({ closeDisplay }: Props) => {
               />
             </svg>
           </button>
-          <span className="font-bold text-xl text-center">Your Bag</span>
+          <span className="font-bold text-xl text-center">Your Cart</span>
           {totalBagItems > 0 && (
             <span className="py-2 px-4 bg-black rounded-xl text-white absolute right-8">
               {bag.totalQuantity}

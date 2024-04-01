@@ -44,7 +44,7 @@ export const Home = () => {
               </svg>
             </button>
             <Image
-              src="/assets/img/banner_main.png"
+              src="/assets/img/main_banner.webp"
               alt="Banner Main"
               width={550}
               height={550}
@@ -128,7 +128,7 @@ export const Home = () => {
         <div
           className={`${styles.bannersSecondPanel} h-full rounded-b-3xl rounded-tl-3xl relative overflow-hidden`}>
           <Image
-            src="/assets/img/banner_right.png"
+            src="/assets/img/second_banner.webp"
             alt="Banner Product"
             fill
             className="object-cover"

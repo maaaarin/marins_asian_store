@@ -1,34 +1,31 @@
+"use client";
+
 import { addItem } from "@/lib/store/slices/bag.slice";
 import { Product } from "@/types";
 import React from "react";
 import { useDispatch } from "react-redux";
 
 type Props = {
-  product: Product
-}
+  product: Product;
+};
 
-export const AddItemButton = ({product}: Props) => {
-
-  const dispatch = useDispatch()
+export const AddItemButton = ({ product }: Props) => {
+  const dispatch = useDispatch();
 
   function handleAddItem() {
-    dispatch(addItem({product}));
+    dispatch(addItem({ product }));
   }
 
   return (
     <button
-      className="size-14 bg-primary rounded-full grid place-items-center z-20"
+      className="w-full h-16 bg-primary rounded-lg flex items-center justify-center text-white py-3"
       onClick={() => {
         handleAddItem();
       }}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        className="size-3/5 text-white"
-        viewBox="0 0 16 16">
+      <svg fill="currentColor" className="size-8" viewBox="0 0 16 16">
         <path
           fillRule="evenodd"
-          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+          d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5z"
         />
       </svg>
     </button>

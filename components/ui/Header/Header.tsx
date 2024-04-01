@@ -1,13 +1,15 @@
 "use client";
 
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { totalBagItemsSelector } from "@/lib/store/slices/bag.slice";
+import { Player } from "@lordicon/react";
 
 // Styles
 import styles from "./Header.module.scss";
+import cartIcon from "@/public/assets/icons/cart.json";
 
 // Components
 import { Search } from "../Search/Search";
@@ -17,7 +19,6 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 
 export const Header = () => {
-
   // Search Query / Reload
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
@@ -34,6 +35,13 @@ export const Header = () => {
     setUser(false);
     setOverlay(false);
   }
+
+  // Close Search after click product
+  useEffect(() => {
+    if (query) {
+      closeDisplay();
+    }
+  }, [query]);
 
   const { replace } = useRouter();
   const pathName = usePathname();
@@ -63,8 +71,25 @@ export const Header = () => {
   }
 
   // Bag
+  const totalBagItems = useSelector(totalBagItemsSelector),
+      [prevTotalBagItems, setPreviousTotalBagItems] = useState(totalBagItems);
 
-  const totalBagItems = useSelector(totalBagItemsSelector);
+  // Animated icon
+  const cartRef = useRef<Player>(null);
+
+  useEffect(() => {
+    if(totalBagItems > prevTotalBagItems) {
+      cartIconAnimation();
+    }
+    setPreviousTotalBagItems(totalBagItems);
+  }, [totalBagItems, prevTotalBagItems]);
+
+  function cartIconAnimation() {
+    let iconAnimation = cartRef.current;
+    if (!iconAnimation?.isPlaying) {
+      iconAnimation?.playFromBeginning();
+    }
+  }
 
   return (
     <header
@@ -129,15 +154,16 @@ export const Header = () => {
               <path d="M19.51,20.72c-.19,0-.38-.07-.53-.22l-3.52-3.52c-.29-.29-.29-.77,0-1.06,.29-.29,.77-.29,1.06,0l3.52,3.52c.29,.29,.29,.77,0,1.06-.15,.15-.34,.22-.53,.22Z" />
             </svg>
           </li>
-          <li className="relative grid place-items-center" id="bag" onClick={(e) => handleDisplay(e.currentTarget.id)}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              className="w-7 h-7"
-              viewBox="0 0 16 16">
-              <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4z" />
-            </svg>
-            {totalBagItems > 0 && <div className="w-8 bg-primary rounded-md absolute -bottom-3 text-center text-sm text-white border border-white">{totalBagItems}</div>}
+          <li
+            className="relative grid place-items-center"
+            id="bag"
+            onClick={(e) => handleDisplay(e.currentTarget.id)}>
+            <Player ref={cartRef} icon={cartIcon} size={32} />
+            {totalBagItems > 0 && (
+              <div className="size-5 bg-primary rounded-full absolute -top-2 -right-2  text-xs text-white outline outline-4 outline-white flex items-center justify-center">
+                {totalBagItems}
+              </div>
+            )}
           </li>
           <li id="user" onClick={(e) => handleDisplay(e.currentTarget.id)}>
             <Image

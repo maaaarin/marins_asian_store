@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lordicon/react": "^1.6.0",
     "@reduxjs/toolkit": "^2.2.1",
     "animate.css": "^4.1.1",
     "clsx": "^2.1.0",
+    "lord-icon-element": "^4.1.2",
+    "lottie-web": "^5.12.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.2.0",
     "next": "14.1.0",
