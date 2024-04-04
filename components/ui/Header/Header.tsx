@@ -7,6 +7,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { totalBagItemsSelector } from "@/lib/store/slices/bag.slice";
 import { Player } from "@lordicon/react";
 
+// Clerk
+import { useUser } from "@clerk/nextjs";
+import { useClerk } from "@clerk/nextjs";
+
 // Styles
 import styles from "./Header.module.scss";
 import cartIcon from "@/public/assets/icons/cart.json";
@@ -18,6 +22,7 @@ import { SearchBar } from "../Search/SearchBar";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { UserMenu } from "@/components/User/UserMenu";
 
 export const Header = () => {
   // Search Query / Reload
@@ -27,13 +32,13 @@ export const Header = () => {
   // Display
   const [search, setSearch] = useState(false),
     [bag, setBag] = useState(false),
-    [user, setUser] = useState(false),
+    // [user, setUser] = useState(false),
     [overlay, setOverlay] = useState(false);
 
   function closeDisplay() {
     setSearch(false);
     setBag(false);
-    setUser(false);
+    // setUser(false);
     setOverlay(false);
   }
 
@@ -65,7 +70,7 @@ export const Header = () => {
         break;
       case "user":
         closeDisplay();
-        setUser(true);
+        // setUser(true);
         break;
     }
     setOverlay(true);
@@ -92,9 +97,12 @@ export const Header = () => {
     }
   }
 
+  // Clerk
+  const { isLoaded, isSignedIn, user } = useUser();
+  const router = useRouter();
+
   return (
-    <header
-      className={`${styles.header} container h-16 z-50 fixed top-4 right-0 left-0  flex justify-center items-center`}>
+    <header className="container h-16 z-50 fixed top-4 right-0 left-0  flex justify-center items-center">
       <nav className="w-3/5 h-full flex justify-between items-center pl-4 pr-4 py-2 bg-white z-50 border border-black rounded-2xl">
         <Link href="/">
           <svg
@@ -168,16 +176,12 @@ export const Header = () => {
           </li>
           <li id="user" className="w-auto h-full flex-center">
             <SignedIn>
-              {/* <Image
-                src="/assets/img/profile.webp"
+              <Image
+                src={user?.imageUrl || ""}
                 alt="Profile Picture"
-                width={150}
-                height={100}
-                className="size-11 rounded-full  max-w-none object-cover border-2 border-primary"
-              /> */}
-              <UserButton
-                afterSignOutUrl="/"
-                afterMultiSessionSingleSignOutUrl="/"
+                width={96}
+                height={96}
+                className="size-10 rounded-full border-2 border-primary object-cover"
               />
             </SignedIn>
             <SignedOut>
@@ -192,6 +196,7 @@ export const Header = () => {
       </nav>
       {(search || query) && <Search />}
       {bag && <Bag closeDisplay={closeDisplay} />}
+      <UserMenu />
       <div
         className={clsx(
           `${styles.overlayScreen} animate__animated animate__fadeIn animate__faster fade w-screen h-screen fixed top-0 left-0 -z-10`,

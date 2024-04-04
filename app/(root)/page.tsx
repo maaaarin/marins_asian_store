@@ -1,6 +1,8 @@
 // Actions
 import { getLatestProducts } from "@/lib/actions/product.actions";
 
+// NextUI
+
 // Components
 import { Home } from "../../components/ui/Home/Home";
 import { ProductCard } from "../../components/ui/Product/ProductCard";

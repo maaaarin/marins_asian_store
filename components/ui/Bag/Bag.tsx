@@ -29,7 +29,7 @@ export const Bag = ({ closeDisplay, cartIconAnimation }: Props) => {
 
   return (
     <div
-      className={`${styles.bagContainer} container h-auto fixed right-0 left-0 flex justify-center  animate__animated animate__slideInDown animate__faster`}>
+      className={`${styles.bagContainer} container h-auto fixed top-24 right-0 left-0 flex justify-center  animate__animated animate__slideInDown animate__faster`}>
       <div className="w-3/5 h-auto bg-white pt-6 flex flex-col gap-5 rounded-3xl">
         <div className="w-full h-auto flex relative items-center justify-center px-8">
           <button
