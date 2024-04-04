@@ -77,7 +77,7 @@ export const Bag = ({ closeDisplay, cartIconAnimation }: Props) => {
             <div className="w-full h-auto flex py-3 pr-3 pl-8 bg-gray-100 rounded-full justify-between">
               <div className="flex items-center gap-2">
                 Earn
-                <span className="py-1 px-2 bg-pink rounded-full text-white">
+                <span className="py-1 px-2 bg-secondary rounded-full text-white">
                   690 points
                 </span>
                 from this order

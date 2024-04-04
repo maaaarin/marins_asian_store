@@ -17,6 +17,7 @@ import { Bag } from "../Bag/Bag";
 import { SearchBar } from "../Search/SearchBar";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export const Header = () => {
   // Search Query / Reload
@@ -72,13 +73,13 @@ export const Header = () => {
 
   // Bag
   const totalBagItems = useSelector(totalBagItemsSelector),
-      [prevTotalBagItems, setPreviousTotalBagItems] = useState(totalBagItems);
+    [prevTotalBagItems, setPreviousTotalBagItems] = useState(totalBagItems);
 
   // Animated icon
   const cartRef = useRef<Player>(null);
 
   useEffect(() => {
-    if(totalBagItems > prevTotalBagItems) {
+    if (totalBagItems > prevTotalBagItems) {
       cartIconAnimation();
     }
     setPreviousTotalBagItems(totalBagItems);
@@ -94,7 +95,7 @@ export const Header = () => {
   return (
     <header
       className={`${styles.header} container h-16 z-50 fixed top-4 right-0 left-0  flex justify-center items-center`}>
-      <nav className="w-3/5 h-full flex justify-between items-center px-4 py-2 bg-white z-50 border border-black rounded-2xl">
+      <nav className="w-3/5 h-full flex justify-between items-center pl-4 pr-4 py-2 bg-white z-50 border border-black rounded-2xl">
         <Link href="/">
           <svg
             className="w-20 h-auto object-contain cursor-pointer"
@@ -143,7 +144,7 @@ export const Header = () => {
           <li>About</li>
         </ul>
         {(search || query) && <SearchBar closeDisplay={closeDisplay} />}
-        <ul className="flex gap-4 h-auto items-center">
+        <ul className="w-auto h-full flex gap-4 items-center">
           <li id="search" onClick={(e) => handleDisplay(e.currentTarget.id)}>
             <svg
               className={clsx("w-6 h-6", { hidden: search || query })}
@@ -165,14 +166,27 @@ export const Header = () => {
               </div>
             )}
           </li>
-          <li id="user" onClick={(e) => handleDisplay(e.currentTarget.id)}>
-            <Image
-              src="/assets/img/profile.webp"
-              alt="Profile Picture"
-              width={150}
-              height={100}
-              className="rounded-full w-12 h-12 aspect-square max-w-none object-cover border-2 border-primary"
-            />
+          <li id="user" className="w-auto h-full flex-center">
+            <SignedIn>
+              {/* <Image
+                src="/assets/img/profile.webp"
+                alt="Profile Picture"
+                width={150}
+                height={100}
+                className="size-11 rounded-full  max-w-none object-cover border-2 border-primary"
+              /> */}
+              <UserButton
+                afterSignOutUrl="/"
+                afterMultiSessionSingleSignOutUrl="/"
+              />
+            </SignedIn>
+            <SignedOut>
+              <Link href="/sign-in">
+                <button className="w-fit h-10 bg-secondary rounded-xl px-4 text-white">
+                  Log In
+                </button>
+              </Link>
+            </SignedOut>
           </li>
         </ul>
       </nav>

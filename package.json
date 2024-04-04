@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.10",
     "@lordicon/react": "^1.6.0",
     "@reduxjs/toolkit": "^2.2.1",
     "animate.css": "^4.1.1",

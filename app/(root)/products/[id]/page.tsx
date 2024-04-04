@@ -87,8 +87,7 @@ const ProductPage = async ({ params: { id } }: Props) => {
           <div
             className="w-full h-16 text-white flex items-center justify-center gap-3 rounded-xl  relative"
             style={{
-              background:
-                "linear-gradient(90deg, rgba(251,150,245,1) 0%, rgba(242,123,236,1) 100%)",
+              background: `linear-gradient(90deg, rgba(251,150,245,1) 0%, rgba(242,123,236,1) 100%)`,
             }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

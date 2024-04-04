@@ -12,6 +12,12 @@ li{
   cursor: pointer;
 }
 
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 @layer utilities {
   .text-balance {
