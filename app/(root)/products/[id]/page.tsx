@@ -1,5 +1,5 @@
 import { ProductCard } from "@/components/ui/Product/ProductCard";
-import { ProductDetails } from "@/components/ui/Product/ProductDetails";
+import { ProductTabs } from "@/components/ui/Product/ProductTabs";
 import { AddItemButton } from "@/components/utils/AddItemButton";
 import {
   getLatestProducts,
@@ -13,7 +13,7 @@ type Props = {
   params: { id: string };
 };
 
-const ProductPage = async ({ params: { id } }: Props) => {
+const ProductDetails = async ({ params: { id } }: Props) => {
   // Product
   const product = await getProductById(id);
 
@@ -76,7 +76,7 @@ const ProductPage = async ({ params: { id } }: Props) => {
             </svg>
             <span>4.2</span>
           </div>
-          <ProductDetails product={product} />
+          <ProductTabs product={product} />
         </div>
         <div className="min-w-72 h-96 border border-gray-300  rounded-2xl flex flex-col gap-2 p-4">
           <div className="flex gap-2 flex-grow">
@@ -150,4 +150,4 @@ const ProductPage = async ({ params: { id } }: Props) => {
   );
 };
 
-export default ProductPage;
+export default ProductDetails;

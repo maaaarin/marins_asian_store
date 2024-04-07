@@ -14,7 +14,7 @@ type Props = {
 
 export const SearchResults = ({ products, query }: Props) => {
   return (
-    <div className="size-full bg-white rounded-3xl px-8 py-10">
+    <div className="size-full bg-white rounded-3xl px-8 py-10 pointer-events-auto">
       <div className="size-full flex flex-col gap-3">
         <div className="w-full h-auto flex justify-between">
           <button className="py-2 px-5 flex items-center gap-3 border border-slate-300 rounded-full">

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Bag.module.scss";
-import "animate.css";
 import { ItemBag } from "../Item/ItemBag";
 import { getServerSideProps } from "next/dist/build/templates/pages";
 import { useSelector } from "react-redux";
@@ -29,8 +28,8 @@ export const Bag = ({ closeDisplay, cartIconAnimation }: Props) => {
 
   return (
     <div
-      className={`${styles.bagContainer} container h-auto fixed top-24 right-0 left-0 flex justify-center  animate__animated animate__slideInDown animate__faster`}>
-      <div className="w-3/5 h-auto bg-white pt-6 flex flex-col gap-5 rounded-3xl">
+      className={`${styles.bagContainer} container h-auto fixed top-24 right-0 left-0 flex justify-center pointer-events-none`}>
+      <div className="w-3/5 h-auto bg-white pt-6 flex flex-col gap-5 rounded-3xl point pointer-events-auto">
         <div className="w-full h-auto flex relative items-center justify-center px-8">
           <button
             className="size-5 absolute left-8"

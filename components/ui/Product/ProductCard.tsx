@@ -26,7 +26,7 @@ export const ProductCard = ({ product }: Props) => {
         <div
           className="h-3/4 flex items-center justify-center rounded-t-3xl px-8 relative overflow-hidden"
           style={{
-            background: `linear-gradient(to top, transparent 40%, ${product.color} 40%)`,
+            background: `linear-gradient(180deg, ${product.color} 0%, transparent 100%)`,
           }}>
           <Image
             src={product.picture}

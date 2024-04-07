@@ -2,6 +2,7 @@ import { addItem } from "@/lib/store/slices/bag.slice";
 import { Product } from "@/types";
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Button } from "@nextui-org/react";
 
 type Props = {
   product: Product;
@@ -15,8 +16,12 @@ export const AddItemCardButton = ({ product }: Props) => {
   }
 
   return (
-    <button
-      className="size-14 bg-primary rounded-full grid place-items-center z-20 !pointer-events-auto"
+    <Button
+      isIconOnly
+      color="primary"
+      aria-label="Add Product"
+      radius="full"
+      className="w-14 h-14 z-20 !pointer-events-auto"
       onClick={() => {
         handleAddItem();
       }}>
@@ -30,6 +35,6 @@ export const AddItemCardButton = ({ product }: Props) => {
           d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
         />
       </svg>
-    </button>
+    </Button>
   );
 };

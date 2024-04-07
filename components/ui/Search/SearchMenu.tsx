@@ -3,7 +3,7 @@ import React from "react";
 
 export const SearchMenu = () => {
     return (
-        <div className="w-full h-auto bg-white rounded-3xl px-8 py-10">
+        <div className="w-full h-auto bg-white rounded-3xl px-8 py-10 pointer-events-auto">
             <div className="w-full h-auto flex gap-3">
                 <div className="w-1/4 flex flex-col gap-3 ">
                     <span className="text-xl font-bold pl-4">Popular Search</span>

@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { getServerSideProps } from "next/dist/build/templates/pages";
 import { useSearchParams } from "next/navigation";
-import "animate.css";
 
 // Styles
 import styles from "./Search.module.scss";
@@ -23,7 +21,6 @@ export const Search = () => {
   const query = searchParams.get("query") || "";
 
   useEffect(() => {
-    console.log(query);
     // Products Fetch
     const getProducts = async () => {
       const productsList = await getAllProducts({ query: query });
@@ -45,7 +42,7 @@ export const Search = () => {
   return (
     <>
       <div
-        className={`${styles.searchContainer} container fixed top-24 left-0 right-0 animate__animated animate__slideInDown animate__faster `}>
+        className={`${styles.searchContainer} container fixed top-24 left-0 right-0 pointer-events-none`}>
         {!query && <SearchMenu />}
         {query && <SearchResults products={products} query={query} />}
       </div>
