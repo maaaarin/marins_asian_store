@@ -2,17 +2,18 @@
 import { Player } from "@lordicon/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useState, useRef } from "react";
+
 // NextUI
 import { Button, Input } from "@nextui-org/react";
 
 // Components
 import { PasswordInput } from "@/components/utils/PasswordInput";
-import { SignInButton } from "@/components/utils/SignInButton";
 
 // Clerk
 import { useSignIn } from "@clerk/nextjs";
+import { OAuthStrategy } from "@clerk/types";
 
 // Files
 import logo from "/public/assets/logo.svg";
@@ -25,11 +26,12 @@ import Toji from "/public/assets/img/Toji.png";
 import arrowIcon from "@/public/assets/icons/arrow.json";
 
 export const SignIn = () => {
+  // Sign In
   const { isLoaded, signIn, setActive } = useSignIn();
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  // start the sign In process.
+  // Sign In process.
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (!isLoaded) {
@@ -55,6 +57,15 @@ export const SignIn = () => {
     }
   };
 
+  // OAuth providers
+  const signInWith = (strategy: OAuthStrategy) => {
+    return signIn?.authenticateWithRedirect({
+      strategy,
+      redirectUrl: "/sso-callback",
+      redirectUrlComplete: "/",
+    });
+  };
+
   // Animated Icon
   const arrowRef = useRef<Player>(null);
 
@@ -66,7 +77,7 @@ export const SignIn = () => {
   }
 
   return (
-    <div className="w-full h-screen flex items-end justify-center bg-blue-200">
+    <div className="w-full h-screen flex items-end justify-center ">
       <div className="w-3/12 min-w-96 h-5/6 bg-white border border-black rounded-t-[4rem] flex flex-col justify-between p-10 relative z-10">
         <div className="size-full flex flex-col items-center gap-10">
           <Link href="/">
@@ -86,12 +97,14 @@ export const SignIn = () => {
             <div className="w-full flex items-center gap-3">
               <Button
                 isIconOnly
-                className="w-2/4 h-14 bg-white rounded-2xl border flex-center">
+                className="w-2/4 h-14 bg-white rounded-2xl border flex-center"
+                onClick={() => signInWith("oauth_google")}>
                 <Image src={google} alt="alt" width={32} height={32} />
               </Button>
               <Button
                 isIconOnly
-                className="w-2/4 h-14 bg-white rounded-2xl border flex-center">
+                className="w-2/4 h-14 bg-white rounded-2xl border flex-center"
+                onClick={() => signInWith("oauth_facebook")}>
                 <Image src={facebook} alt="alt" width={32} height={32} />
               </Button>
             </div>
@@ -112,7 +125,8 @@ export const SignIn = () => {
                   className="w-40 h-14  rounded-full border flex-center"
                   onMouseOver={() => {
                     arrowIconAnimation();
-                  }}>
+                  }}
+                  onClick={handleSubmit}>
                   <Player ref={arrowRef} icon={arrowIcon} size={32} />
                 </Button>
               </div>
