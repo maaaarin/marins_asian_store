@@ -1,6 +1,7 @@
 "use client";
 
 // Modules
+import Link from "next/link";
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -21,19 +22,19 @@ import {
 
 // Styles
 import styles from "./Header.module.scss";
-import cartIcon from "@/public/assets/icons/cart.json";
 
 // Components
 import { Search } from "../Search/Search";
 import { Bag } from "../Bag/Bag";
 import { SearchBar } from "../Search/SearchBar";
 import { useSelector } from "react-redux";
-import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { UserMenu } from "@/components/User/UserMenu";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { UserMenu } from "@/components/ui/User/UserMenu";
 
 // Files
 import logo from "/public/assets/logo.svg";
+import cartIcon from "@/public/assets/icons/cart.json";
+import { FlavorTrail } from "../FlavorTrail/FlavorTrail";
 
 export const Header = () => {
   // Clerk
@@ -116,7 +117,6 @@ export const Header = () => {
         setUserDisplay(true);
         return;
     }
-
     setOverlay(true);
   }
 
@@ -178,6 +178,11 @@ export const Header = () => {
               </div>
             )}
           </li>
+          <SignedIn>
+            <li className="w-auto h-full flex-center">
+              <FlavorTrail />
+            </li>
+          </SignedIn>
           <li id="user" className="w-auto h-full flex-center">
             <SignedIn>
               <Popover
@@ -185,7 +190,7 @@ export const Header = () => {
                 showArrow={true}
                 shouldBlockScroll={true}
                 classNames={{
-                  content: ["p-0 border border-default-200"],
+                  content: ["p-0 border-none"],
                 }}>
                 <PopoverTrigger>
                   <Image
@@ -217,7 +222,7 @@ export const Header = () => {
       {bagDisplay && <Bag closeDisplay={closeDisplay} />}
       <div
         className={clsx(
-          `${styles.overlayScreen} fixed top-0 left-0 right-0 bottom-0 -z-10 pointer-events-auto backdrop-blur-sm`,
+          "bg-black/60 fixed top-0 left-0 right-0 bottom-0 -z-10 pointer-events-auto",
           { hidden: !overlay && !query }
         )}
         onClick={() => {

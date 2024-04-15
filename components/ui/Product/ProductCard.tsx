@@ -3,10 +3,10 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./Product.module.scss";
-import { AddItemCardButton } from "@/components/utils/AddItemCardButton";
+import { AddItemCardButton } from "@/components/widgets/AddItemCardButton";
 import { Product } from "@/types";
 import Link from "next/link";
-import { AddWishlistCardButton } from "@/components/utils/AddWishlistCardButton";
+import { AddWishlistCardButton } from "@/components/widgets/AddWishlistCardButton";
 
 type Props = {
   key: string;

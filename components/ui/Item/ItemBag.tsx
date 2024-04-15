@@ -1,6 +1,6 @@
 "use client";
 
-import { ModifyItemQuantity } from "@/components/utils/ModifyItemQuantity";
+import { ModifyItemQuantity } from "@/components/widgets/ModifyItemQuantity";
 import { removeItem } from "@/lib/store/slices/bag.slice";
 import { Item } from "@/types";
 import Image from "next/image";

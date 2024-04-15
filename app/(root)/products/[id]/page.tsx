@@ -1,6 +1,6 @@
 import { ProductCard } from "@/components/ui/Product/ProductCard";
 import { ProductTabs } from "@/components/ui/Product/ProductTabs";
-import { AddItemButton } from "@/components/utils/AddItemButton";
+import { AddItemButton } from "@/components/widgets/AddItemButton";
 import {
   getLatestProducts,
   getProductById,

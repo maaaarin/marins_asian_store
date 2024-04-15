@@ -9,7 +9,7 @@ import React, { useState, useRef } from "react";
 import { Button, Input } from "@nextui-org/react";
 
 // Components
-import { PasswordInput } from "@/components/utils/PasswordInput";
+import { PasswordInput } from "@/components/widgets/PasswordInput";
 
 // Clerk
 import { useSignIn } from "@clerk/nextjs";
