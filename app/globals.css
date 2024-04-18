@@ -7,10 +7,6 @@
   scroll-behavior: smooth;
 }
 
-li {
-  cursor: pointer;
-}
-
 .flex-center {
   display: flex;
   align-items: center;

@@ -28,12 +28,12 @@ export const UserProfile = () => {
           background:
             "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)",
         }}>
-        <div className="size-16 relative group rounded-full ">
+        <div className="size-24 relative group rounded-full ">
           <Image
             src={user?.imageUrl || ""}
             alt="alt"
-            width={96}
-            height={96}
+            width={128}
+            height={128}
             className="size-full object-cover rounded-full border-2 border-primary cursor-pointer"
           />
           <input

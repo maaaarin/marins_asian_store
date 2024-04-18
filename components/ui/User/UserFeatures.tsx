@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Player } from "@lordicon/react";
+import { usePathname } from "next/navigation";
 
 // Files
 import couponIcon from "@/public/assets/icons/coupon.json";
@@ -14,6 +15,7 @@ import clsx from "clsx";
 import Link from "next/link";
 
 export const UserFeatures = () => {
+  const pathname = usePathname();
   const [featureActive, setFeatureActive] = useState("");
 
   // Animated icons
@@ -36,33 +38,44 @@ export const UserFeatures = () => {
     }
   }
 
+  useEffect(() => {
+    let pathFeatureActive = pathname.replace("/profile/", "");
+    setFeatureActive(pathFeatureActive);
+  }, [pathname]);
+
   var featuresList = [
     {
+      id: "account",
       name: "Account",
       ref: accountRef,
       icon: accountIcon,
     },
     {
+      id: "orders",
       name: "Orders",
       ref: ordersRef,
       icon: ordersIcon,
     },
     {
+      id: "wishlist",
       name: "Wishlist",
       ref: wishlistRef,
       icon: wishlistIcon,
     },
     {
+      id: "achievements",
       name: "Achievements",
       ref: achievementsRef,
       icon: achievementsIcon,
     },
     {
+      id: "coupons",
       name: "Coupons",
       ref: couponRef,
       icon: couponIcon,
     },
     {
+      id: "settings",
       name: "Settings",
       ref: settingsRef,
       icon: settingsIcon,
@@ -81,12 +94,12 @@ export const UserFeatures = () => {
                   "w-full aspect-square  rounded-2xl flex-center flex-col gap-1",
                   {
                     "bg-blue-100 border border-primary":
-                      featureActive == feature.name,
+                      featureActive == feature.id,
                   },
-                  { "bg-zinc-100": featureActive !== feature.name }
+                  { "bg-zinc-100": featureActive !== feature.id }
                 )}
                 onClick={() => {
-                  handleFeature(feature.ref, feature.name);
+                  handleFeature(feature.ref, feature.id);
                 }}>
                 <Player ref={feature.ref} icon={feature.icon} size={36} />
                 <span className="text-sm">{feature.name}</span>

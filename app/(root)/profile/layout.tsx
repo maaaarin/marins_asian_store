@@ -13,7 +13,7 @@ export default function ProfileLayout({
         <UserProfile />
         <UserFeatures />
       </section>
-      <section className="w-[70%] h-full border border-black rounded-3xl ">
+      <section className="w-[70%] h-full border border-black rounded-3xl p-8">
         {children}
       </section>
     </div>
