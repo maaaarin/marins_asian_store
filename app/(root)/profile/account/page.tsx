@@ -8,7 +8,7 @@ const Account = async () => {
       <section className="w-full h-auto flex flex-col gap-4">
         <div className="flex flex-col bg-zinc-50 rounded-xl p-4">
           <span className="font-semibold text-xl">Personal Information</span>
-          <p className="text-zinc-40000">Manage your account information</p>
+          <p className="text-zinc-500">Manage your account information</p>
         </div>
         <div className="flex gap-4">
           <Input
@@ -30,7 +30,7 @@ const Account = async () => {
       <section className="w-full h-auto flex flex-col gap-4">
         <div className="flex flex-col bg-zinc-50 rounded-xl p-4">
           <span className="font-semibold text-xl">Security</span>
-          <p className="text-zinc-40000">Manage your security preferences</p>
+          <p className="text-zinc-500">Manage your security preferences</p>
         </div>
         <div className="flex gap-4">
           <Input
@@ -48,13 +48,15 @@ const Account = async () => {
             defaultValue="asdasdas"
           />
         </div>
-        <div className="">
-          <span className=" font-semibold">Dangerous area</span>
-          <div className="flex items-center gap-5">
-            <p>Delete your account and all its associated data.</p>
-            <Button color="danger">Delete account</Button>
-          </div>
+      </section>
+      <section className="w-full h-auto flex gap-4 bg-zinc-50 rounded-xl items-center justify-between p-4">
+        <div className="flex flex-col">
+          <span className="font-semibold text-xl">Dangerous area</span>
+          <p className="text-zinc-500">
+            Delete your account and all its associated data.
+          </p>
         </div>
+        <Button color="danger">Delete account</Button>
       </section>
       <div className="flex items-center gap-3 mt-auto">
         <Button color="primary">Save changes</Button>

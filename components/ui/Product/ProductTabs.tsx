@@ -9,7 +9,7 @@ type Props = {
 
 export const ProductTabs = ({ product }: Props) => {
   return (
-    <div className="w-full h-auto max-h-full bg-gray-100 rounded-3xl flex flex-col p-4">
+    <div className="w-full h-auto max-h-full bg-zinc-50 rounded-3xl flex flex-col p-4">
       <Tabs aria-label="Options" radius="full" color="primary">
         <Tab key="description" title="Description">
           <div className="scroll-auto">{product.description}</div>

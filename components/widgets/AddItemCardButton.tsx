@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { Button } from "@nextui-org/react";
 
 type Props = {
-  product: Product;
+  product: Product | null;
 };
 
 export const AddItemCardButton = ({ product }: Props) => {

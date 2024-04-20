@@ -68,10 +68,10 @@ const Orders = () => {
         picture: "https://i.imgur.com/2chtIZL.png",
       },
     ],
-    status: "shipping",
-    total: 15.4,
-    placedAt: "02/02/24",
-    deliveredAt: "02/02/24",
+    status: "Delivered",
+    total: 22,
+    placedAt: "15/01/24",
+    deliveredAt: "18/01/24",
     address: {
       name: "Home",
       address: "123 Main St",
@@ -84,7 +84,7 @@ const Orders = () => {
   return (
     <div className="size-full flex flex-col gap-8">
       <h2 className="text-2xl font-semibold">Orders</h2>
-      <ul className="w-full h-auto flex flex-col gap-4">
+      <ul className="w-full h-auto flex flex-col gap-3">
         {/* Orders */}
         <li className="w-full h-auto bg-zinc-100  rounded-b-xl">
           <div className="w-full h-auto bg-white border border-black rounded-xl flex justify-between items-center pl-4 pr-3 py-3">
