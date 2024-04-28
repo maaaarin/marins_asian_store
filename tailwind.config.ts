@@ -46,18 +46,40 @@ const config: Config = {
       },
     },
     keyframes: {
-      "accordion-down": {
-        from: { height: "0" },
-        to: { height: "var(--radix-accordion-content-height)" },
+      "slide-blurred-out": {
+        from: {
+          transform: "translateY(0) scaleY(1) scaleX(1)",
+          transformOrigin: "50% 0",
+          filter: "blur(0)",
+          opacity: "1",
+        },
+        to: {
+          transform: "translateY(-1000px) scaleY(2) scaleX(0.2)",
+          transformOrigin: "50% 0",
+          filter: "blur(40px)",
+          opacity: "0",
+        },
       },
-      "accordion-up": {
-        from: { height: "var(--radix-accordion-content-height)" },
-        to: { height: "0" },
+      "slide-blurred-in": {
+        from: {
+          transform: "translateY(1000px) scaleY(2.5) scaleX(0.2)",
+          transformOrigin: "50% 100%",
+          filter: "blur(40px)",
+          opacity: "0",
+        },
+        to: {
+          transform: "translateY(0) scaleY(1) scaleX(1)",
+          transformOrigin: "50% 50%",
+          filter: "blur(0)",
+          opacity: "1",
+        },
       },
     },
     animation: {
-      "accordion-down": "accordion-down 0.2s ease-out",
-      "accordion-up": "accordion-up 0.2s ease-out",
+      "slide-blurred-out":
+        "slide-blurred-out 0.6s cubic-bezier(0.755, 0.05, 0.855, 0.06) both",
+      "slide-blurred-in":
+        "slide-blurred-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) both",
     },
   },
   plugins: [nextui(), require("tailwindcss-animate")],

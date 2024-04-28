@@ -157,7 +157,10 @@ export const Header = () => {
         </ul>
         {(searchDisplay || query) && <SearchBar closeDisplay={closeDisplay} />}
         <ul className="w-auto h-full flex gap-4 items-center">
-          <li id="search" onClick={(e) => handleDisplay(e.currentTarget.id)}>
+          <li
+            className="cursor-pointer"
+            id="search"
+            onClick={(e) => handleDisplay(e.currentTarget.id)}>
             <svg
               className={clsx("w-6 h-6", { hidden: searchDisplay || query })}
               xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +171,7 @@ export const Header = () => {
             </svg>
           </li>
           <li
-            className="relative grid place-items-center"
+            className="relative grid place-items-center cursor-pointer"
             id="bag"
             onClick={(e) => handleDisplay(e.currentTarget.id)}>
             <Player ref={cartRef} icon={cartIcon} size={32} />
@@ -179,11 +182,11 @@ export const Header = () => {
             )}
           </li>
           <SignedIn>
-            <li className="w-auto h-full flex-center">
+            <li className="w-auto h-full flex-center cursor-pointer">
               <FlavorTrail />
             </li>
           </SignedIn>
-          <li id="user" className="w-auto h-full flex-center">
+          <li id="user" className="w-auto h-full flex-center cursor-pointer">
             <SignedIn>
               <Popover
                 placement="bottom"
