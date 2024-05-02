@@ -1,55 +1,82 @@
 import React from "react";
 import styles from "./Home.module.scss";
 import Image from "next/image";
+import { Button } from "@nextui-org/react";
 
 export const Home = () => {
   return (
     <main className="container mt-4">
       <div className={`${styles.bannersHeader} w-full flex justify-between`}>
         <div
-          className={`${styles.bannerHeaderCornerLightYellow} bg-light-yellow rounded-t-2xl relative`}></div>
+          className={`${styles.bannerTopCornerSecondary} bg-pink-light rounded-t-2xl relative`}></div>
         <div
-          className={`${styles.bannerHeaderCornerDarkBlue} bg-primary rounded-t-2xl relative`}></div>
+          className={`${styles.bannerTopCornerPrimary} bg-primary rounded-t-2xl relative`}></div>
       </div>
       <div className={`${styles.bannersMain} flex gap-5`}>
         <div className={`${styles.bannersFirstPanel} h-full flex flex-col`}>
-          <div className="w-full h-4/6 bg-light-yellow text-2xl rounded-bl-3xl rounded-tr-3xl flex flex-col gap-5 justify-end p-8 relative">
-            <Image
-              src="/assets/img/snack_friday.svg"
-              alt="Banner Image"
-              width={0}
-              height={0}
-              className="w-64 h-auto"
-            />
-            <div className="flex gap-2 items-center">
-              <span>Deals</span>
-              <div className="bg-dark-blue rounded-full text-white px-3 py-2 text-xl">
-                Up to 50%
+          <div className="w-full h-4/6 bg-pink-light text-2xl rounded-bl-3xl rounded-tr-3xl flex  justify-end  relative">
+            <div className="w-2/4 h-full flex flex-col justify-end gap-5 pb-8 pl-8">
+              <Image
+                src="/assets/img/snack_friday.svg"
+                alt="Banner Image"
+                width={0}
+                height={0}
+                className="w-64 h-auto"
+              />
+              <div className="flex gap-2 items-center">
+                <span>Deals</span>
+                <div className="bg-primary rounded-full text-white px-3 py-2 text-xl">
+                  Up to 50%
+                </div>
+                <span>on All Store</span>
               </div>
-              <span>on All Store</span>
+              <Button
+                size="lg"
+                className="size-16 flex items-center bg-black rounded-full text-white w-fit px-6 py-1 gap-1">
+                <span>Discover</span>
+                <svg
+                  fill="currentColor"
+                  className="size-12"
+                  viewBox="0 0 16 16">
+                  <path
+                    fillRule="evenodd"
+                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                  />
+                </svg>
+              </Button>
             </div>
-            <button className="flex items-center bg-black rounded-full text-white w-fit px-6 py-1 gap-1">
-              <span>Discover</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="size-12"
-                viewBox="0 0 16 16">
-                <path
-                  fillRule="evenodd"
-                  d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                />
-              </svg>
-            </button>
-            <Image
-              src="/assets/img/main_banner.webp"
-              alt="Banner Main"
-              width={550}
-              height={550}
-              className="h-full aspect-square object-contain absolute right-0 -bottom-20 z-20"
-            />
+            {/* Banner Assets */}
+            <div className="w-2/4 h-full relative z-10">
+              <Image
+                src="/assets/img/banner_character.png"
+                alt="Banner Character"
+                width={550}
+                height={550}
+                className="size-full object-contain absolute -bottom-16 animate-floating-4"
+              />
+              <Image
+                src="/assets/img/banner_asset_1.png"
+                alt="Banner Asset"
+                width={256}
+                height={256}
+                className="size-52 object-contain absolute right-8 -bottom-40 animate-floating-6"
+              />
+              <Image
+                src="/assets/img/banner_asset_2.png"
+                alt="Banner Asset"
+                width={256}
+                height={256}
+                className="size-44 object-contain absolute -left-14 -bottom-16 animate-floating-6"
+              />
+              <Image
+                src="/assets/img/banner_asset_3.png"
+                alt="Banner Asset"
+                width={256}
+                height={256}
+                className="size-32 object-contain absolute -right-8 top-40 animate-floating-6"
+              />
+            </div>
+            {/* Background Element */}
             <Image
               src="/assets/img/banner_bg_1.svg"
               alt="Banner Background"
@@ -88,31 +115,31 @@ export const Home = () => {
             <div className="w-2/4 flex flex-col">
               <div className="w-full h-2/4 pl-5">
                 <div
-                  className={`${styles.bannerCornerLightYellow} size-full bg-dark-blue rounded-bl-3xl relative`}></div>
+                  className={`${styles.bannerCornerPrimary} size-full bg-primary rounded-bl-3xl relative`}></div>
               </div>
               <div className="w-full h-2/4 flex gap-5">
                 <div
                   className={`${styles.bannerSquareOrange} aspect-square mt-5`}>
                   <div
                     className={`${styles.bannerCornerOrange} size-full relative bg-orange rounded-r-3xl flex items-center justify-center`}>
-                    <button className="w-2/3 aspect-square rounded-full bg-black flex items-center justify-center">
+                    <Button
+                      isIconOnly
+                      size="lg"
+                      className="rounded-full bg-black flex-center text-white">
                       <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
                         fill="currentColor"
-                        className="text-white w-3/4 h-3/4"
+                        className="size-full"
                         viewBox="0 0 16 16">
                         <path
-                          fillRule="evenodd"
+                          fill-rule="evenodd"
                           d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
                         />
                       </svg>
-                    </button>
+                    </Button>
                   </div>
                 </div>
                 <div
-                  className={`${styles.bannerCornerLightYellow} size-full relative bg-light-yellow rounded-b-3xl`}>
+                  className={`${styles.bannerCornerPrimary} size-full relative bg-pink-light rounded-b-3xl`}>
                   <Image
                     src="/assets/img/banner_bg_2.svg"
                     alt="Banner Background"
@@ -128,11 +155,37 @@ export const Home = () => {
         <div
           className={`${styles.bannersSecondPanel} h-full rounded-b-3xl rounded-tl-3xl relative overflow-hidden`}>
           <Image
-            src="/assets/img/second_banner.webp"
+            src="/assets/img/second_banner.png"
             alt="Banner Product"
             fill
             className="object-cover"
           />
+          <div className=" w-full h-32 absolute bottom-0 p-3">
+            <div className="size-full bg-black rounded-xl flex flex-col justify-between p-4">
+              <div className="w-full flex items-center justify-between ">
+                <div className="flex flex-col text-white">
+                  <span className="font-semibold text-xl">Kit Kat</span>
+                  <span className="text-sm">Limited Edition</span>
+                </div>
+                <Button
+                  isIconOnly
+                  className="bg-white rounded-full text-black flex-center">
+                  <svg
+                    fill="currentColor"
+                    className="size-full"
+                    viewBox="0 0 16 16">
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                </Button>
+              </div>
+              <div className="w-full h-2 rounded-full bg-white/25 relative">
+                <div className="absolute w-1/5 h-full rounded-full bg-white"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

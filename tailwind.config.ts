@@ -19,10 +19,10 @@ const config: Config = {
     },
     extend: {
       colors: {
-        primary: "#0201FE",
+        primary: "#0028FF",
         secondary: "#FA73F3",
         pink: "#FF86F8",
-        "light-yellow": "#F9F2A2",
+        "pink-light": "#F2D8EB",
         orange: "#FF4900",
         beige: "#FFEAD9",
         "dark-blue": "#007BD0",
@@ -74,12 +74,26 @@ const config: Config = {
           opacity: "1",
         },
       },
+      floating: {
+        "0%": {
+          transform: "translatey(0px)",
+        },
+        "50%": {
+          transform: "translatey(-20px)",
+        },
+        "100%": {
+          transform: "translatey(0px)",
+        },
+      },
     },
     animation: {
       "slide-blurred-out":
         "slide-blurred-out 0.6s cubic-bezier(0.755, 0.05, 0.855, 0.06) both",
       "slide-blurred-in":
         "slide-blurred-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) both",
+      "floating-2": "floating 2s ease-in-out infinite",
+      "floating-4": "floating 4s ease-in-out infinite",
+      "floating-6": "floating 6s ease-in-out infinite",
     },
   },
   plugins: [nextui(), require("tailwindcss-animate")],

@@ -1,6 +1,5 @@
 // Actions
 import { getLatestProducts } from "@/lib/actions/product.actions";
-
 // NextUI
 
 // Components
