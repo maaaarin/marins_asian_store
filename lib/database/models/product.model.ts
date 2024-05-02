@@ -81,6 +81,9 @@ const productSchema = new Schema({
   },
 });
 
+// Añadir esto:
+// category: { type: Schema.Types.ObjectId, ref: "Category" },
+
 const Product = models.Product || model("Product", productSchema);
 
 export default Product;
