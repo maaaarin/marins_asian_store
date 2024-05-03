@@ -20,7 +20,7 @@ import facebook from "/public/assets/icons/facebook.svg";
 import google from "/public/assets/icons/google.svg";
 import arrowIcon from "@/public/assets/icons/arrow.json";
 
-export const SignIn = ({ setForgotPassword }: any) => {
+export const SignIn = () => {
   // Sign In
   const { isLoaded, signIn, setActive } = useSignIn();
   const [emailAddress, setEmailAddress] = useState("");
@@ -125,11 +125,6 @@ export const SignIn = ({ setForgotPassword }: any) => {
             <Image src={facebook} alt="alt" width={32} height={32} />
           </Button>
         </div>
-        <div className="flex items-center gap-4 text-zinc-600">
-          <div className="flex-grow h-[1px] border"></div>
-          Or
-          <div className="flex-grow h-[1px] border"></div>
-        </div>
         {error && (
           <div className="w-full h-auto rounded-full bg-zinc-100 p-3 flex items-center gap-2">
             <div className="size-6 bg-red-500 rounded-full text-white">
@@ -143,7 +138,6 @@ export const SignIn = ({ setForgotPassword }: any) => {
             <span className="text-zinc-600">{error}</span>
           </div>
         )}
-
         <form
           className="w-full flex flex-col gap-3 "
           action="#"
@@ -164,13 +158,8 @@ export const SignIn = ({ setForgotPassword }: any) => {
             setPassword={setPassword}
             invalidPassword={invalidPassword}
           />
-          <div className="flex justify-between items-start">
-            <button
-              onClick={() => {
-                setForgotPassword(true);
-              }}>
-              <span className="text-sm text-gray-400">Forgot password?</span>
-            </button>
+          <div className="flex justify-between">
+            <span className="text-sm text-gray-400">Forgot password?</span>
             <Button
               isIconOnly
               color="primary"
