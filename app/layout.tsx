@@ -11,7 +11,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Marín's",
+  title: "Marín's | Your Asian Store",
   description: "",
 };
 
