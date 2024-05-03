@@ -2,8 +2,8 @@ export type User = {
   clerkId: string;
   email: string;
   username: string;
-  firstName: string;
-  lastName: string;
+  firstName: string | null;
+  lastName: string | null;
   picture: string;
   shippingAddress: {
     street: string;
