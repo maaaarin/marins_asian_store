@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.29.10",
     "@lordicon/react": "^1.6.0",
+    "@next/font": "^14.2.3",
     "@nextui-org/react": "^2.2.10",
     "@radix-ui/react-dialog": "^1.0.5",
     "@reduxjs/toolkit": "^2.2.1",
