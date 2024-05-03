@@ -109,7 +109,7 @@ export const UserMenu = () => {
           );
         })}
         <li
-          className="flex gap-2 items-center px-4 py-2 rounded-full text-black hover:bg-red-50 duration-500 hover:text-red-300"
+          className="flex gap-2 items-center px-4 py-2 rounded-full text-black hover:bg-red-50 duration-500 hover:text-red-300 cursor-pointer"
           onClick={() => signOut(() => router.push("/"))}>
           <svg fill="currentColor" className="size-5 " viewBox="0 0 16 16">
             <path

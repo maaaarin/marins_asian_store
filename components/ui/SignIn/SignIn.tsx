@@ -3,11 +3,11 @@ import { Player } from "@lordicon/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 // NextUI
 import { Button, Input } from "@nextui-org/react";
-
+import { Divider } from "@nextui-org/divider";
 // Components
 import { PasswordInput } from "@/components/widgets/PasswordInput";
 
@@ -16,13 +16,8 @@ import { useSignIn } from "@clerk/nextjs";
 import { OAuthStrategy } from "@clerk/types";
 
 // Files
-import logo from "/public/assets/logo.svg";
 import facebook from "/public/assets/icons/facebook.svg";
 import google from "/public/assets/icons/google.svg";
-import bush from "/public/assets/img/bush.svg";
-import flower from "/public/assets/img/flower.svg";
-import flower2 from "/public/assets/img/flower_2.svg";
-import Toji from "/public/assets/img/Toji.png";
 import arrowIcon from "@/public/assets/icons/arrow.json";
 
 export const SignIn = () => {
@@ -31,11 +26,43 @@ export const SignIn = () => {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [error, setError] = useState("");
+  const [invalidEmail, setInvalidEmail] = useState("");
+  const [invalidPassword, setInvalidPassword] = useState("");
+
+  useEffect(() => {
+    if (error === "form_param_nil") {
+      setError("");
+    } else if (error === "form_identifier_not_found") {
+      setError("Couldn't find your account.");
+    } else if (error === "form_param_format_invalid") {
+      setInvalidEmail("Email is invalid.");
+      setError("");
+    } else if (error === "form_password_incorrect") {
+      setInvalidPassword(
+        "Password is incorrect. Try again, or use another method."
+      );
+      setError("");
+    }
+  }, [error]);
+
   // Sign In process.
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isLoaded) {
       return;
+    }
+
+    if (!emailAddress.length) {
+      setInvalidEmail("Enter your email address");
+    } else {
+      setInvalidEmail("");
+    }
+
+    if (!password.length) {
+      setInvalidPassword("Enter your password");
+    } else {
+      setInvalidPassword("");
     }
 
     try {
@@ -54,6 +81,7 @@ export const SignIn = () => {
       }
     } catch (err: any) {
       console.error("error", err.errors[0].longMessage);
+      setError(err.errors[0].code);
     }
   };
 
@@ -77,92 +105,82 @@ export const SignIn = () => {
   }
 
   return (
-    <div className="w-full h-screen flex items-end justify-center ">
-      <div className="w-3/12 min-w-96 h-5/6 bg-white border border-black rounded-t-[4rem] flex flex-col justify-between p-10 relative z-10">
-        <div className="size-full flex flex-col items-center gap-10">
-          <Link href="/">
-            <Image src={logo} alt="alt" width={128} height={128} />
-          </Link>
-          <div className="flex-center size-48 relative">
-            <div className="size-full bg-slate-600 rounded-full"></div>
-            <Image
-              src={Toji}
-              alt="Toji image"
-              width={256}
-              height={256}
-              className="size-full absolute rounded-full bottom-0"
-            />
-          </div>
-          <div className="w-full h-auto flex flex-col gap-3">
-            <div className="w-full flex items-center gap-3">
-              <Button
-                isIconOnly
-                className="w-2/4 h-14 bg-white rounded-2xl border flex-center"
-                onClick={() => signInWith("oauth_google")}>
-                <Image src={google} alt="alt" width={32} height={32} />
-              </Button>
-              <Button
-                isIconOnly
-                className="w-2/4 h-14 bg-white rounded-2xl border flex-center"
-                onClick={() => signInWith("oauth_facebook")}>
-                <Image src={facebook} alt="alt" width={32} height={32} />
-              </Button>
-            </div>
-            <form className="w-full flex flex-col gap-3 " action="#">
-              <Input
-                type="email"
-                variant="bordered"
-                label="Email"
-                className="w-full"
-                onChange={(e) => setEmailAddress(e.target.value)}
-              />
-              <PasswordInput setPassword={setPassword} />
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-400">Forgot password?</span>
-                <Button
-                  isIconOnly
-                  color="primary"
-                  className="w-40 h-14  rounded-full border flex-center"
-                  onMouseOver={() => {
-                    arrowIconAnimation();
-                  }}
-                  onClick={handleSubmit}>
-                  <Player ref={arrowRef} icon={arrowIcon} size={32} />
-                </Button>
-              </div>
-            </form>
-          </div>
+    <>
+      <div className="w-full h-auto flex flex-col gap-3 mb-auto">
+        <div className="w-full flex flex-col items-center gap-2 mb-8">
+          <h2 className="text-xl font-semibold">Sign In</h2>
+          <span>Login to your account to enjoy!</span>
         </div>
-        <div className="flex gap-2 items-center ">
-          <span>New here?</span>
+        <div className="w-full flex items-center gap-3">
+          <Button
+            isIconOnly
+            className="w-2/4 h-14 bg-white rounded-full border flex-center"
+            onClick={() => signInWith("oauth_google")}>
+            <Image src={google} alt="alt" width={32} height={32} />
+          </Button>
+          <Button
+            isIconOnly
+            className="w-2/4 h-14 bg-white rounded-full border flex-center"
+            onClick={() => signInWith("oauth_facebook")}>
+            <Image src={facebook} alt="alt" width={32} height={32} />
+          </Button>
+        </div>
+        {error && (
+          <div className="w-full h-auto rounded-full bg-zinc-100 p-3 flex items-center gap-2">
+            <div className="size-6 bg-red-500 rounded-full text-white">
+              <svg
+                fill="currentColor"
+                className="size-full "
+                viewBox="0 0 16 16">
+                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z" />
+              </svg>
+            </div>
+            <span className="text-zinc-600">{error}</span>
+          </div>
+        )}
+        <form
+          className="w-full flex flex-col gap-3 "
+          action="#"
+          onSubmit={handleSubmit}>
+          <Input
+            type="email"
+            variant="bordered"
+            label="Email"
+            className="w-full"
+            isInvalid={invalidEmail.length > 0}
+            errorMessage={invalidEmail}
+            onChange={(e) => setEmailAddress(e.target.value)}
+            classNames={{
+              inputWrapper: ["group-data-[focus=true]:border-primary border"],
+            }}
+          />
+          <PasswordInput
+            setPassword={setPassword}
+            invalidPassword={invalidPassword}
+          />
+          <div className="flex justify-between">
+            <span className="text-sm text-gray-400">Forgot password?</span>
+            <Button
+              isIconOnly
+              color="primary"
+              type="submit"
+              className="w-40 h-14  rounded-full border flex-center"
+              onMouseOver={() => {
+                arrowIconAnimation();
+              }}>
+              <Player ref={arrowRef} icon={arrowIcon} size={32} />
+            </Button>
+          </div>
+        </form>
+      </div>
+      <div className="w-full h-auto flex gap-2 items-center mt-auto">
+        <span>New here?</span>
+        <Link href="/sign-up">
           <Button className="bg-black text-white" radius="full">
             Sign Up
           </Button>
-        </div>
+        </Link>
       </div>
-      <div className="w-3/12 min-w-96 absolute">
-        <Image
-          src={flower}
-          alt="asset"
-          width={0}
-          height={0}
-          className="size-48 absolute bottom-0 right-[80%]"
-        />
-        <Image
-          src={flower2}
-          alt="asset"
-          width={0}
-          height={0}
-          className="size-64 absolute  bottom-0 left-[80%]"
-        />
-        <Image
-          src={bush}
-          alt="asset"
-          width={0}
-          height={0}
-          className="size-48 absolute z bottom-0 left-[85%]"
-        />
-      </div>
-    </div>
+    </>
   );
 };

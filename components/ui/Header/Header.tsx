@@ -6,7 +6,10 @@ import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { totalBagItemsSelector } from "@/lib/store/slices/bag.slice";
+import {
+  totalBagItemsSelector,
+  subtotalBagSelector,
+} from "@/lib/store/slices/bag.slice";
 import { Player } from "@lordicon/react";
 
 // Clerk
@@ -122,17 +125,18 @@ export const Header = () => {
 
   // Bag
   const totalBagItems = useSelector(totalBagItemsSelector),
-    [prevTotalBagItems, setPreviousTotalBagItems] = useState(totalBagItems);
+    subtotalBag = useSelector(subtotalBagSelector),
+    [prevTotalSubtotalBag, setPrevTotalSubtotalBag] = useState(subtotalBag);
 
   // Animated icon
   const cartRef = useRef<Player>(null);
 
   useEffect(() => {
-    if (totalBagItems > prevTotalBagItems) {
+    if (subtotalBag > prevTotalSubtotalBag) {
       cartIconAnimation();
     }
-    setPreviousTotalBagItems(totalBagItems);
-  }, [totalBagItems, prevTotalBagItems]);
+    setPrevTotalSubtotalBag(subtotalBag);
+  }, [subtotalBag, prevTotalSubtotalBag]);
 
   function cartIconAnimation() {
     let iconAnimation = cartRef.current;

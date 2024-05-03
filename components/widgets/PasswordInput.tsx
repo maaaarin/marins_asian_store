@@ -4,10 +4,11 @@ import { Input } from "@nextui-org/react";
 import React from "react";
 
 type Props = {
+  invalidPassword: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const PasswordInput = ({ setPassword }: Props) => {
+export const PasswordInput = ({ setPassword, invalidPassword }: Props) => {
   const [isVisible, setIsVisible] = React.useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   return (
@@ -15,6 +16,11 @@ export const PasswordInput = ({ setPassword }: Props) => {
       label="Password"
       variant="bordered"
       onChange={(e) => setPassword(e.target.value)}
+      isInvalid={invalidPassword.length > 0}
+      errorMessage={invalidPassword}
+      classNames={{
+        inputWrapper: ["group-data-[focus=true]:border-primary border"],
+      }}
       endContent={
         <button
           className="focus:outline-none w-5 h-full"

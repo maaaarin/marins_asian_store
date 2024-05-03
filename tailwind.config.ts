@@ -20,7 +20,7 @@ const config: Config = {
     extend: {
       colors: {
         primary: "#0028FF",
-        secondary: "#FA73F3",
+        secondary: "#FF54F6",
         pink: "#FF86F8",
         "pink-light": "#F2D8EB",
         orange: "#FF4900",
@@ -46,6 +46,10 @@ const config: Config = {
       },
     },
     keyframes: {
+      "caret-blink": {
+        "0%,70%,100%": { opacity: "1" },
+        "20%,50%": { opacity: "0" },
+      },
       "slide-blurred-out": {
         from: {
           transform: "translateY(0) scaleY(1) scaleX(1)",
@@ -91,9 +95,9 @@ const config: Config = {
         "slide-blurred-out 0.6s cubic-bezier(0.755, 0.05, 0.855, 0.06) both",
       "slide-blurred-in":
         "slide-blurred-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) both",
-      "floating-2": "floating 2s ease-in-out infinite",
       "floating-4": "floating 4s ease-in-out infinite",
       "floating-6": "floating 6s ease-in-out infinite",
+      "caret-blink": "caret-blink 1.25s ease-out infinite",
     },
   },
   plugins: [nextui(), require("tailwindcss-animate")],
