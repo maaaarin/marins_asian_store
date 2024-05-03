@@ -4,19 +4,24 @@ import { Input } from "@nextui-org/react";
 import React from "react";
 
 type Props = {
-  invalidPassword: string;
+  invalidPassword?: string;
+  placeholderPassword?: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const PasswordInput = ({ setPassword, invalidPassword }: Props) => {
+export const PasswordInput = ({
+  setPassword,
+  invalidPassword,
+  placeholderPassword,
+}: Props) => {
   const [isVisible, setIsVisible] = React.useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   return (
     <Input
-      label="Password"
+      label={placeholderPassword ? placeholderPassword : "Password"}
       variant="bordered"
       onChange={(e) => setPassword(e.target.value)}
-      isInvalid={invalidPassword.length > 0}
+      isInvalid={invalidPassword ? invalidPassword.length > 0 : false}
       errorMessage={invalidPassword}
       classNames={{
         inputWrapper: ["group-data-[focus=true]:border-primary border"],

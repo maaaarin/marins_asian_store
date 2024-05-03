@@ -26,7 +26,6 @@ import { ClerkAPIError } from "@clerk/types";
 import facebook from "/public/assets/icons/facebook.svg";
 import google from "/public/assets/icons/google.svg";
 import arrowIcon from "@/public/assets/icons/arrow.json";
-import { color } from "framer-motion";
 
 export const SignUp = () => {
   // Animated Icon
@@ -112,7 +111,7 @@ export const SignUp = () => {
     } catch (err: any) {
       // This can return an array of errors.
       // See https://clerk.com/docs/custom-flows/error-handling to learn about error handling
-      console.error("Error:", JSON.stringify(err, null, 2));
+      // console.error("Error:", JSON.stringify(err, null, 2));
       setErrors(err.errors);
     }
   };
@@ -144,7 +143,7 @@ export const SignUp = () => {
     } catch (err: any) {
       // This can return an array of errors.
       // See https://clerk.com/docs/custom-flows/error-handling to learn about error handling
-      console.error("Error:", JSON.stringify(err, null, 2));
+      // console.error("Error:", JSON.stringify(err, null, 2));
     }
   };
 
@@ -152,7 +151,7 @@ export const SignUp = () => {
   if (verifying) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center gap-3">
-        <div className="w-full flex flex-col items-center gap-2">
+        <div className="w-full flex flex-col items-center gap-2 mb-4">
           <h2 className="text-xl font-semibold">Verification Code</h2>
           <span>Enter the code sent to your email address</span>
         </div>
@@ -233,34 +232,22 @@ export const SignUp = () => {
         <div className="w-full flex items-center gap-3">
           <Button
             isIconOnly
-            className="w-2/4 h-14 bg-white rounded-full border flex-center"
+            className="w-2/4 h-14 bg-black rounded-full border flex-center"
             onClick={() => signUpWith("oauth_google")}>
             <Image src={google} alt="alt" width={32} height={32} />
           </Button>
           <Button
             isIconOnly
-            className="w-2/4 h-14 bg-white rounded-full border flex-center"
+            className="w-2/4 h-14 bg-black rounded-full border flex-center"
             onClick={() => signUpWith("oauth_facebook")}>
             <Image src={facebook} alt="alt" width={32} height={32} />
           </Button>
         </div>
-        {/* {errors && (
-          <ul className="w-full h-auto rounded-2xl bg-red-100 p-3 flex flex-col gap-2">
-            {errors.map((el, index) => (
-              <li key={index} className="w-full flex items-center gap-2">
-                <div className="size-8 bg-red-500 rounded-full text-white">
-                  <svg
-                    fill="currentColor"
-                    className="size-full "
-                    viewBox="0 0 16 16">
-                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z" />
-                  </svg>
-                </div>
-                <span className="text-zinc-600">{el.message}</span>
-              </li>
-            ))}
-          </ul>
-        )} */}
+        <div className="flex items-center gap-4 text-zinc-600">
+          <div className="flex-grow h-[1px] border"></div>
+          Or
+          <div className="flex-grow h-[1px] border"></div>
+        </div>
         <form
           className="w-full flex flex-col gap-3 "
           action="#"
