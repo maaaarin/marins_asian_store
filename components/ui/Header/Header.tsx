@@ -11,7 +11,9 @@ import {
   subtotalBagSelector,
 } from "@/lib/store/slices/bag.slice";
 import { Player } from "@lordicon/react";
-
+// const Player = dynamic<{ Player: typeof Player }>(() => import("@lordicon/react/dist/player"), {
+//   ssr: false,
+// });
 // Clerk
 import { useUser, useAuth } from "@clerk/nextjs";
 
@@ -38,6 +40,7 @@ import { UserMenu } from "@/components/ui/User/UserMenu";
 import logo from "/public/assets/logo.svg";
 import cartIcon from "@/public/assets/icons/cart.json";
 import { FlavorTrail } from "../FlavorTrail/FlavorTrail";
+import dynamic from "next/dynamic";
 
 export const Header = () => {
   // Clerk
@@ -49,16 +52,6 @@ export const Header = () => {
       closeDisplay();
     }
   }, [isSignedIn, isLoaded]);
-
-  // Scrolling issue
-  const scrollY = window.scrollY;
-
-  useEffect(() => {
-    const scrollPosition = window.scrollY;
-    return () => {
-      window.scrollTo(0, scrollPosition);
-    };
-  }, []);
 
   // Search Query / Reload
   const searchParams = useSearchParams();
