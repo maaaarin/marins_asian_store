@@ -1,5 +1,5 @@
 "use server";
-import { User as UserType } from "@/types";
+import { Product, User as UserType } from "@/types";
 import { mongoConnect } from "../database/connection";
 import User from "../database/models/user.model";
 
@@ -10,6 +10,25 @@ export async function createUser(user: any) {
     await mongoConnect();
     const newUser = await User.create(user);
     return JSON.parse(JSON.stringify(newUser));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateWishlist(
+  clerkId: string | undefined,
+  product: Product
+) {
+  try {
+    await mongoConnect();
+
+    const updateWishlist = await User.findOneAndUpdate(
+      { clerkId },
+      { $push: { wishlist: product } },
+      { new: true }
+    );
+
+    return JSON.parse(JSON.stringify(updateWishlist));
   } catch (error) {
     console.log(error);
   }

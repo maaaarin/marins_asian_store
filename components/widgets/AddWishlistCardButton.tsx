@@ -1,8 +1,23 @@
 import React from "react";
+import { useUser } from "@clerk/nextjs";
+import { updateWishlist } from "@/lib/actions/user.actions";
+import { Product } from "@/types";
 
-export const AddWishlistCardButton = () => {
+export const AddWishlistCardButton = ({ product }: { product: Product }) => {
+  const { isLoaded, isSignedIn, user } = useUser();
+
+  function handleAddWishlist() {
+    const addToWishlist = async () => {
+      await updateWishlist(user?.id, product);
+      console.log("working!");
+    };
+    addToWishlist();
+  }
+
   return (
-    <button className="size-12 bg-white rounded-full grid place-items-center absolute top-0 right-0 m-4 !pointer-events-auto">
+    <button
+      className="size-12 bg-white rounded-full grid place-items-center absolute top-0 right-0 m-4 !pointer-events-auto"
+      onClick={handleAddWishlist}>
       <svg
         viewBox="0 0 24 24"
         className="size-3/5 text-gray-300"
