@@ -4,7 +4,8 @@ import { mongoConnect } from "../database/connection";
 import User from "../database/models/user.model";
 
 // Create User
-export const createUser = async (user: any) => {
+
+export async function createUser(user: any) {
   try {
     await mongoConnect();
     const newUser = await User.create(user);
@@ -12,7 +13,7 @@ export const createUser = async (user: any) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 // Function for update xp
 
