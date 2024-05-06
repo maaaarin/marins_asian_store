@@ -7,7 +7,7 @@ import User from "../database/models/user.model";
 export const createUser = async (user: any) => {
   try {
     await mongoConnect();
-    const newUser = await User.create({ user });
+    const newUser = await User.create(user);
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     console.log(error);
