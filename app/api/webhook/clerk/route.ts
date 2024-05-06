@@ -55,32 +55,18 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
+  console.log("before");
   if (eventType === "user.created") {
-    const { id, email_addresses, image_url, first_name, last_name, username } =
-      evt.data;
+    const { id, email_addresses, image_url, first_name, last_name } = evt.data;
+
+    console.log("working");
 
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
-      username: username!,
       firstName: first_name,
       lastName: last_name,
-      picture: image_url,
-      // shippingAddress: {
-      //   street: "",
-      //   city: "",
-      //   state: "",
-      //   zip: "",
-      //   country: "",
-      // },
-      // level: 1,
-      // flavorPoints: 0,
-      // wishlist: [],
-      // cart: [],
-      // orders: [],
-      // achievements: [],
-      // coupons: [],
-      // methodPayment: "",
+      photo: image_url,
     };
 
     const newUser = await createUser(user);
@@ -91,9 +77,9 @@ export async function POST(req: Request) {
           userId: newUser._id,
         },
       });
-
-      return NextResponse.json({ message: "Success", user: newUser });
     }
+
+    return NextResponse.json({ message: "OK", user: newUser });
   }
 
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
