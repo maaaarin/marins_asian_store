@@ -5,21 +5,21 @@ export type User = {
   firstName: string;
   lastName: string;
   picture: string;
-  shippingAddress: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    country?: string;
-  };
-  level: number;
-  flavorPoints: number;
-  wishlist: string[];
-  cart: string[];
-  orders: Order[];
-  achievements: AchievementProgress[];
-  coupons: Coupon[];
-  methodPayment: string;
+  // shippingAddress: {
+  //   street: string;
+  //   city: string;
+  //   state: string;
+  //   zip: string;
+  //   country?: string;
+  // };
+  // level: number;
+  // flavorPoints: number;
+  // wishlist: string[];
+  // cart: string[];
+  // orders: Order[];
+  // achievements: AchievementProgress[];
+  // coupons: Coupon[];
+  // methodPayment: string;
 };
 
 export type Product = {
