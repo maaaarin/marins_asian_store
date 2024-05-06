@@ -1,6 +1,6 @@
 "use client";
 
-import { addItem } from "@/lib/store/slices/bag.slice";
+import { addItem } from "@/lib/store/slices/cart.slice";
 import { Product } from "@/types";
 import React from "react";
 import { useDispatch } from "react-redux";

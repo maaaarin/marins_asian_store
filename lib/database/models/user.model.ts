@@ -28,6 +28,7 @@ const userSchema = new Schema({
   level: { type: Number, default: 1 },
   flavorPoints: { type: Number, default: 0 },
   wishlist: [{ type: String }],
+  cart: [{ type: String }],
   orders: [{ type: Schema.Types.ObjectId, ref: "Order" }],
   achievements: [achievementProgressSchema],
   coupons: [{ type: Schema.Types.ObjectId, ref: "Coupon" }],

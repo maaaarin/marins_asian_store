@@ -7,9 +7,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
-  totalBagItemsSelector,
-  subtotalBagSelector,
-} from "@/lib/store/slices/bag.slice";
+  totalCartItemsSelector,
+  subtotalCartSelector,
+} from "@/lib/store/slices/cart.slice";
 import { Player } from "@lordicon/react";
 // const Player = dynamic<{ Player: typeof Player }>(() => import("@lordicon/react/dist/player"), {
 //   ssr: false,
@@ -30,7 +30,7 @@ import styles from "./Header.module.scss";
 
 // Components
 import { Search } from "../Search/Search";
-import { Bag } from "../Bag/Bag";
+import { Cart } from "../Cart/Cart";
 import { SearchBar } from "../Search/SearchBar";
 import { useSelector } from "react-redux";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
@@ -59,13 +59,13 @@ export const Header = () => {
 
   // Display
   const [searchDisplay, setSearchDisplay] = useState(false),
-    [bagDisplay, setBagDisplay] = useState(false),
+    [cartDisplay, setCartDisplay] = useState(false),
     [userDisplay, setUserDisplay] = useState(false),
     [overlay, setOverlay] = useState(false);
 
   function closeDisplay() {
     setSearchDisplay(false);
-    setBagDisplay(false);
+    setCartDisplay(false);
     setUserDisplay(false);
     setOverlay(false);
   }
@@ -97,13 +97,13 @@ export const Header = () => {
         closeDisplay();
         setSearchDisplay(true);
         break;
-      case "bag":
-        if (bagDisplay) {
+      case "cart":
+        if (cartDisplay) {
           closeDisplay();
           return;
         }
         closeDisplay();
-        setBagDisplay(true);
+        setCartDisplay(true);
         break;
       case "user":
         if (userDisplay) {
@@ -116,20 +116,20 @@ export const Header = () => {
     setOverlay(true);
   }
 
-  // Bag
-  const totalBagItems = useSelector(totalBagItemsSelector),
-    subtotalBag = useSelector(subtotalBagSelector),
-    [prevTotalSubtotalBag, setPrevTotalSubtotalBag] = useState(subtotalBag);
+  // Cart
+  const totalCartItems = useSelector(totalCartItemsSelector),
+    subtotalCart = useSelector(subtotalCartSelector),
+    [prevTotalSubtotalCart, setPrevTotalSubtotalCart] = useState(subtotalCart);
 
   // Animated icon
   const cartRef = useRef<Player>(null);
 
   useEffect(() => {
-    if (subtotalBag > prevTotalSubtotalBag) {
+    if (subtotalCart > prevTotalSubtotalCart) {
       cartIconAnimation();
     }
-    setPrevTotalSubtotalBag(subtotalBag);
-  }, [subtotalBag, prevTotalSubtotalBag]);
+    setPrevTotalSubtotalCart(subtotalCart);
+  }, [subtotalCart, prevTotalSubtotalCart]);
 
   function cartIconAnimation() {
     let iconAnimation = cartRef.current;
@@ -169,12 +169,12 @@ export const Header = () => {
           </li>
           <li
             className="relative grid place-items-center cursor-pointer"
-            id="bag"
+            id="cart"
             onClick={(e) => handleDisplay(e.currentTarget.id)}>
             <Player ref={cartRef} icon={cartIcon} size={32} />
-            {totalBagItems > 0 && (
+            {totalCartItems > 0 && (
               <div className="size-5 bg-primary rounded-full absolute -top-2 -right-2  text-xs text-white outline outline-4 outline-white flex items-center justify-center">
-                {totalBagItems}
+                {totalCartItems}
               </div>
             )}
           </li>
@@ -219,7 +219,7 @@ export const Header = () => {
         </ul>
       </nav>
       {(searchDisplay || query) && <Search />}
-      {bagDisplay && <Bag closeDisplay={closeDisplay} />}
+      {cartDisplay && <Cart closeDisplay={closeDisplay} />}
       <div
         className={clsx(
           "bg-black/60 fixed top-0 left-0 right-0 bottom-0 -z-10 pointer-events-auto",

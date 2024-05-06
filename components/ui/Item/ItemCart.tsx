@@ -1,7 +1,7 @@
 "use client";
 
 import { ModifyItemQuantity } from "@/components/widgets/ModifyItemQuantity";
-import { removeItem } from "@/lib/store/slices/bag.slice";
+import { removeItem } from "@/lib/store/slices/cart.slice";
 import { Item } from "@/types";
 import Image from "next/image";
 import React, { useRef } from "react";
@@ -16,7 +16,7 @@ type Props = {
   item: Item;
 };
 
-export const ItemBag = ({ item }: Props) => {
+export const ItemCart = ({ item }: Props) => {
   const dispatch = useDispatch(),
     product = item.product;
 

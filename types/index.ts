@@ -15,6 +15,7 @@ export type User = {
   level: number;
   flavorPoints: number;
   wishlist: string[];
+  cart: string[];
   orders: Order[];
   achievements: AchievementProgress[];
   coupons: Coupon[];
@@ -50,7 +51,7 @@ export type Item = {
   quantity: number;
 };
 
-export type Bag = {
+export type Cart = {
   items: Item[];
   totalPrice: number;
   totalQuantity: number;

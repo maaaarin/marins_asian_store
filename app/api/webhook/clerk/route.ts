@@ -76,6 +76,7 @@ export async function POST(req: Request) {
       level: 1,
       flavorPoints: 0,
       wishlist: [],
+      cart: [],
       orders: [],
       achievements: [],
       coupons: [],

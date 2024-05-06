@@ -111,7 +111,7 @@ export const SignUp = () => {
     } catch (err: any) {
       // This can return an array of errors.
       // See https://clerk.com/docs/custom-flows/error-handling to learn about error handling
-      // console.error("Error:", JSON.stringify(err, null, 2));
+      console.error("Error:", JSON.stringify(err, null, 2));
       setErrors(err.errors);
     }
   };
@@ -143,7 +143,7 @@ export const SignUp = () => {
     } catch (err: any) {
       // This can return an array of errors.
       // See https://clerk.com/docs/custom-flows/error-handling to learn about error handling
-      // console.error("Error:", JSON.stringify(err, null, 2));
+      console.error("Error:", JSON.stringify(err, null, 2));
     }
   };
 
