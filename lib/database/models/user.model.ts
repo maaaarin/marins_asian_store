@@ -6,6 +6,8 @@ const userSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   picture: { type: String, required: true },
+  wishlist: [{ type: String }],
+  cart: [{ type: String }],
 });
 
 const User = models.user || model("User", userSchema);
