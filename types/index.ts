@@ -4,6 +4,8 @@ export type User = {
   firstName: string;
   lastName: string;
   picture: string;
+  wishlist: string[];
+  cart: string[];
   // shippingAddress: {
   //   street: string;
   //   city: string;

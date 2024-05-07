@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { updateWishlist } from "@/lib/actions/user.actions";
+import { addToWishlist } from "@/lib/actions/user.actions";
+import { getWishlistProductById } from "@/lib/actions/user.actions";
 import { Product } from "@/types";
 import clsx from "clsx";
 
@@ -9,14 +10,25 @@ export const AddWishlistCardButton = ({ product }: { product: Product }) => {
 
   const { isLoaded, isSignedIn, user } = useUser();
 
+  useEffect(() => {
+    // Verificar si el producto ya está en wishlist
+    const getProduct = async () => {
+      const productFound = await getWishlistProductById(user?.id, product._id);
+      if (!productFound) {
+        setWishlistAdded(true);
+      }
+    };
+    getProduct();
+  }, [user, product]);
+
   function handleUpdateWishlist() {
-    const addToWishlist = async () => {
-      const updatingWishlist = await updateWishlist(user?.id, product);
+    const updateWishlist = async () => {
+      const updatingWishlist = await addToWishlist(user?.id, product);
       if (updatingWishlist) {
         setWishlistAdded(true);
       }
     };
-    addToWishlist();
+    updateWishlist();
   }
 
   return (

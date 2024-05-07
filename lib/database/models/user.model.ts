@@ -6,10 +6,12 @@ const userSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   picture: { type: String, required: true },
-  wishlist: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+  wishlist: [
+    { type: Schema.Types.ObjectId, ref: "Product", unique: true, index: true },
+  ],
   cart: [{ type: Schema.Types.ObjectId, ref: "Product" }],
 });
 
-const User = models.user || model("User", userSchema);
+const User = models.User || model("User", userSchema);
 
 export default User;

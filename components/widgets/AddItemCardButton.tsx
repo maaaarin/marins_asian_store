@@ -1,3 +1,4 @@
+"use client";
 import { addItem } from "@/lib/store/slices/cart.slice";
 import { Product } from "@/types";
 import React from "react";
