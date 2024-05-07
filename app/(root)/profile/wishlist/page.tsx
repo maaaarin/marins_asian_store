@@ -1,7 +1,7 @@
 "use client";
 import { AddItemCardButton } from "@/components/widgets/AddItemCardButton";
 import { getProductById } from "@/lib/actions/product.actions";
-import { getWishlist } from "@/lib/actions/user.actions";
+import { getWishlist } from "@/lib/actions/wishlist.actions";
 import { Product } from "@/types";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "@nextui-org/react";
