@@ -23,7 +23,7 @@ export const Cart = ({ closeDisplay, cartIconAnimation }: Props) => {
 
   return (
     <div
-      className={`${styles.cartContainer} container h-auto fixed top-24 right-0 left-0 flex justify-center pointer-events-none`}>
+      className={`${styles.cartContainer} container h-auto fixed top-24 right-0 left-0 flex justify-center pointer-events-none animate-slide-in-blurred-top`}>
       <div className="w-3/5 h-auto bg-white pt-6 flex flex-col gap-5 rounded-3xl point pointer-events-auto">
         <div className="w-full h-auto flex relative items-center justify-center px-8">
           <button
@@ -50,9 +50,9 @@ export const Cart = ({ closeDisplay, cartIconAnimation }: Props) => {
           )}
         </div>
         {totalCartItems < 1 && (
-          <div className="w-full h-auto flex flex-col items-center justify-center py-20">
+          <div className="w-full h-auto flex flex-col items-center justify-center py-20 ">
             <Image
-              src="/assets/img/cat_cart.gif"
+              src="https://i.imgur.com/uPKcVGK.gif"
               alt="Cat GIF"
               width={150}
               height={150}

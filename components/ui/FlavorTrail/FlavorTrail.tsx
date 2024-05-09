@@ -200,7 +200,7 @@ export const FlavorTrail = () => {
                 width={192}
                 height={192}
                 className={clsx("w-4/5 h-auto", {
-                  "animate-slide-blurred-in ":
+                  "animate-slide-in-blurred-bottom":
                     rewardPicture == rewardPrevPicture,
                 })}
               />

@@ -42,7 +42,7 @@ export const Search = () => {
   return (
     <>
       <div
-        className={`${styles.searchContainer} container fixed top-24 left-0 right-0 pointer-events-none`}>
+        className={`${styles.searchContainer} container fixed top-24 left-0 right-0 pointer-events-none animate-slide-in-blurred-top`}>
         {!query && <SearchMenu />}
         {query && <SearchResults products={products} query={query} />}
       </div>

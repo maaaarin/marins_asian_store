@@ -43,7 +43,7 @@ export const Header = () => {
     if (!isSignedIn || !isLoaded) {
       closeDisplay();
     }
-  }, [isSignedIn, isLoaded]);
+  });
 
   // Search Query / Reload
   const searchParams = useSearchParams();
@@ -54,31 +54,29 @@ export const Header = () => {
     [cartDisplay, setCartDisplay] = useState(false),
     [userDisplay, setUserDisplay] = useState(false),
     [overlay, setOverlay] = useState(false);
+  const { replace } = useRouter();
+  const pathName = usePathname();
+  const params = new URLSearchParams(searchParams);
 
   function closeDisplay() {
     setSearchDisplay(false);
     setCartDisplay(false);
     setUserDisplay(false);
     setOverlay(false);
+    params.delete("query");
+    replace(`${pathName}?${params.toString()}`, { scroll: false });
   }
 
   // Close Search after click product
   useEffect(() => {
-    if (query) {
-      closeDisplay();
+    if (!query) {
+      setSearchDisplay(false);
+      setOverlay(false);
+      setUserDisplay(false);
     }
   }, [query]);
 
-  // Handle Display
-  const { replace } = useRouter();
-  const pathName = usePathname();
-
   function handleDisplay(id: string) {
-    // Clear Params Query
-    const params = new URLSearchParams(searchParams);
-    params.delete("query");
-    replace(`${pathName}?${params.toString()}`, { scroll: false });
-
     // Handle display
     switch (id) {
       case "search":
@@ -214,7 +212,7 @@ export const Header = () => {
       {cartDisplay && <Cart closeDisplay={closeDisplay} />}
       <div
         className={clsx(
-          "bg-black/60 fixed top-0 left-0 right-0 bottom-0 -z-10 pointer-events-auto",
+          "bg-black/60 fixed top-0 left-0 right-0 bottom-0 -z-10 pointer-events-auto animate-fade-in",
           { hidden: !overlay && !query }
         )}
         onClick={() => {

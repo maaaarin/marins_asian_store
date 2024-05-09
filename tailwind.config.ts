@@ -64,10 +64,24 @@ const config: Config = {
           opacity: "0",
         },
       },
-      "slide-blurred-in": {
+      "slide-in-blurred-bottom": {
         from: {
           transform: "translateY(1000px) scaleY(2.5) scaleX(0.2)",
           transformOrigin: "50% 100%",
+          filter: "blur(40px)",
+          opacity: "0",
+        },
+        to: {
+          transform: "translateY(0) scaleY(1) scaleX(1)",
+          transformOrigin: "50% 50%",
+          filter: "blur(0)",
+          opacity: "1",
+        },
+      },
+      "slide-in-blurred-top": {
+        from: {
+          transform: "translateY(-1000px) scaleY(2.5) scaleX(.2)",
+          transformOrigin: "50% 0",
           filter: "blur(40px)",
           opacity: "0",
         },
@@ -89,14 +103,33 @@ const config: Config = {
           transform: "translatey(0px)",
         },
       },
+      fade: {
+        from: {
+          opacity: "0",
+        },
+        to: {
+          opacity: "1",
+        },
+      },
+      hide: {
+        to: {
+          display: "none",
+        },
+      },
     },
     animation: {
       "slide-blurred-out":
         "slide-blurred-out 0.6s cubic-bezier(0.755, 0.05, 0.855, 0.06) both",
-      "slide-blurred-in":
-        "slide-blurred-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) both",
+      "slide-in-blurred-bottom":
+        "slide-in-blurred-bottom 0.6s cubic-bezier(0.23, 1, 0.32, 1) both",
+      "slide-in-blurred-top":
+        "slide-in-blurred-top 0.3s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;",
       "floating-4": "floating 4s ease-in-out infinite",
       "floating-6": "floating 6s ease-in-out infinite",
+      "fade-in": "fade 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
+      "fade-out":
+        "fade 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both reverse",
+      hide: "hide 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both 1s",
       "caret-blink": "caret-blink 1.25s ease-out infinite",
     },
   },
