@@ -47,15 +47,17 @@ export type Product = {
   };
 };
 
-export type Item = {
+export type CartItem = {
   product: Product;
   quantity: number;
 };
 
 export type Cart = {
-  items: Item[];
+  userClerkId: string | null;
+  items: CartItem[];
   totalPrice: number;
   totalQuantity: number;
+  expireAt: Date | null;
 };
 
 export type Order = {
@@ -64,7 +66,7 @@ export type Order = {
   placedAt: Date;
   deliveredAt?: Date;
   total: number;
-  items: Item[];
+  items: CartItem[];
   status: string;
   user: UserOrder;
 };

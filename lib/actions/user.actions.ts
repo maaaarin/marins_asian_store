@@ -15,7 +15,6 @@ export async function createUser(user: any) {
 }
 
 // Get User by ID
-
 export async function getUserById(clerkId: string | undefined) {
   try {
     await mongoConnect();

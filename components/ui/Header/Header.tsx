@@ -11,7 +11,8 @@ import {
   subtotalCartSelector,
 } from "@/lib/store/slices/cart.slice";
 import { Player } from "@lordicon/react";
-
+import { getCart } from "@/lib/actions/cart.actions";
+import { Cart as CartType } from "@/types";
 import { useUser, useAuth } from "@clerk/nextjs";
 
 // NextUI
@@ -45,6 +46,18 @@ export const Header = () => {
     }
   });
 
+  const [cart, setCart] = useState<CartType>();
+
+  // Cart
+  useEffect(() => {
+    const fetchCart = async () => {
+      const cart = await getCart();
+      cart && setCart(cart);
+      console.log(cart);
+    };
+    fetchCart();
+  }, []);
+
   // Search Query / Reload
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
@@ -69,7 +82,7 @@ export const Header = () => {
 
   // Close Search after click product
   useEffect(() => {
-    if (!query) {
+    if (query) {
       setSearchDisplay(false);
       setOverlay(false);
       setUserDisplay(false);
@@ -162,9 +175,9 @@ export const Header = () => {
             id="cart"
             onClick={(e) => handleDisplay(e.currentTarget.id)}>
             <Player ref={cartRef} icon={cartIcon} size={32} />
-            {totalCartItems > 0 && (
+            {cart?.totalQuantity && (
               <div className="size-5 bg-primary rounded-full absolute -top-2 -right-2  text-xs text-white outline outline-4 outline-white flex items-center justify-center">
-                {totalCartItems}
+                {cart?.totalQuantity}
               </div>
             )}
           </li>

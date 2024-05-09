@@ -20,11 +20,11 @@ export async function getWishlist() {
   }
 }
 
-// Get Wishlist product
-export async function getFromWishlist(productId: string) {
+// Exists on Wishlist
+export async function existsWishlist(productId: string) {
   try {
     await mongoConnect();
-    const product = await User.findOne({
+    const product = await User.exists({
       clerkId: userId,
       wishlist: productId,
     });

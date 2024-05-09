@@ -2,7 +2,7 @@
 
 import { ModifyItemQuantity } from "@/components/widgets/ModifyItemQuantity";
 import { removeItem } from "@/lib/store/slices/cart.slice";
-import { Item } from "@/types";
+import { CartItem as CartItemType } from "@/types";
 import Image from "next/image";
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -13,10 +13,10 @@ import { Player } from "@lordicon/react";
 // const { Player } = dynamic(() => import("@lordicon/react"), { ssr: false });
 
 type Props = {
-  item: Item;
+  item: CartItemType;
 };
 
-export const ItemCart = ({ item }: Props) => {
+export const CartItem = ({ item }: Props) => {
   const dispatch = useDispatch(),
     product = item.product;
 

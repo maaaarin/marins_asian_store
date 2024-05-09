@@ -1,10 +1,12 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { Cart, Item } from "@/types";
+import { Cart, CartItem } from "@/types";
 
 const initialState: Cart = {
+  userClerkId: null,
   items: [],
   totalPrice: 0,
   totalQuantity: 0,
+  expireAt: null,
 };
 
 const cartSlice = createSlice({
@@ -15,7 +17,6 @@ const cartSlice = createSlice({
       const item = state.items.find(
         (item) => item.product._id === action.payload.product._id
       );
-
       if (item) {
         item.quantity++;
       } else {
@@ -54,7 +55,7 @@ export const totalCartItemsSelector = createSelector(
 );
 
 export const subtotalCartSelector = createSelector([cart], (cart) =>
-  cart.items.reduce((subtotal: number, current: Item) => {
+  cart.items.reduce((subtotal: number, current: CartItem) => {
     return (subtotal += current.product.price * current.quantity);
   }, 0)
 );

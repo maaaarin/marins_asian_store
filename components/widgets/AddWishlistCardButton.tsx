@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { addWishlist, removeWishlist } from "@/lib/actions/wishlist.actions";
 import wishlistAddIcon from "@/public/assets/icons/wishlist-add.json";
 import wishlistRemoveIcon from "@/public/assets/icons/wishlist-remove.json";
-import { getFromWishlist } from "@/lib/actions/wishlist.actions";
+import { existsWishlist } from "@/lib/actions/wishlist.actions";
 import { Player } from "@lordicon/react";
 import { useRouter } from "next/navigation";
 
@@ -21,8 +21,8 @@ export const AddWishlistCardButton = ({ productId, alreadyAdded }: Props) => {
   useEffect(() => {
     // Verificar si el producto ya está en wishlist
     const getProduct = async () => {
-      const productFound = await getFromWishlist(productId);
-      if (!productFound) {
+      const produtExist = await existsWishlist(productId);
+      if (!produtExist) {
         setOnWishlist(false);
       } else {
         setOnWishlist(true);

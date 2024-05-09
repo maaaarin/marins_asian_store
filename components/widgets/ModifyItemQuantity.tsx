@@ -1,4 +1,4 @@
-import { Item } from "@/types";
+import { CartItem } from "@/types";
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -7,7 +7,7 @@ import {
 } from "@/lib/store/slices/cart.slice";
 
 type Props = {
-  item: Item;
+  item: CartItem;
 };
 
 export const ModifyItemQuantity = ({ item }: Props) => {
