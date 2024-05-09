@@ -20,7 +20,7 @@ export const ProductCard = ({ product }: Props) => {
       <div
         className={`${styles.productHover} h-3/4 w-full invisible duration-500 opacity-0  flex items-center justify-center absolute backdrop-blur-sm rounded-t-3xl z-50 pointer-events-none`}>
         <AddItemCardButton product={product} />
-        <AddWishlistCardButton product={product} />
+        <AddWishlistCardButton productId={product._id} />
       </div>
       <Link href={`/products/${product._id}`}>
         <div

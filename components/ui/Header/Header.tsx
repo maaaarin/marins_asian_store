@@ -11,10 +11,7 @@ import {
   subtotalCartSelector,
 } from "@/lib/store/slices/cart.slice";
 import { Player } from "@lordicon/react";
-// const Player = dynamic<{ Player: typeof Player }>(() => import("@lordicon/react/dist/player"), {
-//   ssr: false,
-// });
-// Clerk
+
 import { useUser, useAuth } from "@clerk/nextjs";
 
 // NextUI
@@ -24,9 +21,6 @@ import {
   PopoverContent,
   Button,
 } from "@nextui-org/react";
-
-// Styles
-import styles from "./Header.module.scss";
 
 // Components
 import { Search } from "../Search/Search";
@@ -40,12 +34,10 @@ import { UserMenu } from "@/components/ui/User/UserMenu";
 import logo from "/public/assets/logo.svg";
 import cartIcon from "@/public/assets/icons/cart.json";
 import { FlavorTrail } from "../FlavorTrail/FlavorTrail";
-import dynamic from "next/dynamic";
 
 export const Header = () => {
   // Clerk
   const { isLoaded, isSignedIn, user } = useUser();
-  const router = useRouter();
 
   useEffect(() => {
     if (!isSignedIn || !isLoaded) {

@@ -9,11 +9,6 @@ import {
   totalCartItemsSelector,
 } from "@/lib/store/slices/cart.slice";
 import Image from "next/image";
-import dynamic from "next/dynamic";
-
-// const DynamicItemCart = dynamic(() => import("../Item/ItemCart"), {
-//   ssr: false,
-// });
 
 type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
 

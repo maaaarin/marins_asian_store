@@ -1,32 +1,19 @@
-"use client";
 import { AddItemCardButton } from "@/components/widgets/AddItemCardButton";
-import { getProductById } from "@/lib/actions/product.actions";
+import { AddWishlistCardButton } from "@/components/widgets/AddWishlistCardButton";
 import { getWishlist } from "@/lib/actions/wishlist.actions";
 import { Product } from "@/types";
-import { useUser } from "@clerk/nextjs";
-import { Button } from "@nextui-org/react";
-import { X } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const Wishlist = () => {
-  const { isLoaded, isSignedIn, user } = useUser();
-  const [wishlist, setWishlist] = useState<Product[]>();
-
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      const wishlistList = await getWishlist(user?.id);
-      wishlistList && setWishlist(wishlistList.wishlist);
-    };
-    fetchWishlist();
-  }, [user]);
+const Wishlist = async () => {
+  const wishlist = await getWishlist();
 
   return (
     <div className="size-full overflow-auto flex flex-col gap-8">
       <h2 className="text-2xl font-semibold">Wishlist</h2>
       <ul className="w-full h-auto flex flex-col gap-3">
         {/* Wishlist */}
-        {wishlist?.map((product: Product, key) => (
+        {wishlist?.map((product: Product, key: any) => (
           <li
             key={key}
             className="w-full h-32 rounded-2xl flex items-center gap-8 border  relative py-4 px-8">
@@ -51,14 +38,10 @@ const Wishlist = () => {
               </div>
             </div>
             <div className="absolute right-8 flex items-center gap-5">
-              <Button isIconOnly className="rounded-full bg-zinc-100">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="size-9/12 text-secondary"
-                  fill="currentColor">
-                  <path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path>
-                </svg>
-              </Button>
+              <AddWishlistCardButton
+                productId={product._id}
+                alreadyAdded={true}
+              />
               <AddItemCardButton product={null} />
             </div>
           </li>

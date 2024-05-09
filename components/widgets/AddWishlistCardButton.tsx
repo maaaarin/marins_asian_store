@@ -1,49 +1,53 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import {
-  addToWishlist,
-  removeFromWishlist,
-} from "@/lib/actions/wishlist.actions";
+import { addWishlist, removeWishlist } from "@/lib/actions/wishlist.actions";
 import wishlistAddIcon from "@/public/assets/icons/wishlist-add.json";
 import wishlistRemoveIcon from "@/public/assets/icons/wishlist-remove.json";
-import { getFromWishlistById } from "@/lib/actions/wishlist.actions";
-import { Product } from "@/types";
-import clsx from "clsx";
+import { getFromWishlist } from "@/lib/actions/wishlist.actions";
 import { Player } from "@lordicon/react";
+import { useRouter } from "next/navigation";
 
-export const AddWishlistCardButton = ({ product }: { product: Product }) => {
-  const { isLoaded, isSignedIn, user } = useUser();
-  const [onWihlist, setOnWishlist] = useState(false);
+type Props = {
+  productId: string;
+  alreadyAdded?: boolean;
+};
+
+export const AddWishlistCardButton = ({ productId, alreadyAdded }: Props) => {
+  const router = useRouter();
+  const [onWihlist, setOnWishlist] = useState(alreadyAdded);
   const wishlistAddRef = useRef<Player>(null),
     wishlistRemoveRef = useRef<Player>(null);
 
   useEffect(() => {
     // Verificar si el producto ya está en wishlist
     const getProduct = async () => {
-      const productFound = await getFromWishlistById(user?.id, product._id);
+      const productFound = await getFromWishlist(productId);
       if (!productFound) {
         setOnWishlist(false);
       } else {
         setOnWishlist(true);
       }
     };
-    getProduct();
-  }, [user, product]);
+    if (!alreadyAdded) {
+      getProduct();
+    }
+  }, [alreadyAdded, productId]);
 
   async function handleUpdateWishlist() {
     if (!onWihlist) {
-      const addingWishlist = await addToWishlist(user?.id, product._id);
+      const addingWishlist = await addWishlist(productId);
       if (addingWishlist) {
         wishlistRemoveRef.current?.playFromBeginning();
+        router.refresh();
       }
       return;
     }
     // Then remove
     wishlistRemoveRef.current?.playFromBeginning();
-    const removingWishlist = await removeFromWishlist(user?.id, product._id);
+    const removingWishlist = await removeWishlist(productId);
     if (removingWishlist) {
       wishlistAddRef.current?.playFromBeginning();
+      router.refresh();
     }
   }
 
@@ -55,9 +59,19 @@ export const AddWishlistCardButton = ({ product }: { product: Product }) => {
     }
   }
 
+  if (alreadyAdded) {
+    return (
+      <button
+        className="size-12 rounded-full grid place-items-center bg-zinc-100"
+        onClick={handleUpdateWishlist}>
+        <Player ref={wishlistAddRef} icon={wishlistAddIcon} size={36} />
+      </button>
+    );
+  }
+
   return (
     <button
-      className="size-12 bg-white rounded-full grid place-items-center absolute top-0 right-0 m-4 !pointer-events-auto"
+      className="size-12 rounded-full grid place-items-center bg-white absolute top-0 right-0 m-4 !pointer-events-auto"
       onClick={handleUpdateWishlist}>
       {onWihlist ? (
         <Player

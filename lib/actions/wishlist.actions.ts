@@ -1,31 +1,31 @@
 "use server";
 import User from "@/lib/database/models/user.model";
+import Product from "@/lib/database/models/product.model";
 import { mongoConnect } from "@/lib/database/connection";
-import { Product } from "@/types";
+import { auth } from "@clerk/nextjs/server";
+const { userId } = auth();
 
 // Get Wishlist
-export async function getWishlist(clerkId: string | undefined) {
+export async function getWishlist() {
   try {
     await mongoConnect();
-    const wishlist = await User.findOne({ clerkId: clerkId }).populate({
+    const user = await User.findOne({ clerkId: userId }).populate({
       path: "wishlist",
+      model: Product,
       select: "_id name price picture color",
     });
-    return JSON.parse(JSON.stringify(wishlist));
+    return JSON.parse(JSON.stringify(user.wishlist));
   } catch (error) {
     console.log(error);
   }
 }
 
-// Get Wishlist product by ID
-export async function getFromWishlistById(
-  clerkId: string | undefined,
-  productId: string
-) {
+// Get Wishlist product
+export async function getFromWishlist(productId: string) {
   try {
     await mongoConnect();
     const product = await User.findOne({
-      clerkId: clerkId,
+      clerkId: userId,
       wishlist: productId,
     });
     if (product) {
@@ -38,14 +38,11 @@ export async function getFromWishlistById(
 }
 
 // Add to Wishlist
-export async function addToWishlist(
-  clerkId: string | undefined,
-  productId: string
-) {
+export async function addWishlist(productId: string) {
   try {
     await mongoConnect();
     const addProduct = await User.findOneAndUpdate(
-      { clerkId, wishlist: { $ne: productId } },
+      { clerkId: userId, wishlist: { $ne: productId } },
       { $push: { wishlist: productId } },
       { new: true }
     );
@@ -56,14 +53,11 @@ export async function addToWishlist(
 }
 
 // Remove from Wishlist
-export async function removeFromWishlist(
-  clerkId: string | undefined,
-  productId: string
-) {
+export async function removeWishlist(productId: string) {
   try {
     await mongoConnect();
     const removeProduct = await User.findOneAndUpdate(
-      { clerkId: clerkId },
+      { clerkId: userId },
       { $pull: { wishlist: productId } },
       { new: true }
     );
