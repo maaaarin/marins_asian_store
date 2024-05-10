@@ -16,7 +16,7 @@
     "@reduxjs/toolkit": "^2.2.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "framer-motion": "^11.0.24",
+    "framer-motion": "^11.1.9",
     "input-otp": "^1.2.4",
     "lord-icon-element": "^4.1.2",
     "lottie-web": "^5.12.2",

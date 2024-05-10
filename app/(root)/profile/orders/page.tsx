@@ -94,7 +94,7 @@ const Orders = () => {
                   <svg
                     viewBox="0 0 32 32"
                     className="size-full"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     clip-rule="evenodd"
                     stroke-linejoin="round"
                     stroke-miterlimit="2">

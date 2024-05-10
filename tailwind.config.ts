@@ -50,7 +50,7 @@ const config: Config = {
         "0%,70%,100%": { opacity: "1" },
         "20%,50%": { opacity: "0" },
       },
-      "slide-blurred-out": {
+      "slide-out-blurred-top": {
         from: {
           transform: "translateY(0) scaleY(1) scaleX(1)",
           transformOrigin: "50% 0",
@@ -70,6 +70,7 @@ const config: Config = {
           transformOrigin: "50% 100%",
           filter: "blur(40px)",
           opacity: "0",
+          display: "flex",
         },
         to: {
           transform: "translateY(0) scaleY(1) scaleX(1)",
@@ -111,25 +112,28 @@ const config: Config = {
           opacity: "1",
         },
       },
-      hide: {
-        to: {
+      display: {
+        from: {
           display: "none",
+        },
+        to: {
+          display: "flex",
         },
       },
     },
     animation: {
-      "slide-blurred-out":
-        "slide-blurred-out 0.6s cubic-bezier(0.755, 0.05, 0.855, 0.06) both",
+      "slide-out-blurred-top":
+        "slide-out-blurred-top 0.2s cubic-bezier(0.755, 0.05, 0.855, 0.06) both",
       "slide-in-blurred-bottom":
         "slide-in-blurred-bottom 0.6s cubic-bezier(0.23, 1, 0.32, 1) both",
       "slide-in-blurred-top":
-        "slide-in-blurred-top 0.3s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;",
+        "slide-in-blurred-top 0.15s cubic-bezier(0.230, 1.000, 0.320, 1.000) both",
       "floating-4": "floating 4s ease-in-out infinite",
       "floating-6": "floating 6s ease-in-out infinite",
       "fade-in": "fade 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
       "fade-out":
         "fade 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both reverse",
-      hide: "hide 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both 1s",
+      display: "display 0.5s linear forwards",
       "caret-blink": "caret-blink 1.25s ease-out infinite",
     },
   },

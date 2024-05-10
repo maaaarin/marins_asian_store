@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-
-// Styles
 import styles from "./Search.module.scss";
-
-// Actions
 import { getAllProducts } from "@/lib/actions/product.actions";
-
-// Components
 import { SearchMenu } from "./SearchMenu";
-import { SearchResults } from "./SearchResults";
+import { SearchContent } from "./SearchContent";
 import { Product } from "@/types";
+import clsx from "clsx";
 
-export const Search = () => {
+type Props = {
+  searchDisplay: boolean;
+  setSearchDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  closeDisplay: Function;
+  searchQuery: string;
+};
+
+export const Search = ({
+  searchDisplay,
+  setSearchDisplay,
+  closeDisplay,
+  searchQuery,
+}: Props) => {
   // Products
   const [products, setProducts] = useState<Product[]>([]);
-
-  // Search Query
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query") || "";
 
   useEffect(() => {
     // Products Fetch
     const getProducts = async () => {
-      const productsList = await getAllProducts({ query: query });
+      const productsList = await getAllProducts({ query: searchQuery });
       productsList && setProducts(productsList);
     };
 
@@ -37,15 +39,44 @@ export const Search = () => {
     return () => {
       // clearTimeout(fetchDelay);
     };
-  }, [query]);
+    
+    // if (searchQuery) {
+    //   setSearchDisplay(false);
+    // }
+  }, [searchQuery]);
+
+
+  function handleSearchDisplay() {
+    if (searchDisplay) {
+      closeDisplay();
+    } else {
+      closeDisplay();
+      setSearchDisplay(true);
+    }
+  }
 
   return (
     <>
-      <div
-        className={`${styles.searchContainer} container fixed top-24 left-0 right-0 pointer-events-none animate-slide-in-blurred-top`}>
-        {!query && <SearchMenu />}
-        {query && <SearchResults products={products} query={query} />}
+      <div className="cursor-pointer" onClick={handleSearchDisplay}>
+        <svg
+          className={clsx("size-6", { hidden: searchDisplay || searchQuery })}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20.26 20.72">
+          <path d="M9.74,19.48C4.37,19.48,0,15.11,0,9.74S4.37,0,9.74,0s9.74,4.37,9.74,9.74-4.37,9.74-9.74,9.74ZM9.74,1.5C5.2,1.5,1.5,5.2,1.5,9.74s3.7,8.24,8.24,8.24,8.24-3.7,8.24-8.24S14.28,1.5,9.74,1.5Z" />
+          <path d="M19.51,20.72c-.19,0-.38-.07-.53-.22l-3.52-3.52c-.29-.29-.29-.77,0-1.06,.29-.29,.77-.29,1.06,0l3.52,3.52c.29,.29,.29,.77,0,1.06-.15,.15-.34,.22-.53,.22Z" />
+        </svg>
       </div>
+      {(searchDisplay || searchQuery) && (
+        <div
+          className={`${styles.searchContainer} container fixed top-24 left-0 right-0 pointer-events-none animate-slide-in-blurred-top`}>
+          {searchQuery ? (
+            <SearchContent products={products} searchQuery={searchQuery} />
+          ) : (
+            <SearchMenu />
+          )}
+        </div>
+      )}
     </>
   );
 };

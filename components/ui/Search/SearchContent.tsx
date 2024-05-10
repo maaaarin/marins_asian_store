@@ -1,18 +1,15 @@
 import React from "react";
 
-// Actions
-import { getAllProducts } from "@/lib/actions/product.actions";
-
 // Components
 import { ProductCard } from "../Product/ProductCard";
 import { Product } from "@/types";
 
 type Props = {
   products: Product[];
-  query: string;
+  searchQuery: string;
 };
 
-export const SearchResults = ({ products, query }: Props) => {
+export const SearchContent = ({ products, searchQuery }: Props) => {
   return (
     <div className="size-full bg-white rounded-3xl px-8 py-10 pointer-events-auto">
       <div className="size-full flex flex-col gap-3">
@@ -29,8 +26,8 @@ export const SearchResults = ({ products, query }: Props) => {
           </button>
           <div className="flex gap-1 text-lg">
             <span>{products.length}</span>
-            results for
-            <span className="font-bold">{query}</span>
+            Results for
+            <span className="font-bold">{searchQuery}</span>
           </div>
           <button className="py-2 px-5 flex items-center gap-3 border border-slate-300 rounded-full">
             <svg
