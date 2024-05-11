@@ -4,9 +4,11 @@ import { getWishlist } from "@/lib/actions/wishlist.actions";
 import { Product } from "@/types";
 import Image from "next/image";
 import React from "react";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 const Wishlist = async () => {
-  const wishlist = await getWishlist();
+  const { userId } = auth();
+  const wishlist = await getWishlist(userId);
 
   return (
     <div className="size-full overflow-auto flex flex-col gap-8">

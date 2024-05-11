@@ -6,7 +6,7 @@ const CartEmpty = () => {
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center py-20">
       <Image
-        src="https://i.imgur.com/uPKcVGK.gif"
+        src="https://i.imgur.com/ZPt1o1j.gif"
         alt="Cat GIF"
         width={150}
         height={150}

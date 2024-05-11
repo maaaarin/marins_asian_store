@@ -2,11 +2,9 @@
 import User from "@/lib/database/models/user.model";
 import Product from "@/lib/database/models/product.model";
 import { mongoConnect } from "@/lib/database/connection";
-import { auth } from "@clerk/nextjs/server";
-const { userId } = auth();
 
 // Get Wishlist
-export async function getWishlist() {
+export async function getWishlist(userId: string | null | undefined) {
   try {
     await mongoConnect();
     const user = await User.findOne({ clerkId: userId }).populate({
@@ -21,7 +19,7 @@ export async function getWishlist() {
 }
 
 // Exists on Wishlist
-export async function existsWishlist(productId: string) {
+export async function existsWishlist(userId: string | null | undefined, productId: string) {
   try {
     await mongoConnect();
     const product = await User.exists({
@@ -38,7 +36,7 @@ export async function existsWishlist(productId: string) {
 }
 
 // Add to Wishlist
-export async function addWishlist(productId: string) {
+export async function addWishlist(userId: string | null | undefined, productId: string) {
   try {
     await mongoConnect();
     const addProduct = await User.findOneAndUpdate(
@@ -53,7 +51,7 @@ export async function addWishlist(productId: string) {
 }
 
 // Remove from Wishlist
-export async function removeWishlist(productId: string) {
+export async function removeWishlist(userId: string | null | undefined, productId: string) {
   try {
     await mongoConnect();
     const removeProduct = await User.findOneAndUpdate(

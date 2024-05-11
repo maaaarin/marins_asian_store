@@ -1,38 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import styles from "./Cart.module.scss";
-import { CartItem } from "./CartItem";
-import { getServerSideProps } from "next/dist/build/templates/pages";
-import { useSelector } from "react-redux";
-import { CartItem as CartItemType } from "@/types";
-import {
-  subtotalCartSelector,
-  totalCartItemsSelector,
-} from "@/lib/store/slices/cart.slice";
-import Image from "next/image";
-import { getCart } from "@/lib/actions/cart.actions";
-import { Cart as CartType } from "@/types";
 import { Player } from "@lordicon/react";
-
 import cartIcon from "@/public/assets/icons/cart.json";
 import CartEmpty from "./CartEmpty";
 import clsx from "clsx";
 import CartContent from "./CartContent";
+import { Cart as CartType } from "@/types";
 
 type Props = {
+  cart: CartType | undefined,
   cartDisplay: boolean;
   setCartDisplay: React.Dispatch<React.SetStateAction<boolean>>;
   closeDisplay: Function;
 };
 
-export const Cart = ({ cartDisplay, setCartDisplay, closeDisplay }: Props) => {
-  // const cart = useSelector((state: any) => state.cart),
-  //   totalCartItems = useSelector(totalCartItemsSelector),
-  //   subtotalCart = useSelector(subtotalCartSelector);
+export const Cart = ({ cart, cartDisplay, setCartDisplay, closeDisplay }: Props) => {
 
-  // Animated icon
-  const [cart, setCart] = useState<CartType>();
+  // Cart icon
   const cartRef = useRef<Player>(null);
-
   function cartIconAnimation() {
     let iconAnimation = cartRef.current;
     if (!iconAnimation?.isPlaying) {
@@ -40,15 +25,7 @@ export const Cart = ({ cartDisplay, setCartDisplay, closeDisplay }: Props) => {
     }
   }
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      const cart = await getCart();
-      cart && setCart(cart);
-      console.log(cart);
-    };
-    fetchCart();
-  }, []);
-
+  // Display
   function handleCartDisplay() {
     if (cartDisplay) {
       closeDisplay();
@@ -65,9 +42,9 @@ export const Cart = ({ cartDisplay, setCartDisplay, closeDisplay }: Props) => {
         id="cart"
         onClick={handleCartDisplay}>
         <Player ref={cartRef} icon={cartIcon} size={32} />
-        {cart?.totalQuantity && (
+        {cart?.items.length && (
           <div className="size-5 bg-primary rounded-full absolute -top-2 -right-2  text-xs text-white outline outline-4 outline-white flex items-center justify-center">
-            {cart?.totalQuantity}
+            {cart?.items.length}
           </div>
         )}
       </div>

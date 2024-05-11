@@ -2,23 +2,24 @@
 import { addItem } from "@/lib/store/slices/cart.slice";
 import { Product } from "@/types";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Button } from "@nextui-org/react";
 import { addCart } from "@/lib/actions/cart.actions";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 
 type Props = {
   product: Product | null;
 };
 
 export const AddItemCardButton = ({ product }: Props) => {
-  const router = useRouter();
+    const { isLoaded, userId, sessionId, getToken } = useAuth();
+    const router = useRouter();
   // const dispatch = useDispatch();
 
   function handleAddItem() {
     // dispatch(addItem({ product }));
     const addProduct = async () => {
-      const addingProduct = await addCart(product?._id);
+      const addingProduct = await addCart(userId, product?._id);
       console.log(addingProduct);
       router.refresh();
     };

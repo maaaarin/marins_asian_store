@@ -8,6 +8,7 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { Cart as CartType } from "@/types";
 
 // NextUI
 import {
@@ -18,25 +19,25 @@ import {
 
 // Components
 import { Search } from "../Search/Search";
-import { Cart } from "../Cart/Cart";
 import { SearchBar } from "../Search/SearchBar";
 import { UserMenu } from "@/components/ui/User/UserMenu";
 
 // Files
 import logo from "/public/assets/logo.svg";
 import { FlavorTrail } from "../FlavorTrail/FlavorTrail";
+import { Cart } from "../Cart/Cart";
+import { getCart } from "@/lib/actions/cart.actions";
 
 export const Header = () => {
   // Clerk
   const { isLoaded, isSignedIn, user } = useUser();
-
   useEffect(() => {
     if (!isSignedIn || !isLoaded) {
       closeDisplay();
     }
   });
 
-  // Search Query / Reload
+  // Search
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query") || "";
 
@@ -54,7 +55,6 @@ export const Header = () => {
     replace(`${pathName}?${params.toString()}`, { scroll: false });
   }
 
-  // Close Search after click product
   const [currentPathName, setCurrentPathName] = useState(pathName);
   useEffect(() => {
     if (currentPathName !== pathName){
@@ -62,6 +62,17 @@ export const Header = () => {
       setCurrentPathName(pathName);
     }
   }, [searchQuery, currentPathName, pathName])
+
+  // Cart
+  const [cart, setCart] = useState<CartType>();
+  useEffect(() => {
+    const fetchCart = async () => {
+      const userCart = await getCart(user?.id);
+      userCart && setCart(userCart);
+      console.log(userCart);
+    };
+    fetchCart();
+  }, [user, ]);
 
   return (
     <header className="container h-16 z-50 fixed top-4 right-0 left-0  flex justify-center items-center">
@@ -77,11 +88,13 @@ export const Header = () => {
           <li>Features</li>
           <li>About</li>
         </ul>
+        {/* Search Bar */}
         {(searchDisplay || searchQuery) && (
           <SearchBar closeDisplay={closeDisplay} />
         )}
         <ul className="w-auto h-full flex gap-4 items-center">
           <li>
+            {/* Search */}
             <Search
               searchDisplay={searchDisplay}
               setSearchDisplay={setSearchDisplay}
@@ -90,18 +103,22 @@ export const Header = () => {
             />
           </li>
           <li>
+            {/* <Cart/> */}
             <Cart
+              cart={cart}
               cartDisplay={cartDisplay}
               setCartDisplay={setCartDisplay}
               closeDisplay={closeDisplay}
             />
           </li>
+          {/* Flavor Trail */}
           <SignedIn>
             <li>
               <FlavorTrail />
             </li>
           </SignedIn>
           <li className="w-auto h-full flex-center cursor-pointer">
+            {/* User */}
             <SignedIn>
               <Popover
                 placement="bottom"

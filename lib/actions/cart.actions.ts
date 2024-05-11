@@ -1,12 +1,11 @@
 "use server";
 import { mongoConnect } from "@/lib/database/connection";
-import { auth } from "@clerk/nextjs/server";
 import Cart from "../database/models/cart.model";
 import Product from "../database/models/product.model";
-const { userId } = auth();
+import User from "../database/models/user.model";
 
 // Get Cart
-export async function getCart() {
+export async function getCart(userId: string | null | undefined) {
   try {
     await mongoConnect();
     const cart = await Cart.findOne({ userClerkId: userId }).populate({
@@ -14,6 +13,8 @@ export async function getCart() {
       model: Product,
       select: "_id name price picture color",
     });
+    console.log("asd")
+    if (!cart) throw new Error('Cart not found')
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
     console.log(error);
@@ -21,7 +22,7 @@ export async function getCart() {
 }
 
 // Add to Cart
-export async function addCart(productId: string | undefined) {
+export async function addCart(userId: string | null | undefined, productId: string | undefined) {
   try {
     await mongoConnect();
 
@@ -37,7 +38,6 @@ export async function addCart(productId: string | undefined) {
           totalQuantity: 1,
           expireAt: null,
         });
-        // { $push: { items: { product: productId, quantity: 1 } } }
         return;
       }
 

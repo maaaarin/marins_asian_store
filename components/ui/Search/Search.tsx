@@ -19,33 +19,26 @@ export const Search = ({
   closeDisplay,
   searchQuery,
 }: Props) => {
+
   // Products
   const [products, setProducts] = useState<Product[]>([]);
-
   useEffect(() => {
     // Products Fetch
     const getProducts = async () => {
       const productsList = await getAllProducts({ query: searchQuery });
       productsList && setProducts(productsList);
     };
-
     getProducts();
-
     // Delay
     // const fetchDelay = setTimeout(() => {
     //     getProducts();
     // }, 250);
-
     return () => {
       // clearTimeout(fetchDelay);
     };
-    
-    // if (searchQuery) {
-    //   setSearchDisplay(false);
-    // }
   }, [searchQuery]);
 
-
+  // Display
   function handleSearchDisplay() {
     if (searchDisplay) {
       closeDisplay();

@@ -6,6 +6,7 @@ import wishlistRemoveIcon from "@/public/assets/icons/wishlist-remove.json";
 import { existsWishlist } from "@/lib/actions/wishlist.actions";
 import { Player } from "@lordicon/react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 
 type Props = {
   productId: string;
@@ -17,11 +18,12 @@ export const AddWishlistCardButton = ({ productId, alreadyAdded }: Props) => {
   const [onWihlist, setOnWishlist] = useState(alreadyAdded);
   const wishlistAddRef = useRef<Player>(null),
     wishlistRemoveRef = useRef<Player>(null);
+    const { isLoaded, userId, sessionId, getToken } = useAuth();
 
   useEffect(() => {
     // Verificar si el producto ya está en wishlist
     const getProduct = async () => {
-      const produtExist = await existsWishlist(productId);
+      const produtExist = await existsWishlist(userId, productId);
       if (!produtExist) {
         setOnWishlist(false);
       } else {
@@ -31,11 +33,11 @@ export const AddWishlistCardButton = ({ productId, alreadyAdded }: Props) => {
     if (!alreadyAdded) {
       getProduct();
     }
-  }, [alreadyAdded, productId]);
+  }, [alreadyAdded, productId, userId]);
 
   async function handleUpdateWishlist() {
     if (!onWihlist) {
-      const addingWishlist = await addWishlist(productId);
+      const addingWishlist = await addWishlist(userId, productId);
       if (addingWishlist) {
         wishlistRemoveRef.current?.playFromBeginning();
         router.refresh();
@@ -44,7 +46,7 @@ export const AddWishlistCardButton = ({ productId, alreadyAdded }: Props) => {
     }
     // Then remove
     wishlistRemoveRef.current?.playFromBeginning();
-    const removingWishlist = await removeWishlist(productId);
+    const removingWishlist = await removeWishlist(userId, productId);
     if (removingWishlist) {
       wishlistAddRef.current?.playFromBeginning();
       router.refresh();
