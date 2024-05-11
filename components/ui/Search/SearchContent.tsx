@@ -1,15 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 import { ProductCard } from "../Product/ProductCard";
 import { Product } from "@/types";
+import { getAllProducts } from "@/lib/actions/product.actions";
 
 type Props = {
-  products: Product[];
   searchQuery: string;
 };
 
-export const SearchContent = ({ products, searchQuery }: Props) => {
+export const SearchContent = ({ searchQuery }: Props) => {
+
+    // Products
+    const [products, setProducts] = useState<Product[]>([]);
+    useEffect(() => {
+      // Products Fetch
+      const getProducts = async () => {
+        const productsList = await getAllProducts({ query: searchQuery });
+        productsList && setProducts(productsList);
+      };
+      getProducts();
+      // Delay
+      // const fetchDelay = setTimeout(() => {
+      //     getProducts();
+      // }, 250);
+      return () => {
+        // clearTimeout(fetchDelay);
+      };
+    }, [searchQuery]);
   return (
     <div className="size-full bg-white rounded-3xl px-8 py-10 pointer-events-auto">
       <div className="size-full flex flex-col gap-3">

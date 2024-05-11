@@ -48,12 +48,18 @@ export type Product = {
 };
 
 export type CartItem = {
-  product: Product;
+  product: {
+    _id: string;
+    name: string;
+    price: number;
+    picture: string;
+    color: string;
+  };
   quantity: number;
 };
 
 export type Cart = {
-  userClerkId: string | null;
+  userClerkId: string | undefined;
   items: CartItem[];
   totalPrice: number;
   totalQuantity: number;

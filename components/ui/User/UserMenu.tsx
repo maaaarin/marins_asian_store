@@ -13,12 +13,14 @@ import settingsIcon from "@/public/assets/icons/settings.json";
 import wishlistIcon from "@/public/assets/icons/wishlist.json";
 import ordersIcon from "@/public/assets/icons/orders.json";
 import achievementsIcon from "@/public/assets/icons/achievements.json";
+import { useDispatch } from "react-redux";
+import { resetCart } from "@/lib/store/slices/cart.slice";
 
 export const UserMenu = () => {
   const { isLoaded, isSignedIn, user } = useUser();
-  const router = useRouter();
   const { signOut } = useClerk();
-
+  const dispatch = useDispatch();
+  const router = useRouter();
   // Animated icons
   const couponRef = useRef<Player>(null),
     accountRef = useRef<Player>(null),
@@ -67,6 +69,11 @@ export const UserMenu = () => {
     },
   ];
 
+  function handleSingOut() {
+    dispatch(resetCart());
+    router.push("/");
+  }
+
   return (
     <div className="size-auto bg-white rounded-3xl  flex flex-col pointer-events-auto">
       <div className="w-full h-auto">
@@ -110,7 +117,7 @@ export const UserMenu = () => {
         })}
         <li
           className="flex gap-2 items-center px-4 py-2 rounded-full text-black hover:bg-red-50 duration-500 hover:text-red-300 cursor-pointer"
-          onClick={() => signOut(() => router.push("/"))}>
+          onClick={() => signOut(() => handleSingOut())}>
           <svg fill="currentColor" className="size-5 " viewBox="0 0 16 16">
             <path
               fillRule="evenodd"

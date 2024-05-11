@@ -2,7 +2,6 @@
 import { mongoConnect } from "@/lib/database/connection";
 import Cart from "../database/models/cart.model";
 import Product from "../database/models/product.model";
-import User from "../database/models/user.model";
 
 // Get Cart
 export async function getCart(userId: string | null | undefined) {
@@ -13,8 +12,8 @@ export async function getCart(userId: string | null | undefined) {
       model: Product,
       select: "_id name price picture color",
     });
-    console.log("asd")
-    if (!cart) throw new Error('Cart not found')
+    console.log("asd");
+    if (!cart) throw new Error("Cart not found");
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
     console.log(error);
@@ -22,7 +21,10 @@ export async function getCart(userId: string | null | undefined) {
 }
 
 // Add to Cart
-export async function addCart(userId: string | null | undefined, productId: string | undefined) {
+export async function addCart(
+  userId: string | null | undefined,
+  productId: string | undefined
+) {
   try {
     await mongoConnect();
 
@@ -38,7 +40,7 @@ export async function addCart(userId: string | null | undefined, productId: stri
           totalQuantity: 1,
           expireAt: null,
         });
-        return;
+        return false;
       }
 
       const cartProduct = await Cart.exists({
@@ -64,7 +66,7 @@ export async function addCart(userId: string | null | undefined, productId: stri
           { new: true }
         );
       }
-      return;
+      return true;
     }
 
     // Check user cart

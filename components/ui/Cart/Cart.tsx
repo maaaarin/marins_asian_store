@@ -1,53 +1,27 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./Cart.module.scss";
 import { Player } from "@lordicon/react";
 import cartIcon from "@/public/assets/icons/cart.json";
 import CartEmpty from "./CartEmpty";
 import clsx from "clsx";
 import CartContent from "./CartContent";
-import { Cart as CartType } from "@/types";
+import { useSelector } from "react-redux";
+import { countCartItemsSelector } from "../../../lib/store/slices/cart.slice";
+import {
+  subtotalCartSelector,
+  totalQuantityCartSelector,
+} from "@/lib/store/slices/cart.slice";
 
 type Props = {
-  cart: CartType | undefined,
   cartDisplay: boolean;
-  setCartDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-  closeDisplay: Function;
+  closeDisplay: any;
 };
 
-export const Cart = ({ cart, cartDisplay, setCartDisplay, closeDisplay }: Props) => {
-
-  // Cart icon
-  const cartRef = useRef<Player>(null);
-  function cartIconAnimation() {
-    let iconAnimation = cartRef.current;
-    if (!iconAnimation?.isPlaying) {
-      iconAnimation?.playFromBeginning();
-    }
-  }
-
-  // Display
-  function handleCartDisplay() {
-    if (cartDisplay) {
-      closeDisplay();
-    } else {
-      closeDisplay();
-      setCartDisplay(true);
-    }
-  }
+export const Cart = ({ cartDisplay, closeDisplay }: Props) => {
+  const countCartItems = useSelector(countCartItemsSelector);
 
   return (
     <>
-      <div
-        className="relative grid place-items-center cursor-pointer"
-        id="cart"
-        onClick={handleCartDisplay}>
-        <Player ref={cartRef} icon={cartIcon} size={32} />
-        {cart?.items.length && (
-          <div className="size-5 bg-primary rounded-full absolute -top-2 -right-2  text-xs text-white outline outline-4 outline-white flex items-center justify-center">
-            {cart?.items.length}
-          </div>
-        )}
-      </div>
       <div
         className={clsx(
           `${styles.cartContainer} container h-auto fixed top-24 right-0 left-0 flex justify-center pointer-events-none`,
@@ -56,9 +30,7 @@ export const Cart = ({ cart, cartDisplay, setCartDisplay, closeDisplay }: Props)
         )}>
         <div className="w-3/5 h-auto bg-white pt-6 flex flex-col gap-5 rounded-3xl point pointer-events-auto">
           <div className="w-full h-auto flex relative items-center justify-center px-8">
-            <button
-              className="size-5 absolute left-8"
-              onClick={handleCartDisplay}>
+            <button className="size-5 absolute left-8" onClick={closeDisplay}>
               <svg
                 className="size-5"
                 xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +44,7 @@ export const Cart = ({ cart, cartDisplay, setCartDisplay, closeDisplay }: Props)
             </button>
             <span className="font-bold text-xl text-center">Your Cart</span>
           </div>
-          {cart ? <CartContent cart={cart} /> : <CartEmpty />}
+          {countCartItems ? <CartContent /> : <CartEmpty />}
         </div>
       </div>
     </>

@@ -3,19 +3,16 @@
 // Modules
 import Link from "next/link";
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Cart as CartType } from "@/types";
+import { useAuth } from "@clerk/nextjs";
 
 // NextUI
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@nextui-org/react";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 
 // Components
 import { Search } from "../Search/Search";
@@ -23,10 +20,19 @@ import { SearchBar } from "../Search/SearchBar";
 import { UserMenu } from "@/components/ui/User/UserMenu";
 
 // Files
+import cartIcon from "@/public/assets/icons/cart.json";
 import logo from "/public/assets/logo.svg";
 import { FlavorTrail } from "../FlavorTrail/FlavorTrail";
 import { Cart } from "../Cart/Cart";
 import { getCart } from "@/lib/actions/cart.actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  countCartItemsSelector,
+  setCart,
+  subtotalCartSelector,
+  totalQuantityCartSelector,
+} from "@/lib/store/slices/cart.slice";
+import { Player } from "@lordicon/react";
 
 export const Header = () => {
   // Clerk
@@ -35,12 +41,12 @@ export const Header = () => {
     if (!isSignedIn || !isLoaded) {
       closeDisplay();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSignedIn, isLoaded]);
 
   // Search
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query") || "";
-
   // Display
   const [searchDisplay, setSearchDisplay] = useState(false),
     [cartDisplay, setCartDisplay] = useState(false);
@@ -57,22 +63,60 @@ export const Header = () => {
 
   const [currentPathName, setCurrentPathName] = useState(pathName);
   useEffect(() => {
-    if (currentPathName !== pathName){
+    if (currentPathName !== pathName) {
       setSearchDisplay(false);
       setCurrentPathName(pathName);
     }
-  }, [searchQuery, currentPathName, pathName])
+  }, [searchQuery, currentPathName, pathName]);
 
   // Cart
-  const [cart, setCart] = useState<CartType>();
+  const dispatch = useDispatch();
+  const countCartItems = useSelector(countCartItemsSelector),
+    subtotalCart = useSelector(subtotalCartSelector),
+    [prevSubtotalCart, setPrevSubtotalCart] = useState(subtotalCart);
+
   useEffect(() => {
     const fetchCart = async () => {
       const userCart = await getCart(user?.id);
-      userCart && setCart(userCart);
-      console.log(userCart);
+      userCart && dispatch(setCart(userCart));
     };
     fetchCart();
-  }, [user, ]);
+  }, [user, isSignedIn, dispatch]);
+
+  // Cart Icon
+  const cartRef = useRef<Player>(null);
+  function cartIconAnimation() {
+    let iconAnimation = cartRef.current;
+    if (!iconAnimation?.isPlaying) {
+      iconAnimation?.playFromBeginning();
+    }
+  }
+
+  useEffect(() => {
+    if (subtotalCart > prevSubtotalCart) {
+      cartIconAnimation();
+    }
+    setPrevSubtotalCart(subtotalCart);
+  }, [subtotalCart, prevSubtotalCart]);
+
+  // Display
+  function handleCartDisplay() {
+    if (cartDisplay) {
+      closeDisplay();
+    } else {
+      closeDisplay();
+      setCartDisplay(true);
+    }
+  }
+
+  function handleSearchDisplay() {
+    if (searchDisplay) {
+      closeDisplay();
+    } else {
+      closeDisplay();
+      setSearchDisplay(true);
+    }
+  }
 
   return (
     <header className="container h-16 z-50 fixed top-4 right-0 left-0  flex justify-center items-center">
@@ -95,21 +139,35 @@ export const Header = () => {
         <ul className="w-auto h-full flex gap-4 items-center">
           <li>
             {/* Search */}
-            <Search
-              searchDisplay={searchDisplay}
-              setSearchDisplay={setSearchDisplay}
-              searchQuery={searchQuery}
-              closeDisplay={closeDisplay}
-            />
+            <div className="cursor-pointer" onClick={handleSearchDisplay}>
+              <svg
+                className={clsx("size-6", {
+                  hidden: searchDisplay || searchQuery,
+                })}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20.26 20.72">
+                <path d="M9.74,19.48C4.37,19.48,0,15.11,0,9.74S4.37,0,9.74,0s9.74,4.37,9.74,9.74-4.37,9.74-9.74,9.74ZM9.74,1.5C5.2,1.5,1.5,5.2,1.5,9.74s3.7,8.24,8.24,8.24,8.24-3.7,8.24-8.24S14.28,1.5,9.74,1.5Z" />
+                <path d="M19.51,20.72c-.19,0-.38-.07-.53-.22l-3.52-3.52c-.29-.29-.29-.77,0-1.06,.29-.29,.77-.29,1.06,0l3.52,3.52c.29,.29,.29,.77,0,1.06-.15,.15-.34,.22-.53,.22Z" />
+              </svg>
+            </div>
+            <Search searchDisplay={searchDisplay} searchQuery={searchQuery} />
           </li>
           <li>
-            {/* <Cart/> */}
-            <Cart
-              cart={cart}
-              cartDisplay={cartDisplay}
-              setCartDisplay={setCartDisplay}
-              closeDisplay={closeDisplay}
-            />
+            {/* Cart */}
+            <div
+              className="relative grid place-items-center cursor-pointer"
+              onClick={handleCartDisplay}>
+              <Player ref={cartRef} icon={cartIcon} size={32} />
+              {countCartItems ? (
+                <div className="size-5 bg-primary rounded-full absolute -top-2 -right-2  text-xs text-white outline outline-4 outline-white flex items-center justify-center">
+                  {countCartItems}
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <Cart cartDisplay={cartDisplay} closeDisplay={closeDisplay} />
           </li>
           {/* Flavor Trail */}
           <SignedIn>

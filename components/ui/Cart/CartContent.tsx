@@ -2,8 +2,21 @@ import { Cart } from "@/types";
 import React, { useEffect } from "react";
 import { CartItem } from "./CartItem";
 import { CartItem as CartItemType } from "@/types";
+import { useSelector } from "react-redux";
+import {
+  subtotalCartSelector,
+  totalQuantityCartSelector,
+} from "@/lib/store/slices/cart.slice";
 
-const CartContent = ({ cart }: { cart: Cart }) => {
+const CartContent = () => {
+  const cart = useSelector((state: any) => state.cart),
+    totalCartItems = useSelector(totalQuantityCartSelector),
+    subtotalCart = useSelector(subtotalCartSelector);
+
+  useEffect(() => {
+    console.log(cart);
+  }, [totalCartItems, subtotalCart]);
+
   return (
     <>
       <div className="size-full flex flex-col overflow-auto px-4 rounded-3xl">
@@ -23,7 +36,7 @@ const CartContent = ({ cart }: { cart: Cart }) => {
           <div className="rounded-lg gap-5 flex items-center justify-between">
             Subtotal
             <span className="py-1 px-2 bg-neutral-200 rounded-lg">
-              {cart.totalPrice.toFixed(2)} €
+              {subtotalCart.toFixed(2)} €
             </span>
           </div>
           <button className="px-16 py-3 bg-primary rounded-full text-white">

@@ -12,6 +12,9 @@ export async function getWishlist(userId: string | null | undefined) {
       model: Product,
       select: "_id name price picture color",
     });
+    console.log("userid" + userId);
+    console.log("user:");
+    console.log(user);
     return JSON.parse(JSON.stringify(user.wishlist));
   } catch (error) {
     console.log(error);
@@ -19,7 +22,10 @@ export async function getWishlist(userId: string | null | undefined) {
 }
 
 // Exists on Wishlist
-export async function existsWishlist(userId: string | null | undefined, productId: string) {
+export async function existsWishlist(
+  userId: string | null | undefined,
+  productId: string
+) {
   try {
     await mongoConnect();
     const product = await User.exists({
@@ -36,7 +42,10 @@ export async function existsWishlist(userId: string | null | undefined, productI
 }
 
 // Add to Wishlist
-export async function addWishlist(userId: string | null | undefined, productId: string) {
+export async function addWishlist(
+  userId: string | null | undefined,
+  productId: string
+) {
   try {
     await mongoConnect();
     const addProduct = await User.findOneAndUpdate(
@@ -51,7 +60,10 @@ export async function addWishlist(userId: string | null | undefined, productId: 
 }
 
 // Remove from Wishlist
-export async function removeWishlist(userId: string | null | undefined, productId: string) {
+export async function removeWishlist(
+  userId: string | null | undefined,
+  productId: string
+) {
   try {
     await mongoConnect();
     const removeProduct = await User.findOneAndUpdate(
