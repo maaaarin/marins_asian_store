@@ -16,8 +16,10 @@ const CartContent = () => {
     cartId = useSelector(cartIdSelector);
 
   useEffect(() => {
-    console.log(cart);
-    console.log(cartId);
+    console.log({ cart });
+    // console.log(cartId);
+    // const guestCart = window.localStorage.getItem("cart");
+    // guestCart && console.log(JSON.parse(guestCart));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalCartItems, subtotalCart]);
 

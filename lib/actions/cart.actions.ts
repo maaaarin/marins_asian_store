@@ -5,15 +5,29 @@ import Product from "../database/models/product.model";
 import { Types } from "mongoose";
 
 // Get Cart
-export async function getCart(userId: string | null | undefined) {
+export async function getCart(
+  userId: string | null | undefined,
+  cartId?: string | null | undefined
+) {
   try {
     await mongoConnect();
-    const cart = await Cart.findOne({ userClerkId: userId }).populate({
+    if (userId) {
+      const cart = await Cart.findOne({ userClerkId: userId }).populate({
+        path: "items.product",
+        model: Product,
+        select: "_id name price picture color",
+      });
+      console.log("user i d!");
+      if (!cart) throw new Error("Cart not found");
+      return JSON.parse(JSON.stringify(cart));
+    }
+
+    const cart = await Cart.findOne({ _id: cartId }).populate({
       path: "items.product",
       model: Product,
       select: "_id name price picture color",
     });
-    console.log("asd");
+    console.log("cart id!");
     if (!cart) throw new Error("Cart not found");
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
@@ -30,6 +44,9 @@ export async function addCart(
   try {
     await mongoConnect();
 
+    // Get product details
+    const product = await Product.findOne({ _id: productId });
+
     // If it's a user
     if (userId) {
       // Check user cart
@@ -41,6 +58,7 @@ export async function addCart(
           userClerkId: userId,
           items: { product: productId, quantity: 1 },
           totalQuantity: 1,
+          totalPrice: product.price,
           expireAt: null,
         });
         return false;
@@ -55,7 +73,13 @@ export async function addCart(
       if (cartProduct) {
         await Cart.updateOne(
           { userClerkId: userId, "items.product": productId },
-          { $inc: { "items.$.quantity": 1, totalQuantity: 1 } },
+          {
+            $inc: {
+              "items.$.quantity": 1,
+              totalQuantity: 1,
+              totalPrice: product.price,
+            },
+          },
           { new: true }
         );
       } else {
@@ -64,7 +88,7 @@ export async function addCart(
           { userClerkId: userId },
           {
             $push: { items: { product: productId, quantity: 1 } },
-            $inc: { totalQuantity: 1 },
+            $inc: { totalQuantity: 1, totalPrice: product.price },
           },
           { new: true }
         );
@@ -72,32 +96,22 @@ export async function addCart(
       return true;
     }
 
-    // Check guest cart
-    // if (!cartId) {
-    //   const test = await Cart.create({
-    //     userClerkId: null,
-    //     items: { product: productId, quantity: 1 },
-    //     expireAt: Date.now(),
-    //   });
-    //   console.log("test---");
-    //   console.log(test);
-    //   return JSON.parse(JSON.stringify(test));
-    // }
-
     // If it's a guest with no cart, creates a new one
 
     console.log("verify cart id");
     console.log(cartId);
     const cartExists = await Cart.exists({ _id: cartId });
 
+    // If Cart doesn't exist, create a new one
     if (!cartExists) {
-      const test = await Cart.create({
+      const cart = await Cart.create({
         userClerkId: null,
+        items: { product: productId, quantity: 1 },
+        totalQuantity: 1,
+        totalPrice: product.price,
         expireAt: Date.now(),
       });
-      console.log("test---");
-      console.log(test);
-      return JSON.parse(JSON.stringify(test));
+      return JSON.parse(JSON.stringify(cart));
     }
 
     const cartProduct = await Cart.exists({
@@ -109,7 +123,14 @@ export async function addCart(
     if (cartProduct) {
       const increaseProduct = await Cart.updateOne(
         { _id: cartId, "items.product": productId },
-        { _id: cartId, $inc: { "items.$.quantity": 1 } },
+        {
+          _id: cartId,
+          $inc: {
+            "items.$.quantity": 1,
+            totalQuantity: 1,
+            totalPrice: product.price,
+          },
+        },
         { new: true }
       );
       console.log(increaseProduct);
@@ -119,7 +140,11 @@ export async function addCart(
       console.log("añadir ya que no existe");
       const addNewProduct = await Cart.updateOne(
         { _id: cartId },
-        { _id: cartId, $push: { items: { product: productId, quantity: 1 } } },
+        {
+          _id: cartId,
+          $push: { items: { product: productId, quantity: 1 } },
+          $inc: { totalQuantity: 1, totalPrice: product.price },
+        },
         { new: true }
       );
       return JSON.parse(JSON.stringify(addNewProduct));
@@ -128,14 +153,3 @@ export async function addCart(
     console.log(error);
   }
 }
-
-// const item = state.items.find(
-//   (item) => item.product._id === action.payload.product._id
-// );
-
-// if (item) {
-//   item.quantity++;
-// } else {
-//   state.items.push({ ...action.payload, quantity: 1 });
-//   state.totalQuantity++;
-// }

@@ -27,6 +27,7 @@ import { Cart } from "../Cart/Cart";
 import { getCart } from "@/lib/actions/cart.actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  cartIdSelector,
   countCartItemsSelector,
   resetCart,
   setCart,
@@ -79,8 +80,28 @@ export const Header = () => {
   useEffect(() => {
     dispatch(resetCart());
     const fetchCart = async () => {
-      const userCart = await getCart(user?.id);
-      userCart && dispatch(setCart(userCart));
+      // User cart
+      if (user?.id) {
+        window.localStorage.removeItem("cart");
+        const getUserCart = await getCart(user?.id);
+        getUserCart && dispatch(setCart(getUserCart));
+        return;
+      }
+      // Try to find guest cart on localStorage
+      const localCart = window.localStorage.getItem("cart");
+      if (localCart) {
+        const guestCart = JSON.parse(localCart);
+        const getGuestCart = await getCart(null, guestCart._id);
+        // getGuestCart && dispatch(setCart(getGuestCart));
+        if (getGuestCart) {
+          dispatch(setCart(getGuestCart));
+          console.log("todo correcto!");
+        } else {
+          console.log("no hay cart!");
+          window.localStorage.removeItem("cart");
+        }
+        return;
+      }
     };
     fetchCart();
   }, [user, isSignedIn, dispatch]);
@@ -205,7 +226,7 @@ export const Header = () => {
             <SignedOut>
               <Link href="/sign-in">
                 <button className="w-fit h-10 bg-secondary rounded-xl px-4 text-white">
-                  Log In
+                  Sign In
                 </button>
               </Link>
             </SignedOut>
