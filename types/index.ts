@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export type User = {
   clerkId: string;
   email: string;
@@ -56,9 +58,11 @@ export type CartItem = {
     color: string;
   };
   quantity: number;
+  _id?: string;
 };
 
 export type Cart = {
+  _id?: string | undefined;
   userClerkId: string | undefined;
   items: CartItem[];
   totalPrice: number;

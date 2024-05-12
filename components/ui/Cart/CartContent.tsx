@@ -4,6 +4,7 @@ import { CartItem } from "./CartItem";
 import { CartItem as CartItemType } from "@/types";
 import { useSelector } from "react-redux";
 import {
+  cartIdSelector,
   subtotalCartSelector,
   totalQuantityCartSelector,
 } from "@/lib/store/slices/cart.slice";
@@ -11,10 +12,13 @@ import {
 const CartContent = () => {
   const cart = useSelector((state: any) => state.cart),
     totalCartItems = useSelector(totalQuantityCartSelector),
-    subtotalCart = useSelector(subtotalCartSelector);
+    subtotalCart = useSelector(subtotalCartSelector),
+    cartId = useSelector(cartIdSelector);
 
   useEffect(() => {
     console.log(cart);
+    console.log(cartId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalCartItems, subtotalCart]);
 
   return (

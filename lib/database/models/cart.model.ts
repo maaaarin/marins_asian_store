@@ -1,10 +1,10 @@
 import { Schema, model, models } from "mongoose";
 
 const cartSchema = new Schema({
-  userClerkId: { type: String, required: true, unique: true, default: null },
+  userClerkId: { type: String, default: null },
   items: [
     {
-      product: { type: Schema.Types.ObjectId, ref: "Product", unique: true },
+      product: { type: Schema.Types.ObjectId, ref: "Product" },
       quantity: { type: Number },
     },
   ],
@@ -13,7 +13,7 @@ const cartSchema = new Schema({
   expireAt: {
     type: Date,
     default: Date.now,
-    index: { expires: "1m" },
+    index: { expires: "15m" },
   },
 });
 

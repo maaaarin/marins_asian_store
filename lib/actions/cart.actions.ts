@@ -2,6 +2,7 @@
 import { mongoConnect } from "@/lib/database/connection";
 import Cart from "../database/models/cart.model";
 import Product from "../database/models/product.model";
+import { Types } from "mongoose";
 
 // Get Cart
 export async function getCart(userId: string | null | undefined) {
@@ -23,11 +24,13 @@ export async function getCart(userId: string | null | undefined) {
 // Add to Cart
 export async function addCart(
   userId: string | null | undefined,
-  productId: string | undefined
+  productId: string | undefined,
+  cartId?: string | null | undefined
 ) {
   try {
     await mongoConnect();
 
+    // If it's a user
     if (userId) {
       // Check user cart
       const cartExists = await Cart.exists({ userClerkId: userId });
@@ -69,42 +72,58 @@ export async function addCart(
       return true;
     }
 
-    // Check user cart
-    const cartExists = await Cart.exists({ userClerkId: userId });
+    // Check guest cart
+    // if (!cartId) {
+    //   const test = await Cart.create({
+    //     userClerkId: null,
+    //     items: { product: productId, quantity: 1 },
+    //     expireAt: Date.now(),
+    //   });
+    //   console.log("test---");
+    //   console.log(test);
+    //   return JSON.parse(JSON.stringify(test));
+    // }
 
-    // Is there's no cart, create one and push
+    // If it's a guest with no cart, creates a new one
+
+    console.log("verify cart id");
+    console.log(cartId);
+    const cartExists = await Cart.exists({ _id: cartId });
+
     if (!cartExists) {
-      await Cart.create({
-        userClerkId: userId,
-        items: { product: productId, quantity: 1 },
-        expireAt: null,
+      const test = await Cart.create({
+        userClerkId: null,
+        expireAt: Date.now(),
       });
-      // { $push: { items: { product: productId, quantity: 1 } } }
-      return;
+      console.log("test---");
+      console.log(test);
+      return JSON.parse(JSON.stringify(test));
     }
 
     const cartProduct = await Cart.exists({
-      userClerkId: userId,
+      _id: cartId,
       items: { $elemMatch: { product: productId } },
     });
 
     // If product exists, increase quantity or...
     if (cartProduct) {
-      await Cart.updateOne(
-        { userClerkId: userId, "items.product": productId },
-        { $inc: { "items.$.quantity": 1 } },
+      const increaseProduct = await Cart.updateOne(
+        { _id: cartId, "items.product": productId },
+        { _id: cartId, $inc: { "items.$.quantity": 1 } },
         { new: true }
       );
+      console.log(increaseProduct);
+      return JSON.parse(JSON.stringify(increaseProduct));
     } else {
       // Add it
-      await Cart.updateOne(
-        { userClerkId: userId },
-        { $push: { items: { product: productId, quantity: 1 } } },
+      console.log("añadir ya que no existe");
+      const addNewProduct = await Cart.updateOne(
+        { _id: cartId },
+        { _id: cartId, $push: { items: { product: productId, quantity: 1 } } },
         { new: true }
       );
+      return JSON.parse(JSON.stringify(addNewProduct));
     }
-
-    return;
   } catch (error) {
     console.log(error);
   }

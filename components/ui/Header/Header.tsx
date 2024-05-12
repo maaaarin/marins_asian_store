@@ -28,6 +28,7 @@ import { getCart } from "@/lib/actions/cart.actions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   countCartItemsSelector,
+  resetCart,
   setCart,
   subtotalCartSelector,
   totalQuantityCartSelector,
@@ -76,6 +77,7 @@ export const Header = () => {
     [prevSubtotalCart, setPrevSubtotalCart] = useState(subtotalCart);
 
   useEffect(() => {
+    dispatch(resetCart());
     const fetchCart = async () => {
       const userCart = await getCart(user?.id);
       userCart && dispatch(setCart(userCart));
