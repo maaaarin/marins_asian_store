@@ -18,26 +18,6 @@ export async function getWishlist(userId: string | null | undefined) {
   }
 }
 
-// Exists on Wishlist
-export async function existsWishlist(
-  userId: string | null | undefined,
-  productId: string
-) {
-  try {
-    await mongoConnect();
-    const product = await User.exists({
-      clerkId: userId,
-      wishlist: productId,
-    });
-    if (product) {
-      return true;
-    }
-    return false;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 // Add to Wishlist
 export async function addWishlist(
   userId: string | null | undefined,
@@ -68,10 +48,7 @@ export async function removeWishlist(
       { $pull: { wishlist: productId } },
       { new: true }
     );
-    if (removeProduct) {
-      return true;
-    }
-    return false;
+    return JSON.parse(JSON.stringify(removeProduct));
   } catch (error) {
     console.log(error);
   }

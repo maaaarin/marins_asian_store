@@ -49,14 +49,28 @@ export type Product = {
   };
 };
 
+export type ProductItem = {
+  _id: string;
+  name: string;
+  price: number;
+  picture: string;
+  color: string;
+};
+
+export type WishlistItem = {
+  _id: string;
+  name?: string;
+  price?: number;
+  picture?: string;
+  color?: string;
+};
+
+export type Wishlist = {
+  wishlist: WishlistItem[];
+};
+
 export type CartItem = {
-  product: {
-    _id: string;
-    name: string;
-    price: number;
-    picture: string;
-    color: string;
-  };
+  product: ProductItem;
   quantity: number;
   _id?: string;
 };

@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { addWishlist, removeWishlist } from "@/lib/actions/wishlist.actions";
+import {
+  addWishlist as addWishlistAction,
+  removeWishlist as removeWishlistAction,
+} from "@/lib/actions/wishlist.actions";
 import wishlistAddIcon from "@/public/assets/icons/wishlist-add.json";
 import wishlistRemoveIcon from "@/public/assets/icons/wishlist-remove.json";
-import { existsWishlist } from "@/lib/actions/wishlist.actions";
 import { Player } from "@lordicon/react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
@@ -13,6 +15,9 @@ import {
   PopoverContent,
   Button,
 } from "@nextui-org/react";
+import { useDispatch, useSelector } from "react-redux";
+import { isOnWishlistSelector } from "@/lib/store/slices/wishlist.slice";
+import { addWishlist, removeWishlist } from "@/lib/store/slices/wishlist.slice";
 
 type Props = {
   productId: string;
@@ -21,55 +26,40 @@ type Props = {
 
 export const AddWishlistCardButton = ({ productId, alreadyAdded }: Props) => {
   const router = useRouter();
-  const [onWishlist, setOnWishlist] = useState(alreadyAdded);
   const wishlistAddRef = useRef<Player>(null),
     wishlistRemoveRef = useRef<Player>(null);
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
+  const { userId } = useAuth();
+  const onWishlist = useSelector((state) =>
+    isOnWishlistSelector(state, productId)
+  );
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    // Verificar si el producto ya está en wishlist
-    if (userId) {
-      const getProduct = async () => {
-        const produtExist = await existsWishlist(userId, productId);
-        if (!produtExist) {
-          setOnWishlist(false);
-        } else {
-          setOnWishlist(true);
-        }
-      };
-      if (!alreadyAdded) {
-        getProduct();
-      }
-    }
-  }, [alreadyAdded, productId, userId]);
+  // useEffect(() => {
+  //   console.log(onWishlist);
+  // }, [onWishlist]);
 
   async function handleUpdateWishlist() {
     if (userId) {
       if (!onWishlist) {
-        const addingWishlist = await addWishlist(userId, productId);
+        const addingWishlist = await addWishlistAction(userId, productId);
+        dispatch(addWishlist(productId));
         if (addingWishlist) {
-          wishlistRemoveRef.current?.playFromBeginning();
+          // wishlistRemoveRef.current?.playFromBeginning();
           router.refresh();
         }
         return;
       }
       // Then remove
-      wishlistRemoveRef.current?.playFromBeginning();
-      const removingWishlist = await removeWishlist(userId, productId);
+      const removingWishlist = await removeWishlistAction(userId, productId);
+      dispatch(removeWishlist(productId));
       if (removingWishlist) {
-        wishlistAddRef.current?.playFromBeginning();
+        // wishlistAddRef.current?.playFromBeginning();
         router.refresh();
       }
     }
   }
 
-  function handleIconAnimation() {
-    if (onWishlist) {
-      setOnWishlist(false);
-    } else {
-      setOnWishlist(true);
-    }
-  }
+  // Wishlist for guest user
   const [isOpen, setIsOpen] = React.useState(false);
   const [closeTimeOut, setCloseTimeOut] = useState<NodeJS.Timeout | null>(null);
 
@@ -121,57 +111,24 @@ export const AddWishlistCardButton = ({ productId, alreadyAdded }: Props) => {
           </div>
         </PopoverContent>
       </Popover>
-      // <Tooltip
-      //   placement="left"
-      //   content={
-      //     <div className="px-1 py-2">
-      //       <div className="text-small font-bold">Not yet!</div>
-      //       <div className="text-tiny">Sign in to add to your wishlist!</div>
-      //     </div>
-      //   }
-      //   shouldCloseOnInteractOutside={(e) => false}
-      //   closeDelay={0}>
-      //   <Button
-      //     isIconOnly
-      //     size="lg"
-      //     ref={wishlistButton}
-      //     className="size-12 rounded-full grid place-items-center bg-white absolute top-0 right-0 m-4 !pointer-events-auto"
-      //     onClick={handleUpdateWishlist}>
-      //     <Player ref={wishlistRemoveRef} icon={wishlistRemoveIcon} size={36} />
-      //   </Button>
-      // </Tooltip>
     );
   }
 
-  if (alreadyAdded) {
-    return (
-      <button
-        className="size-12 rounded-full grid place-items-center bg-zinc-100"
-        onClick={handleUpdateWishlist}>
-        <Player ref={wishlistAddRef} icon={wishlistAddIcon} size={36} />
-      </button>
-    );
-  }
+  // if (onWishlist) {
+  //   return (
+  //     <button
+  //       className="size-12 rounded-full grid place-items-center bg-white absolute top-0 right-0 m-4 !pointer-events-auto"
+  //       onClick={handleUpdateWishlist}>
+  //       <Player ref={wishlistAddRef} icon={wishlistAddIcon} size={36} />
+  //     </button>
+  //   );
+  // }
 
   return (
     <button
       className="size-12 rounded-full grid place-items-center bg-white absolute top-0 right-0 m-4 !pointer-events-auto"
       onClick={handleUpdateWishlist}>
-      {onWishlist ? (
-        <Player
-          ref={wishlistAddRef}
-          icon={wishlistAddIcon}
-          size={36}
-          onComplete={handleIconAnimation}
-        />
-      ) : (
-        <Player
-          ref={wishlistRemoveRef}
-          icon={wishlistRemoveIcon}
-          size={36}
-          onComplete={handleIconAnimation}
-        />
-      )}
+      {onWishlist ? <span>Si</span> : <span>No</span>}
     </button>
   );
 };

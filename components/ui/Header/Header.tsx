@@ -35,6 +35,8 @@ import {
   totalQuantityCartSelector,
 } from "@/lib/store/slices/cart.slice";
 import { Player } from "@lordicon/react";
+import { resetWishlist, setWishlist } from "@/lib/store/slices/wishlist.slice";
+import { getWishlist } from "@/lib/actions/wishlist.actions";
 
 export const Header = () => {
   // Clerk
@@ -121,6 +123,28 @@ export const Header = () => {
     }
     setPrevSubtotalCart(subtotalCart);
   }, [subtotalCart, prevSubtotalCart]);
+
+  // Wishlist
+  useEffect(() => {
+    // dispatch(resetWishlist());
+    if (user?.id) {
+      const fetchWishlist = async () => {
+        const getUserWishlist = await getWishlist(user.id);
+        // getUserWishlist && setWishlist(getUserWishlist);
+        if (getUserWishlist) {
+          dispatch(setWishlist(getUserWishlist));
+          console.log("todo correcto!");
+          console.log(getUserWishlist);
+        }
+      };
+      fetchWishlist();
+    }
+  }, [user, dispatch]);
+
+  // const wishlist = useSelector((state: any) => state.wishlist.wishlist);
+  // useEffect(() => {
+  //   console.log(wishlist);
+  // }, [wishlist]);
 
   // Display
   function handleCartDisplay() {
