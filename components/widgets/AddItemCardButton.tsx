@@ -8,7 +8,7 @@ import {
 import { Product } from "@/types";
 import React from "react";
 import { Button } from "@nextui-org/react";
-import { addCart, getCart } from "@/lib/actions/cart.actions";
+import { addCartItem, getCart } from "@/lib/actions/cart.actions";
 import { useAuth } from "@clerk/nextjs";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,11 +22,11 @@ export const AddItemCardButton = ({ product }: Props) => {
   const cartId = useSelector(cartIdSelector);
 
   function handleAddItem() {
-    const addCartProduct = async () => {
+    const addCartItemProduct = async () => {
       console.log(userId);
       // If it's a user, add the product to the cart
       if (userId) {
-        const productAdded = await addCart(userId, product?._id);
+        const productAdded = await addCartItem(userId, product?._id);
         dispatch(
           addItem({
             _id: product?._id,
@@ -44,7 +44,7 @@ export const AddItemCardButton = ({ product }: Props) => {
         // verify if still exists
         const getCurrentCart = await getCart(null, cartId);
         if (getCurrentCart) {
-          const productAdded = await addCart(null, product?._id, cartId);
+          const productAdded = await addCartItem(null, product?._id, cartId);
           if (productAdded) {
             dispatch(
               addItem({
@@ -62,7 +62,7 @@ export const AddItemCardButton = ({ product }: Props) => {
       }
 
       // If it's a new guest with no cart, creates a new one
-      const newCart = await addCart(null, product?._id, null);
+      const newCart = await addCartItem(null, product?._id, null);
       if (newCart) {
         const getNewCart = await getCart(null, newCart._id);
         dispatch(setCart(getNewCart));
@@ -70,7 +70,7 @@ export const AddItemCardButton = ({ product }: Props) => {
         window.localStorage.setItem("cart", JSON.stringify(getNewCart));
       }
     };
-    addCartProduct();
+    addCartItemProduct();
   }
 
   return (

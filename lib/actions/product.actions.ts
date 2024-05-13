@@ -40,7 +40,6 @@ export async function getLatestProducts({ limit }: { limit: number }) {
 }
 
 // Get Product by ID
-
 export async function getProductById(id: string) {
   try {
     await mongoConnect();

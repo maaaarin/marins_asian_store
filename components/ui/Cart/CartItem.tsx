@@ -1,13 +1,15 @@
 "use client";
 
 import { ModifyItemQuantity } from "@/components/widgets/ModifyItemQuantity";
-import { removeItem } from "@/lib/store/slices/cart.slice";
+import { cartIdSelector, removeItem } from "@/lib/store/slices/cart.slice";
 import { CartItem as CartItemType } from "@/types";
 import Image from "next/image";
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import trashIcon from "@/public/assets/icons/trash.json";
 import { Player } from "@lordicon/react";
+import { useAuth } from "@clerk/nextjs";
+import { removeCartItem } from "@/lib/actions/cart.actions";
 
 // import dynamic from "next/dynamic";
 // const { Player } = dynamic(() => import("@lordicon/react"), { ssr: false });
@@ -17,8 +19,10 @@ type Props = {
 };
 
 export const CartItem = ({ item }: Props) => {
-  const dispatch = useDispatch(),
-    product = item.product;
+  const { userId } = useAuth();
+  const dispatch = useDispatch();
+  const cartId = useSelector(cartIdSelector);
+  const product = item.product;
 
   // Animated icon
   const playerRef = useRef<Player>(null);
@@ -28,6 +32,18 @@ export const CartItem = ({ item }: Props) => {
     if (!iconAnimation?.isPlaying) {
       iconAnimation?.playFromBeginning();
     }
+  }
+
+  function handleRemoveCartItem() {
+    const removingItem = async () => {
+      if (userId) {
+        const removeItemm = await removeCartItem(userId, product._id);
+        return;
+      }
+      const removeItemm = await removeCartItem(null, product._id, cartId);
+    };
+    dispatch(removeItem({ item }));
+    removingItem();
   }
 
   return (
@@ -49,9 +65,7 @@ export const CartItem = ({ item }: Props) => {
             </svg>
           </button>
           <button
-            onClick={() => {
-              dispatch(removeItem({ item }));
-            }}
+            onClick={handleRemoveCartItem}
             onMouseOver={() => {
               handleIconAnimation();
             }}

@@ -3,6 +3,7 @@ import { mongoConnect } from "@/lib/database/connection";
 import Cart from "../database/models/cart.model";
 import Product from "../database/models/product.model";
 import { Types } from "mongoose";
+import { Cart as CartType, CartItem as CartItemType } from "@/types";
 
 // Get Cart
 export async function getCart(
@@ -36,7 +37,7 @@ export async function getCart(
 }
 
 // Add to Cart
-export async function addCart(
+export async function addCartItem(
   userId: string | null | undefined,
   productId: string | undefined,
   cartId?: string | null | undefined
@@ -133,7 +134,6 @@ export async function addCart(
         },
         { new: true }
       );
-      console.log(increaseProduct);
       return JSON.parse(JSON.stringify(increaseProduct));
     } else {
       // Add it
@@ -152,4 +152,153 @@ export async function addCart(
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function increaseCartItem(
+  userId: string | null | undefined,
+  productId: string | undefined,
+  cartId?: string | null | undefined
+) {
+  try {
+    await mongoConnect();
+    // Get product details
+    const product = await Product.findOne({ _id: productId });
+
+    // If it's a user
+    if (userId) {
+      const increaseItem = await Cart.findOneAndUpdate(
+        { userClerkId: userId, "items.product": productId },
+        {
+          $inc: {
+            "items.$.quantity": 1,
+            totalQuantity: 1,
+            totalPrice: product.price,
+          },
+        },
+        { new: true }
+      );
+      return JSON.parse(JSON.stringify(increaseItem));
+    }
+
+    // Then guest cart
+    const increaseItem = await Cart.updateOne(
+      { _id: cartId, "items.product": productId },
+      {
+        _id: cartId,
+        $inc: {
+          "items.$.quantity": 1,
+          totalQuantity: 1,
+          totalPrice: product.price,
+        },
+      },
+      { new: true }
+    );
+    return JSON.parse(JSON.stringify(increaseItem));
+  } catch (error) {}
+}
+
+export async function decreaseCartItem(
+  userId: string | null | undefined,
+  productId: string | undefined,
+  cartId?: string | null | undefined
+) {
+  try {
+    await mongoConnect();
+    // Get product details
+    const product = await Product.findOne({ _id: productId });
+
+    // If it's a user
+    if (userId) {
+      const decreaseItem = await Cart.findOneAndUpdate(
+        {
+          userClerkId: userId,
+          items: {
+            $elemMatch: {
+              product: productId,
+              quantity: { $gt: 1 },
+            },
+          },
+        },
+        {
+          $inc: {
+            "items.$[elem].quantity": -1,
+            totalQuantity: -1,
+            totalPrice: -product.price,
+          },
+        },
+        {
+          new: true,
+          arrayFilters: [
+            { "elem.product": productId, "elem.quantity": { $gt: 1 } },
+          ],
+        }
+      );
+      return JSON.parse(JSON.stringify(decreaseItem));
+    }
+
+    // Then guest cart
+    const decreaseItem = await Cart.findOneAndUpdate(
+      {
+        _id: cartId,
+        items: {
+          $elemMatch: {
+            product: productId,
+            quantity: { $gt: 1 },
+          },
+        },
+      },
+      {
+        $inc: {
+          "items.$[elem].quantity": -1,
+          totalQuantity: -1,
+          totalPrice: -product.price,
+        },
+      },
+      {
+        new: true,
+        arrayFilters: [
+          { "elem.product": productId, "elem.quantity": { $gt: 1 } },
+        ],
+      }
+    );
+    return JSON.parse(JSON.stringify(decreaseItem));
+  } catch (error) {}
+}
+
+export async function removeCartItem(
+  userId: string | null | undefined,
+  productId: string | undefined,
+  cartId?: string | null | undefined
+) {
+  try {
+    await mongoConnect();
+
+    // If it's a user
+    if (userId) {
+      // Get car item details
+      const cartItem = await Cart.findOne(
+        { userClerkId: userId },
+        { items: { $elemMatch: { product: productId } } }
+      ).populate({
+        path: "items.product",
+        model: Product,
+        select: "_id name price picture color",
+      });
+
+      const removeItem = await Cart.findOneAndUpdate(
+        { userClerkId: userId },
+        {
+          $pull: { items: { product: productId } },
+          $inc: {
+            totalQuantity: -cartItem.items[0].quantity,
+            totalPrice: -(
+              cartItem.items[0].product.price * cartItem.items[0].quantity
+            ),
+          },
+        },
+        { new: true }
+      );
+      return JSON.parse(JSON.stringify(removeItem));
+    }
+  } catch (error) {}
 }

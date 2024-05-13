@@ -29,7 +29,7 @@ const cartSlice = createSlice({
     },
     removeItem: (state, action) => {
       const itemIndex = state.items.findIndex(
-        (item) => item.product._id === action.payload.itemx._id
+        (item) => item.product._id === action.payload.item.product._id
       );
       state.items.splice(itemIndex, 1);
       state.totalQuantity--;

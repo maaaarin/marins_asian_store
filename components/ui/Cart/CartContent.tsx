@@ -16,7 +16,7 @@ const CartContent = () => {
     cartId = useSelector(cartIdSelector);
 
   useEffect(() => {
-    console.log({ cart });
+    console.log(cart);
     // console.log(cartId);
     // const guestCart = window.localStorage.getItem("cart");
     // guestCart && console.log(JSON.parse(guestCart));

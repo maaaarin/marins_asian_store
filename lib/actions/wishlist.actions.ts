@@ -12,9 +12,6 @@ export async function getWishlist(userId: string | null | undefined) {
       model: Product,
       select: "_id name price picture color",
     });
-    console.log("userid" + userId);
-    console.log("user:");
-    console.log(user);
     return JSON.parse(JSON.stringify(user.wishlist));
   } catch (error) {
     console.log(error);
