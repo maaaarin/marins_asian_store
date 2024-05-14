@@ -1,0 +1,91 @@
+$heart-color: #FF54F6;
+$heart-empty: rgb(196, 196, 196);
+
+.heartContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .checkbox {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 20;
+        cursor: pointer;
+    }
+
+    .svgContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .svgEmpty {
+        fill: $heart-empty;
+        position: absolute;
+    }
+
+    .svgFilled {
+        fill: $heart-color;
+        position: absolute;
+        animation: keyframesSvgFilled 1s;
+        display: none;
+    }
+
+    .svgCelebrate {
+        position: absolute;
+        animation: keyframesSvgCelebrate .5s;
+        animation-fill-mode: forwards;
+        display: none;
+        stroke: $heart-color;
+        fill: $heart-color;
+        stroke-width: 2px;
+    }
+
+    .checkbox:checked~.svgContainer .svgFilled {
+        display: block
+    }
+
+    .checkbox:checked~.svgContainer .svgCelebrate {
+        display: block
+    }
+
+    @keyframes keyframesSvgFilled {
+        0% {
+            transform: scale(0);
+        }
+
+        25% {
+            transform: scale(1.2);
+        }
+
+        50% {
+            transform: scale(1);
+            filter: brightness(1.5);
+        }
+    }
+
+    @keyframes keyframesSvgCelebrate {
+        0% {
+            transform: scale(0);
+        }
+
+        50% {
+            opacity: 1;
+            filter: brightness(1.5);
+        }
+
+        100% {
+            transform: scale(1.4);
+            opacity: 0;
+            display: none;
+        }
+    }
+}

@@ -30,6 +30,7 @@ export async function addWishlist(
       { $push: { wishlist: productId } },
       { new: true }
     );
+    console.log("huh?");
     return JSON.parse(JSON.stringify(addProduct));
   } catch (error) {
     console.log(error);
@@ -48,6 +49,9 @@ export async function removeWishlist(
       { $pull: { wishlist: productId } },
       { new: true }
     );
+    console.log("product id");
+    console.log(productId);
+    console.log(removeProduct);
     return JSON.parse(JSON.stringify(removeProduct));
   } catch (error) {
     console.log(error);
