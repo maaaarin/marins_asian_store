@@ -80,15 +80,15 @@ export const AddWishlistButton = ({ productId, type }: Props) => {
         }}>
         <PopoverTrigger>
           <Button
-            isIconOnly
-            size="lg"
-            className="size-12 rounded-full grid place-items-center bg-white absolute top-0 right-0 m-4 p-2 !pointer-events-auto">
+            className="!size-12 min-w-0 min-h-0 bg-white absolute top-0 right-0 m-4 p-3 !pointer-events-auto"
+            radius="full"
+            onClick={handleUpdateWishlist}>
             <div className={styles.heartContainer} title="Favorite">
               <input
                 type="checkbox"
-                className={styles.checkbox}
+                disabled={true}
                 defaultChecked={false}
-                disabled={true}></input>
+                className={styles.checkbox}></input>
               <div className={styles.svgContainer}>
                 <svg
                   viewBox="0 0 24 24"
@@ -130,7 +130,7 @@ export const AddWishlistButton = ({ productId, type }: Props) => {
 
   if (type === "wishlist") {
     return (
-      <button className="size-12 rounded-full grid place-items-center p-2 bg-zinc-100">
+      <button className="size-12 rounded-full grid place-items-center p-3 bg-zinc-100">
         <div className={styles.heartContainer} title="Favorite">
           <input
             type="checkbox"
@@ -259,7 +259,7 @@ export const AddWishlistButton = ({ productId, type }: Props) => {
         className="!size-full min-w-0 min-h-0 bg-white"
         radius="full"
         onClick={handleUpdateWishlist}></Button>
-      <div className="size-full absolute flex items-center justify-center p-2 pointer-events-none">
+      <div className="size-full absolute flex items-center justify-center p-3 pointer-events-none">
         <div className={styles.heartContainer} title="Favorite">
           <input
             type="checkbox"
