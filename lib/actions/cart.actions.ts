@@ -18,7 +18,6 @@ export async function getCart(
         model: Product,
         select: "_id name price picture color",
       });
-      console.log("user i d!");
       if (!cart) throw new Error("Cart not found");
       return JSON.parse(JSON.stringify(cart));
     }
@@ -28,7 +27,6 @@ export async function getCart(
       model: Product,
       select: "_id name price picture color",
     });
-    console.log("cart id!");
     if (!cart) throw new Error("Cart not found");
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
@@ -98,9 +96,6 @@ export async function addCartItem(
     }
 
     // If it's a guest with no cart, creates a new one
-
-    console.log("verify cart id");
-    console.log(cartId);
     const cartExists = await Cart.exists({ _id: cartId });
 
     // If Cart doesn't exist, create a new one
@@ -137,7 +132,6 @@ export async function addCartItem(
       return JSON.parse(JSON.stringify(increaseProduct));
     } else {
       // Add it
-      console.log("añadir ya que no existe");
       const addNewProduct = await Cart.updateOne(
         { _id: cartId },
         {
@@ -262,7 +256,9 @@ export async function decreaseCartItem(
       }
     );
     return JSON.parse(JSON.stringify(decreaseItem));
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function removeCartItem(
@@ -300,5 +296,7 @@ export async function removeCartItem(
       );
       return JSON.parse(JSON.stringify(removeItem));
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }

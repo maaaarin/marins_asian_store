@@ -3,10 +3,10 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./Product.module.scss";
-import { AddItemCardButton } from "@/components/widgets/AddItemCardButton";
+import { AddItemButton } from "@/components/widgets/AddItemButton";
 import { Product } from "@/types";
 import Link from "next/link";
-import { AddWishlistCardButton } from "@/components/widgets/AddWishlistCardButton";
+import { AddWishlistButton } from "@/components/widgets/AddWishlistButton";
 
 type Props = {
   key: string;
@@ -19,8 +19,8 @@ export const ProductCard = ({ product }: Props) => {
       className={`${styles.product} w-full rounded-3xl cursor-pointer border border-slate-300 relative`}>
       <div
         className={`${styles.productHover} h-3/4 w-full invisible duration-500 opacity-0  flex items-center justify-center absolute backdrop-blur-sm rounded-t-3xl z-50 pointer-events-none`}>
-        <AddItemCardButton product={product} />
-        <AddWishlistCardButton productId={product._id} />
+        <AddItemButton product={product} />
+        <AddWishlistButton productId={product._id} />
       </div>
       <Link href={`/products/${product._id}`}>
         <div

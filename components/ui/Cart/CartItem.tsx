@@ -10,9 +10,7 @@ import trashIcon from "@/public/assets/icons/trash.json";
 import { Player } from "@lordicon/react";
 import { useAuth } from "@clerk/nextjs";
 import { removeCartItem } from "@/lib/actions/cart.actions";
-
-// import dynamic from "next/dynamic";
-// const { Player } = dynamic(() => import("@lordicon/react"), { ssr: false });
+import { AddWishlistButton } from "@/components/widgets/AddWishlistButton";
 
 type Props = {
   item: CartItemType;
@@ -52,18 +50,7 @@ export const CartItem = ({ item }: Props) => {
         <div
           className="w-56 h-full rounded-2xl flex items-center justify-center relative"
           style={{ backgroundColor: `${product.color}` }}>
-          <button className="size-9 flex items-center justify-center bg-white rounded-full absolute top-0 right-0 m-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              className="size-2/4 text-gray-300"
-              viewBox="0 0 16 16">
-              <path
-                fillRule="evenodd"
-                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-              />
-            </svg>
-          </button>
+          <AddWishlistButton productId={product._id} type={"cart"} />
           <button
             onClick={handleRemoveCartItem}
             onMouseOver={() => {

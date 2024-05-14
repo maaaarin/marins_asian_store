@@ -1,10 +1,11 @@
-import { AddItemCardButton } from "@/components/widgets/AddItemCardButton";
-import { AddWishlistCardButton } from "@/components/widgets/AddWishlistCardButton";
+import { AddItemButton } from "@/components/widgets/AddItemButton";
+import { AddWishlistButton } from "@/components/widgets/AddWishlistButton";
 import { getWishlist } from "@/lib/actions/wishlist.actions";
 import { Product } from "@/types";
 import Image from "next/image";
 import React from "react";
 import { auth } from "@clerk/nextjs/server";
+import Link from "next/link";
 
 const Wishlist = async () => {
   const { userId } = auth();
@@ -15,23 +16,25 @@ const Wishlist = async () => {
       <h2 className="text-2xl font-semibold">Wishlist</h2>
       <ul className="w-full h-auto flex flex-col gap-3">
         {/* Wishlist */}
-        {wishlist?.map((product: Product, key: any) => (
+        {wishlist?.map((product: Product, key: number) => (
           <li
             key={key}
             className="w-full h-32 rounded-2xl flex items-center gap-8 border  relative py-4 px-8">
-            <div className="w-auto h-full flex-center relative">
-              <div
-                className="size-24  rounded-full"
-                style={{ background: product.color }}></div>
-              <Image
-                src={product.picture}
-                alt="Wishlist Item Picture"
-                width={96}
-                height={96}
-                className="w-auto max-w-[6/12] h-full z-10 absolute"
-              />
-            </div>
-            <div className="w-auto h-full flex flex-col justify-center items-start gap-2">
+            <Link href={`/products/${product._id}`}>
+              <div className="w-auto h-full flex-center relative">
+                <div
+                  className="size-24  rounded-full"
+                  style={{ background: product.color }}></div>
+                <Image
+                  src={product.picture}
+                  alt="Wishlist Item Picture"
+                  width={96}
+                  height={96}
+                  className="w-auto max-w-[6/12] h-full z-10 absolute"
+                />
+              </div>
+            </Link>
+            <div className="flex-grow h-full flex flex-col justify-center items-start gap-2">
               <span className="line-clamp-2">{product.name}</span>
               <div className="flex gap-2">
                 <span className="size-fit text-nowrap  bg-black text-white rounded-full py-1 px-3">
@@ -39,12 +42,9 @@ const Wishlist = async () => {
                 </span>
               </div>
             </div>
-            <div className="absolute right-8 flex items-center gap-5">
-              <AddWishlistCardButton
-                productId={product._id}
-                alreadyAdded={true}
-              />
-              <AddItemCardButton product={null} />
+            <div className="w-auto h-full flex items-center gap-5">
+              <AddWishlistButton productId={product._id} type="wishlist" />
+              <AddItemButton product={product} />
             </div>
           </li>
         ))}
