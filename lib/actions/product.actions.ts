@@ -2,9 +2,24 @@
 
 import { mongoConnect } from "@/lib/database/connection";
 import Product from "@/lib/database/models/product.model";
+import { ProductsParams } from "@/types";
 
 // Get All Products
-export async function getAllProducts({ query }: { query?: string }) {
+export async function getAllProducts() {
+  try {
+    // Connect to the database
+    await mongoConnect();
+    // Search for products
+    const products = await Product.find();
+
+    return JSON.parse(JSON.stringify(products));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Get All Products
+export async function getSearchProducts({ query }: ProductsParams) {
   try {
     // Connect to the database
     await mongoConnect();

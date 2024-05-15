@@ -129,3 +129,7 @@ export type Coupon = {
   expirationHours?: number;
   expirationDate?: string;
 };
+
+export type ProductsParams = {
+  query?: string;
+};

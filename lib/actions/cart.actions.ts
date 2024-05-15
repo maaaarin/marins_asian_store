@@ -5,6 +5,24 @@ import Product from "../database/models/product.model";
 import { Types } from "mongoose";
 import { Cart as CartType, CartItem as CartItemType } from "@/types";
 
+// // Create Cart
+// export async function createCart(userId: string | null | undefined, cart: CartType){
+//   try {
+//     await mongoConnect();
+//     const newCart = await Cart.create({
+//         userClerkId: userId,
+//         items: cart.items,
+//         totalQuantity: cart.totalPrice,
+//         totalPrice: cart.totalPrice,
+//         expireAt: null,
+//       });
+//       console.log(newCart);
+//     return JSON.parse(JSON.stringify(cart));
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
 // Get Cart
 export async function getCart(
   userId: string | null | undefined,

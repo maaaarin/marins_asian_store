@@ -41,6 +41,7 @@ import { getWishlist } from "@/lib/actions/wishlist.actions";
 export const Header = () => {
   // Clerk
   const { isLoaded, isSignedIn, user } = useUser();
+  const { userId } = useAuth();
   useEffect(() => {
     if (!isSignedIn || !isLoaded) {
       closeDisplay();
@@ -83,30 +84,38 @@ export const Header = () => {
     dispatch(resetCart());
     const fetchCart = async () => {
       // User cart
-      if (user?.id) {
+      if (userId) {
         window.localStorage.removeItem("cart");
-        const getUserCart = await getCart(user?.id);
-        getUserCart && dispatch(setCart(getUserCart));
-        return;
-      }
-      // Try to find guest cart on localStorage
-      const localCart = window.localStorage.getItem("cart");
-      if (localCart) {
-        const guestCart = JSON.parse(localCart);
-        const getGuestCart = await getCart(null, guestCart._id);
-        // getGuestCart && dispatch(setCart(getGuestCart));
-        if (getGuestCart) {
-          dispatch(setCart(getGuestCart));
-          console.log("todo correcto!");
-        } else {
-          console.log("no hay cart!");
-          window.localStorage.removeItem("cart");
+        const getUserCart = await getCart(userId);
+        if (getUserCart) {
+          dispatch(resetCart());
+          dispatch(setCart(getUserCart));
+        }
+        const localCart = window.localStorage.getItem("cart");
+        if (localCart) {
+          const guestCart = JSON.parse(localCart);
+          console.log(guestCart);
         }
         return;
       }
+      if (!userId) {
+        // Try to find guest cart on localStorage
+        const localCart = window.localStorage.getItem("cart");
+        if (localCart) {
+          const guestCart = JSON.parse(localCart);
+          const getGuestCart = await getCart(null, guestCart._id);
+          // getGuestCart && dispatch(setCart(getGuestCart));
+          if (getGuestCart) {
+            dispatch(setCart(getGuestCart));
+          } else {
+            window.localStorage.removeItem("cart");
+          }
+          return;
+        }
+      }
     };
     fetchCart();
-  }, [user, isSignedIn, dispatch]);
+  }, [userId, isSignedIn, dispatch]);
 
   // Cart Icon
   const cartRef = useRef<Player>(null);
@@ -127,24 +136,21 @@ export const Header = () => {
   // Wishlist
   useEffect(() => {
     // dispatch(resetWishlist());
-    if (user?.id) {
+    if (userId) {
       const fetchWishlist = async () => {
-        const getUserWishlist = await getWishlist(user.id);
-        // getUserWishlist && setWishlist(getUserWishlist);
+        const getUserWishlist = await getWishlist(userId);
         if (getUserWishlist) {
           dispatch(setWishlist(getUserWishlist));
-          console.log("todo correcto!");
-          console.log(getUserWishlist);
         }
       };
       fetchWishlist();
     }
-  }, [user, dispatch]);
+  }, [userId, dispatch]);
 
-  // const wishlist = useSelector((state: any) => state.wishlist.wishlist);
-  // useEffect(() => {
-  //   console.log(wishlist);
-  // }, [wishlist]);
+  const wishlist = useSelector((state: any) => state.wishlist.wishlist);
+  useEffect(() => {
+    console.log(wishlist);
+  }, [wishlist]);
 
   // Display
   function handleCartDisplay() {
