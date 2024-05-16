@@ -19,6 +19,20 @@ export async function getAllProducts() {
 }
 
 // Get All Products
+export async function getProductsByCategory(category: string) {
+  try {
+    // Connect to the database
+    await mongoConnect();
+    // Search for products
+    const products = await Product.find({ category: category });
+
+    return JSON.parse(JSON.stringify(products));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Get All Products
 export async function getSearchProducts({ query }: ProductsParams) {
   try {
     // Connect to the database

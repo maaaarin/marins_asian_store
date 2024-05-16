@@ -1,9 +1,13 @@
 import CategoryContent from "@/components/ui/Category/CategoryContent";
 import { ProductCard } from "@/components/ui/Product/ProductCard";
-import { getAllProducts } from "@/lib/actions/product.actions";
+import {
+  getAllProducts,
+  getProductsByCategory,
+} from "@/lib/actions/product.actions";
 import { Product } from "@/types";
 import localFont from "next/font/local";
 import React, { useRef } from "react";
+import Image from "next/image";
 
 // Font files
 const newakeFont = localFont({
@@ -15,14 +19,28 @@ type Props = {
 };
 
 const Category = async ({ params: { category } }: Props) => {
-  // Product
-  const products: Product[] = await getAllProducts();
+  // Products
+  const products: Product[] = await getProductsByCategory(category);
 
   return (
     <>
       <main className="container mt-24">
         <div className="size-full flex flex-col gap-5">
-          <div className="w-full h-52 bg-secondary rounded-3xl bg-[url('/assets/img/category.png')] bg-cover flex items-center justify-center flex-col">
+          <div className="w-full h-52 bg-secondary rounded-3xl bg-[url('/assets/img/category.png')] bg-cover flex items-center justify-center flex-col relative">
+            <Image
+              className="absolute -top-8 left-28"
+              src="/assets/img/category_drink_1.png"
+              alt="Category Asset"
+              width={80}
+              height={150}
+            />
+            <Image
+              className="absolute -bottom-8 right-48"
+              src="/assets/img/category_drink_2.png"
+              alt="Category Asset"
+              width={80}
+              height={150}
+            />
             <h2
               className={`${newakeFont.className} text-3xl text-secondary font-bold`}>
               {category.charAt(0).toUpperCase() + category.slice(1)}

@@ -33,8 +33,8 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             src={product.picture}
             alt="Product Image"
             width={250}
-            height={0}
-            className="w-3/5 h-4/5 object-contain"
+            height={250}
+            className=" object-contain"
           />
         </div>
         <div className="flex-grow flex flex-col pt-8 gap-3">
