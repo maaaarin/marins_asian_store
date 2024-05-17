@@ -5,7 +5,7 @@ import { Types } from "mongoose";
 const initialState: Cart = {
   userClerkId: "",
   items: [],
-  totalPrice: 0,
+  totalAmount: 0,
   totalQuantity: 0,
   expireAt: null,
   _id: "",
@@ -47,11 +47,11 @@ const cartSlice = createSlice({
       state.items[itemIndex].quantity--;
     },
     setCart: (state, action) => {
-      const { userClerkId, items, totalPrice, totalQuantity, expireAt, _id } =
+      const { userClerkId, items, totalAmount, totalQuantity, expireAt, _id } =
         action.payload;
       state.userClerkId = userClerkId;
       state.items = items;
-      state.totalPrice = totalPrice;
+      state.totalAmount = totalAmount;
       state.totalQuantity = totalQuantity;
       state.expireAt = expireAt;
       if (_id) {

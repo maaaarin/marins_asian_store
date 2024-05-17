@@ -1,10 +1,10 @@
 "use server";
 import User from "@/lib/database/models/user.model";
 import { mongoConnect } from "@/lib/database/connection";
-import { Product } from "@/types";
+import { Product, User as UserType } from "@/types";
 
 // Create User
-export async function createUser(user: any) {
+export async function createUser(user: UserType) {
   try {
     await mongoConnect();
     const newUser = await User.create(user);

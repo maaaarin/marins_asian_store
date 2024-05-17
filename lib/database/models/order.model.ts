@@ -1,31 +1,77 @@
 import { Schema, model, models } from "mongoose";
 
-const orderSchema = new Schema({
-  stripeId: { type: String, required: true, unique: true },
-  placedAt: {
+// Definir el esquema para Order
+const orderSchema: Schema = new Schema({
+  stripeId: {
+    type: String,
+    required: true,
+  },
+  customer: {
+    clerkId: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+  },
+  items: [
+    {
+      productId: {
+        type: String,
+        required: false,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      picture: {
+        type: String,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
+  shippingAddress: {
+    street: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    postalCode: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+  },
+  totalAmount: {
+    type: Number,
+    required: true,
+  },
+  status: {
+    type: String,
+  },
+  createdAt: {
     type: Date,
     default: Date.now,
   },
-  deliveredAt: { type: Date },
-  total: { type: Number, required: true },
-  items: [
-    {
-      product: {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        required: true,
-      },
-      quantity: { type: Number, required: true },
-    },
-  ],
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  status: { type: String, required: true },
 });
 
-const Order = models.order || model("Order", orderSchema);
-
+// Exportar el modelo de Mongoose
+const Order = models.Order || model("Order", orderSchema);
 export default Order;

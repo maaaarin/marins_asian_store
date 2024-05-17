@@ -8,20 +8,31 @@ import {
   subtotalCartSelector,
   totalQuantityCartSelector,
 } from "@/lib/store/slices/cart.slice";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import CheckoutButton from "@/components/widgets/CheckoutButton";
 
 const CartContent = () => {
+  const { userId } = useAuth();
   const cart = useSelector((state: any) => state.cart),
     totalCartItems = useSelector(totalQuantityCartSelector),
     subtotalCart = useSelector(subtotalCartSelector),
     cartId = useSelector(cartIdSelector);
 
+  const router = useRouter();
+
   useEffect(() => {
     console.log(cart);
-    // console.log(cartId);
-    // const guestCart = window.localStorage.getItem("cart");
-    // guestCart && console.log(JSON.parse(guestCart));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalCartItems, subtotalCart]);
+
+  function handleCheckout() {
+    if (userId) {
+      router.push("/checkout");
+    } else {
+      router.push("/sign-in");
+    }
+  }
 
   return (
     <>
@@ -45,9 +56,7 @@ const CartContent = () => {
               {subtotalCart.toFixed(2)} €
             </span>
           </div>
-          <button className="px-16 py-3 bg-primary rounded-full text-white">
-            View Cart
-          </button>
+          <CheckoutButton userId={userId} />
         </div>
       </div>
     </>

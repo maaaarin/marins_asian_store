@@ -29,16 +29,16 @@ const Category = async ({ params: { category } }: Props) => {
           <div className="w-full h-52 bg-secondary rounded-3xl bg-[url('/assets/img/category.png')] bg-cover flex items-center justify-center flex-col relative">
             <Image
               className="absolute -top-8 left-28"
-              src="/assets/img/category_drink_1.png"
+              src={`/assets/img/category_${category}_1.png`}
               alt="Category Asset"
-              width={80}
+              width={150}
               height={150}
             />
             <Image
               className="absolute -bottom-8 right-48"
-              src="/assets/img/category_drink_2.png"
+              src={`/assets/img/category_${category}_2.png`}
               alt="Category Asset"
-              width={80}
+              width={200}
               height={150}
             />
             <h2

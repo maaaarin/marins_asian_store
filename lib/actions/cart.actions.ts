@@ -12,8 +12,8 @@ import { Cart as CartType, CartItem as CartItemType } from "@/types";
 //     const newCart = await Cart.create({
 //         userClerkId: userId,
 //         items: cart.items,
-//         totalQuantity: cart.totalPrice,
-//         totalPrice: cart.totalPrice,
+//         totalQuantity: cart.totalAmount,
+//         totalAmount: cart.totalAmount,
 //         expireAt: null,
 //       });
 //       console.log(newCart);
@@ -36,7 +36,6 @@ export async function getCart(
         model: Product,
         select: "_id name price picture color",
       });
-      if (!cart) throw new Error("Cart not found");
       return JSON.parse(JSON.stringify(cart));
     }
 
@@ -45,7 +44,6 @@ export async function getCart(
       model: Product,
       select: "_id name price picture color",
     });
-    if (!cart) throw new Error("Cart not found");
     return JSON.parse(JSON.stringify(cart));
   } catch (error) {
     console.log(error);
@@ -75,7 +73,7 @@ export async function addCartItem(
           userClerkId: userId,
           items: { product: productId, quantity: 1 },
           totalQuantity: 1,
-          totalPrice: product.price,
+          totalAmount: product.price,
           expireAt: null,
         });
         return false;
@@ -94,7 +92,7 @@ export async function addCartItem(
             $inc: {
               "items.$.quantity": 1,
               totalQuantity: 1,
-              totalPrice: product.price,
+              totalAmount: product.price,
             },
           },
           { new: true }
@@ -105,7 +103,7 @@ export async function addCartItem(
           { userClerkId: userId },
           {
             $push: { items: { product: productId, quantity: 1 } },
-            $inc: { totalQuantity: 1, totalPrice: product.price },
+            $inc: { totalQuantity: 1, totalAmount: product.price },
           },
           { new: true }
         );
@@ -122,7 +120,7 @@ export async function addCartItem(
         userClerkId: null,
         items: { product: productId, quantity: 1 },
         totalQuantity: 1,
-        totalPrice: product.price,
+        totalAmount: product.price,
         expireAt: Date.now(),
       });
       return JSON.parse(JSON.stringify(cart));
@@ -142,7 +140,7 @@ export async function addCartItem(
           $inc: {
             "items.$.quantity": 1,
             totalQuantity: 1,
-            totalPrice: product.price,
+            totalAmount: product.price,
           },
         },
         { new: true }
@@ -155,7 +153,7 @@ export async function addCartItem(
         {
           _id: cartId,
           $push: { items: { product: productId, quantity: 1 } },
-          $inc: { totalQuantity: 1, totalPrice: product.price },
+          $inc: { totalQuantity: 1, totalAmount: product.price },
         },
         { new: true }
       );
@@ -184,7 +182,7 @@ export async function increaseCartItem(
           $inc: {
             "items.$.quantity": 1,
             totalQuantity: 1,
-            totalPrice: product.price,
+            totalAmount: product.price,
           },
         },
         { new: true }
@@ -200,7 +198,7 @@ export async function increaseCartItem(
         $inc: {
           "items.$.quantity": 1,
           totalQuantity: 1,
-          totalPrice: product.price,
+          totalAmount: product.price,
         },
       },
       { new: true }
@@ -235,7 +233,7 @@ export async function decreaseCartItem(
           $inc: {
             "items.$[elem].quantity": -1,
             totalQuantity: -1,
-            totalPrice: -product.price,
+            totalAmount: -product.price,
           },
         },
         {
@@ -263,7 +261,7 @@ export async function decreaseCartItem(
         $inc: {
           "items.$[elem].quantity": -1,
           totalQuantity: -1,
-          totalPrice: -product.price,
+          totalAmount: -product.price,
         },
       },
       {
@@ -305,7 +303,7 @@ export async function removeCartItem(
           $pull: { items: { product: productId } },
           $inc: {
             totalQuantity: -cartItem.items[0].quantity,
-            totalPrice: -(
+            totalAmount: -(
               cartItem.items[0].product.price * cartItem.items[0].quantity
             ),
           },
@@ -314,6 +312,20 @@ export async function removeCartItem(
       );
       return JSON.parse(JSON.stringify(removeItem));
     }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function clearCart(
+  userId: string | null | undefined,
+  cartId?: string | null | undefined
+) {
+  try {
+    await mongoConnect();
+    // Find and delete cart
+    const clearUserCart = await Cart.findOneAndDelete({ userClerkId: userId });
+    return JSON.parse(JSON.stringify(clearUserCart));
   } catch (error) {
     console.log(error);
   }

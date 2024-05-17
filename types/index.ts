@@ -7,22 +7,7 @@ export type User = {
   lastName: string;
   picture: string;
   wishlist: string[];
-  cart: string[];
-  // shippingAddress: {
-  //   street: string;
-  //   city: string;
-  //   state: string;
-  //   zip: string;
-  //   country?: string;
-  // };
-  // level: number;
-  // flavorPoints: number;
-  // wishlist: string[];
-  // cart: string[];
-  // orders: Order[];
-  // achievements: AchievementProgress[];
-  // coupons: Coupon[];
-  // methodPayment: string;
+  orders: string[];
 };
 
 export type Product = {
@@ -79,20 +64,51 @@ export type Cart = {
   _id?: string | undefined;
   userClerkId: string | undefined;
   items: CartItem[];
-  totalPrice: number;
+  totalAmount: number;
   totalQuantity: number;
   expireAt: Date | null;
 };
 
-export type Order = {
-  _id: string;
-  stripeId: string;
-  placedAt: Date;
-  deliveredAt?: Date;
-  total: number;
+export type CheckOutOrder = {
+  userClerkId: string;
   items: CartItem[];
+  totalAmount: number;
+};
+
+export type OrderItem = {
+  productId: string | undefined;
+  name: string;
+  picture: string;
+  price: number;
+  quantity: number;
+};
+
+export type Order = {
+  stripeId: string;
+  customer: {
+    clerkId: string | null;
+    name: string | null | undefined;
+    email: string | null | undefined;
+  };
+  items:
+    | {
+        productId: string | undefined;
+        name: string;
+        picture: string;
+        price: number;
+        quantity: number;
+      }[]
+    | undefined;
+  shippingAddress: {
+    street: string | null | undefined;
+    city: string | null | undefined;
+    state: string | null | undefined;
+    postalCode: string | null | undefined;
+    country: string | null | undefined;
+  };
+  totalAmount: number;
   status: string;
-  user: UserOrder;
+  createdAt: Date;
 };
 
 type UserOrder = {

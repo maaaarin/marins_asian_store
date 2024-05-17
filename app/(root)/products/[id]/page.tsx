@@ -116,7 +116,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             </div>
           </div>
           <div className="w-full h-16 gap-2 rounded-xl flex">
-            <AddWishlistButton productId={product._id} type={"page"} />
+            <AddWishlistButton productId={product._id} type="page" />
             <div className="w-2/4 h-full bg-zinc-50  flex items-center justify-center rounded-lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
