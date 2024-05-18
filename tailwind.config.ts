@@ -24,7 +24,7 @@ const config: Config = {
         pink: "#FF86F8",
         "pink-light": "#F2D8EB",
         orange: "#FF4900",
-        beige: "#FFEAD9",
+        beige: "#FFF3E8",
         "dark-blue": "#007BD0",
         golden: "#FC9700",
         calories: "#FFBAA3",
@@ -58,7 +58,7 @@ const config: Config = {
           opacity: "1",
         },
         to: {
-          transform: "translateY(-1000px) scaleY(2) scaleX(0.2)",
+          transform: "translateY(-2000px) scaleY(2) scaleX(0.2)",
           transformOrigin: "50% 0",
           filter: "blur(40px)",
           opacity: "0",

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Footer.module.scss";
+import Link from "next/link";
 
 export const Footer = () => {
   return (
@@ -68,16 +69,24 @@ export const Footer = () => {
           </div>
           <div className="w-4/5 flex justify-around">
             <div className="flex flex-col gap-2">
-              <span className="font-medium">Explore</span>
+              <span className="font-bold">Explore</span>
               <ul className="flex flex-col gap-2">
-                <li>Candy</li>
-                <li>Snack</li>
-                <li>Drink</li>
-                <li>Soup</li>
+                <Link href="/categories/snack">
+                  <li>Snacks</li>
+                </Link>
+                <Link href="/categories/drink">
+                  <li>Drinks</li>
+                </Link>
+                <Link href="/categories/candy">
+                  <li>Candy</li>
+                </Link>
+                <Link href="/categories/soup">
+                  <li>Soups</li>
+                </Link>
               </ul>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="font-medium">Company</span>
+              <span className="font-bold">Company</span>
               <ul className="flex flex-col gap-2">
                 <li>About</li>
                 <li>Pricing</li>
@@ -86,7 +95,7 @@ export const Footer = () => {
               </ul>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="font-medium">Legal</span>
+              <span className="font-bold">Legal</span>
               <ul className="flex flex-col gap-2">
                 <li>Privacy Policy</li>
                 <li>Cookie Policy</li>
@@ -94,7 +103,7 @@ export const Footer = () => {
               </ul>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="font-medium">Support</span>
+              <span className="font-bold">Support</span>
               <ul className="flex flex-col gap-2">
                 <li>FAQ</li>
                 <li>Contact</li>

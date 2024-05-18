@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Home.module.scss";
 import Image from "next/image";
 import { Button } from "@nextui-org/react";
+import Link from "next/link";
 
 export const Home = () => {
   return (
@@ -122,20 +123,22 @@ export const Home = () => {
                   className={`${styles.bannerSquareOrange} aspect-square mt-5`}>
                   <div
                     className={`${styles.bannerCornerOrange} size-full relative bg-orange rounded-r-3xl flex items-center justify-center`}>
-                    <Button
-                      isIconOnly
-                      size="lg"
-                      className="rounded-full bg-black flex-center text-white">
-                      <svg
-                        fill="currentColor"
-                        className="size-full"
-                        viewBox="0 0 16 16">
-                        <path
-                          fillRule="evenodd"
-                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                        />
-                      </svg>
-                    </Button>
+                    <Link href="/products/6648d166db8778d425d194bc">
+                      <Button
+                        isIconOnly
+                        size="lg"
+                        className="rounded-full bg-black flex-center text-white">
+                        <svg
+                          fill="currentColor"
+                          className="size-full"
+                          viewBox="0 0 16 16">
+                          <path
+                            fillRule="evenodd"
+                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                          />
+                        </svg>
+                      </Button>
+                    </Link>
                   </div>
                 </div>
                 <div
@@ -160,29 +163,28 @@ export const Home = () => {
             fill
             className="object-cover"
           />
-          <div className=" w-full h-32 absolute bottom-0 p-3">
+          <div className=" w-full h-auto absolute bottom-0 p-3">
             <div className="size-full bg-black rounded-xl flex flex-col justify-between p-4">
               <div className="w-full flex items-center justify-between ">
                 <div className="flex flex-col text-white">
                   <span className="font-semibold text-xl">Kit Kat</span>
                   <span className="text-sm">Limited Edition</span>
                 </div>
-                <Button
-                  isIconOnly
-                  className="bg-white rounded-full text-black flex-center">
-                  <svg
-                    fill="currentColor"
-                    className="size-full"
-                    viewBox="0 0 16 16">
-                    <path
-                      fillRule="evenodd"
-                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                    />
-                  </svg>
-                </Button>
-              </div>
-              <div className="w-full h-2 rounded-full bg-white/25 relative">
-                <div className="absolute w-1/5 h-full rounded-full bg-white"></div>
+                <Link href="/products/6648d166db8778d425d194bd">
+                  <Button
+                    isIconOnly
+                    className="bg-white rounded-full text-black flex-center">
+                    <svg
+                      fill="currentColor"
+                      className="size-full"
+                      viewBox="0 0 16 16">
+                      <path
+                        fillRule="evenodd"
+                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                      />
+                    </svg>
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

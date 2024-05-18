@@ -4,7 +4,7 @@ import Link from "next/link";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { clearCart } from "@/lib/actions/cart.actions";
 
-const CheckoutSucessPage = async () => {
+const OrderSuccessPage = async () => {
   // Clear cart
   const { userId } = auth();
   const clearUserCart = await clearCart(userId);
@@ -29,10 +29,7 @@ const CheckoutSucessPage = async () => {
             </svg>
           </div>
         </div>
-        <h2>
-          Your order <span className="text-primary">#813ACB1234</span> has been
-          placed!
-        </h2>
+        <h2>Your order has been placed!</h2>
         <Link href={"/profile/orders"}>
           <Button size="lg" className="bg-primary text-white rounded-full">
             View Orders
@@ -43,4 +40,4 @@ const CheckoutSucessPage = async () => {
   );
 };
 
-export default CheckoutSucessPage;
+export default OrderSuccessPage;

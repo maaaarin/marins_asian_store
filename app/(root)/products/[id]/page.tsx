@@ -88,7 +88,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           <div
             className="w-full h-16 text-white flex items-center justify-center gap-3 rounded-xl  relative"
             style={{
-              background: `linear-gradient(90deg, rgba(251,150,245,1) 0%, rgba(242,123,236,1) 100%)`,
+              background: `linear-gradient(90deg, #fc59d9 0%, #FF29D2 100%)`,
             }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,9 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z" />
             </svg>
             <div className="flex flex-col leading-5">
-              <span className="font-bold">Earn 100 points</span>
+              <span className="font-bold">
+                Earn {Math.round(product.price * 50)} points
+              </span>
               <span>from this product</span>
             </div>
           </div>
@@ -112,21 +114,11 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             </svg>
             <div className="flex flex-col leading-5">
               <span className="font-bold">Estimated Delivery</span>
-              <span>17-20 March, 2024</span>
+              <span>16-20 May, 2025</span>
             </div>
           </div>
           <div className="w-full h-16 gap-2 rounded-xl flex">
             <AddWishlistButton productId={product._id} type="page" />
-            <div className="w-2/4 h-full bg-zinc-50  flex items-center justify-center rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="size-8 text-gray-500"
-                fill="currentColor"
-                viewBox="0 0 24 24">
-                <path d="M4 22h12v-2H4V8H2v12c0 1.103.897 2 2 2z"></path>
-                <path d="M20 2H8c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm-2 9h-3v3h-2v-3h-3V9h3V6h2v3h3v2z"></path>
-              </svg>
-            </div>
           </div>
           <AddItemButton product={product} type="page" />
         </div>

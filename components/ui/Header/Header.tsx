@@ -184,7 +184,7 @@ export const Header = () => {
           <Image src={logo} alt="alt" width={78} height={24} />
         </Link>
         <ul
-          className={clsx("flex items-center gap-4 font-normal text-lg", {
+          className={clsx("flex items-center gap-6 font-normal text-lg", {
             hidden: searchDisplay || searchQuery,
           })}>
           <Link href="/categories/snack">

@@ -1,13 +1,17 @@
 "use client";
 import { Tabs, Tab } from "@nextui-org/react";
 import { Product } from "@/types";
-import React from "react";
+import React, { useEffect } from "react";
 
 type Props = {
   product: Product;
 };
 
 export const ProductTabs = ({ product }: Props) => {
+  useEffect(() => {
+    console.log(product);
+  }, []);
+
   return (
     <div className="w-full h-auto max-h-full bg-zinc-50 rounded-3xl flex flex-col p-4">
       <Tabs aria-label="Options" radius="full" color="primary">
@@ -64,7 +68,7 @@ export const ProductTabs = ({ product }: Props) => {
                 </div>
                 <div className="flex flex-col leading-4">
                   <span className="font-semibold line-clamp-1 text-sm">
-                    Contents (gr)
+                    Contents
                   </span>
                   <span>{product.details.contents}</span>
                 </div>

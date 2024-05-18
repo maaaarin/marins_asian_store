@@ -1,15 +1,15 @@
 import { Cart } from "@/types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CartItem } from "./CartItem";
 import { CartItem as CartItemType } from "@/types";
 import { useSelector } from "react-redux";
 import {
   cartIdSelector,
   subtotalCartSelector,
+  totalPointsCartSelector,
   totalQuantityCartSelector,
 } from "@/lib/store/slices/cart.slice";
 import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import CheckoutButton from "@/components/widgets/CheckoutButton";
 
 const CartContent = () => {
@@ -17,22 +17,12 @@ const CartContent = () => {
   const cart = useSelector((state: any) => state.cart),
     totalCartItems = useSelector(totalQuantityCartSelector),
     subtotalCart = useSelector(subtotalCartSelector),
-    cartId = useSelector(cartIdSelector);
-
-  const router = useRouter();
+    totalPoints = useSelector(totalPointsCartSelector);
 
   useEffect(() => {
     console.log(cart);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalCartItems, subtotalCart]);
-
-  function handleCheckout() {
-    if (userId) {
-      router.push("/checkout");
-    } else {
-      router.push("/sign-in");
-    }
-  }
 
   return (
     <>
@@ -45,7 +35,7 @@ const CartContent = () => {
         <div className="flex items-center gap-2">
           Earn
           <span className="py-1 px-2 bg-secondary rounded-full text-white">
-            690 points
+            {totalPoints} points
           </span>
           from this order
         </div>

@@ -32,7 +32,7 @@ export const CheckoutOrder = async (cart: Cart) => {
         quantity: cartItem.quantity,
       })),
       client_reference_id: cart.userClerkId,
-      success_url: `${process.env.MARINS_URL}/checkout/success`,
+      success_url: `${process.env.MARINS_URL}/order_success`,
       cancel_url: `${process.env.MARINS_URL}/`,
     });
 

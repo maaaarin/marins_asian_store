@@ -25,8 +25,11 @@ export const ProductCard = ({ product }: Props) => {
         </div>
         <Link href={`/products/${product._id}`}>
           <div
-            className="h-3/4 flex items-center justify-center rounded-3xl p-6 relative overflow-hidden"
-            style={{ backgroundColor: product.color }}>
+            className="h-3/4 flex items-center justify-center rounded-3xl p-6 relative overflow-hidden card-pattern"
+            style={{
+              background: `linear-gradient( 135deg, ${product.color} 25%, ${product.color}c0 25%, ${product.color}c0 50%, ${product.color} 50%, ${product.color} 75%, ${product.color}c0 75%, ${product.color}c0 )`,
+              backgroundSize: "40px 40px",
+            }}>
             <Image
               src={product.picture}
               alt="Product Image"

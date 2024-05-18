@@ -22,7 +22,7 @@ export type Product = {
   details: {
     brand: string;
     dimensions: { length: number; width: number; height: number };
-    contents: number;
+    contents: string;
     country: string;
   };
   nutrition: {
@@ -130,12 +130,14 @@ export type Achievement = {
   name: string;
   description: string;
   reward: string;
+  condition?: number;
   goal: number;
 };
 
 export type AchievementProgress = {
   achievementId: string;
   status: number;
+  completed: boolean;
 };
 
 export type Coupon = {

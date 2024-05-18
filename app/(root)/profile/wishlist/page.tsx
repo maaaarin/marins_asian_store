@@ -46,8 +46,8 @@ const Wishlist = async () => {
                 <Image
                   src={product.picture}
                   alt="Wishlist Item Picture"
-                  width={96}
-                  height={96}
+                  width={150}
+                  height={150}
                   className="w-auto max-w-[6/12] h-full z-10 absolute"
                 />
               </div>

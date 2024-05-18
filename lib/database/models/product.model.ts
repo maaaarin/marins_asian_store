@@ -49,7 +49,7 @@ const productSchema = new Schema({
       },
     },
     contents: {
-      type: Number,
+      type: String,
       required: true,
     },
     country: {

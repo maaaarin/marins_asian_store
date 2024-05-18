@@ -4,13 +4,19 @@ import { CheckoutOrder } from "@/lib/actions/order.actions";
 import { Cart } from "@/types";
 import { Button } from "@nextui-org/react";
 import { getCart } from "@/lib/actions/cart.actions";
+import { useRouter } from "next/navigation";
 
 type Props = {
   userId: string | null | undefined;
 };
 
 const CheckoutButton = ({ userId }: Props) => {
+  const router = useRouter();
   async function handleCheckout() {
+    if (!userId) {
+      router.push("/sign-in");
+      return;
+    }
     const cart = await getCart(userId);
     cart && console.log(cart);
     const checkout = await CheckoutOrder(cart);

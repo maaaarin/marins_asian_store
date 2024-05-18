@@ -83,6 +83,14 @@ export const subtotalCartSelector = createSelector([cart], (cart) =>
   }, 0)
 );
 
+export const totalPointsCartSelector = createSelector([cart], (cart) =>
+  cart.items.reduce((points: number, current: CartItem) => {
+    return (points += Math.round(
+      current.product.price * current.quantity * 50
+    ));
+  }, 0)
+);
+
 // Exports
 export const cartReducer = cartSlice.reducer;
 export const {
