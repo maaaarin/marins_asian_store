@@ -19,6 +19,7 @@
     "@stripe/stripe-js": "^3.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "date-fns": "^3.6.0",
     "framer-motion": "^11.1.9",
     "gsap": "^3.12.5",
     "input-otp": "^1.2.4",

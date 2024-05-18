@@ -10,6 +10,24 @@ import Link from "next/link";
 const Wishlist = async () => {
   const { userId } = auth();
   const wishlist = await getWishlist(userId);
+  console.log(wishlist);
+
+  if (!wishlist.length) {
+    return (
+      <div className="size-full overflow-auto flex flex-col items-center justify-center">
+        <Image
+          src={`/assets/img/cat_not_found.gif`}
+          alt="Cat Asset"
+          width={200}
+          height={150}
+        />
+        <h2 className="text-xl font-semibold mb-2">
+          No wishlist products yet!
+        </h2>
+        <span>Explore and add some!</span>
+      </div>
+    );
+  }
 
   return (
     <div className="size-full overflow-auto flex flex-col gap-8">

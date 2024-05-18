@@ -92,13 +92,13 @@ export type Order = {
   };
   items:
     | {
+        _id?: string;
         productId: string | undefined;
         name: string;
         picture: string;
         price: number;
         quantity: number;
-      }[]
-    | undefined;
+      }[];
   shippingAddress: {
     street: string | null | undefined;
     city: string | null | undefined;

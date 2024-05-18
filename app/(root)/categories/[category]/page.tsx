@@ -28,18 +28,18 @@ const Category = async ({ params: { category } }: Props) => {
         <div className="size-full flex flex-col gap-5">
           <div className="w-full h-52 bg-secondary rounded-3xl bg-[url('/assets/img/category.png')] bg-cover flex items-center justify-center flex-col relative">
             <Image
-              className="absolute -top-8 left-28"
+              className="absolute -top-8 left-28 w-32"
               src={`/assets/img/category_${category}_1.png`}
               alt="Category Asset"
-              width={150}
-              height={150}
+              width={350}
+              height={350}
             />
             <Image
-              className="absolute -bottom-8 right-48"
+              className="absolute -bottom-8 right-48 w-48"
               src={`/assets/img/category_${category}_2.png`}
               alt="Category Asset"
-              width={200}
-              height={150}
+              width={350}
+              height={350}
             />
             <h2
               className={`${newakeFont.className} text-3xl text-secondary font-bold`}>

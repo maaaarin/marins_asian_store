@@ -75,6 +75,18 @@ export const getOrder = async (userId: string | null | undefined) => {
   }
 };
 
+export const getAllOrders = async (userId: string | null | undefined) => {
+  try {
+    await mongoConnect();
+    const findOrders = await Order.find({
+      "customer.clerkId": userId,
+    });
+    return JSON.parse(JSON.stringify(findOrders));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const addUserOrder = async (
   orderId: string | null | undefined,
   userId: string | null | undefined

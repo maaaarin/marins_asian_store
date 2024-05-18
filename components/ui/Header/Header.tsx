@@ -147,11 +147,6 @@ export const Header = () => {
     }
   }, [userId, dispatch]);
 
-  const wishlist = useSelector((state: any) => state.wishlist.wishlist);
-  useEffect(() => {
-    console.log(wishlist);
-  }, [wishlist]);
-
   // Display
   function handleCartDisplay() {
     if (cartDisplay) {
@@ -171,6 +166,17 @@ export const Header = () => {
     }
   }
 
+  const [userDisable, setUserDisable] = useState(false);
+
+  // User disable display
+  useEffect(() => {
+    if (pathName.includes("profile")) {
+      setUserDisable(true);
+    } else {
+      setUserDisable(false);
+    }
+  }, [pathName]);
+
   return (
     <header className="container h-16 z-50 fixed top-4 right-0 left-0  flex justify-center items-center">
       <nav className="w-3/5 h-full flex justify-between items-center pl-4 pr-4 py-2 bg-white z-50 border border-black rounded-2xl">
@@ -181,9 +187,18 @@ export const Header = () => {
           className={clsx("flex items-center gap-4 font-normal text-lg", {
             hidden: searchDisplay || searchQuery,
           })}>
-          <li>Explore</li>
-          <li>Features</li>
-          <li>About</li>
+          <Link href="/categories/snack">
+            <li>Snacks</li>
+          </Link>
+          <Link href="/categories/drink">
+            <li>Drinks</li>
+          </Link>
+          <Link href="/categories/candy">
+            <li>Candy</li>
+          </Link>
+          <Link href="/categories/soup">
+            <li>Soups</li>
+          </Link>
         </ul>
         {/* Search Bar */}
         {(searchDisplay || searchQuery) && (
@@ -231,27 +246,38 @@ export const Header = () => {
           <li className="w-auto h-full flex-center cursor-pointer">
             {/* User */}
             <SignedIn>
-              <Popover
-                placement="bottom"
-                showArrow={true}
-                shouldBlockScroll={true}
-                classNames={{
-                  content: ["p-0 border-none"],
-                }}>
-                <PopoverTrigger>
-                  <Image
-                    src={user?.imageUrl || ""}
-                    alt="Profile Picture"
-                    width={96}
-                    height={96}
-                    id="user"
-                    className="size-10 rounded-full border-2 border-primary object-cover"
-                  />
-                </PopoverTrigger>
-                <PopoverContent>
-                  <UserMenu />
-                </PopoverContent>
-              </Popover>
+              {userDisable ? (
+                <Image
+                  src={user?.imageUrl || ""}
+                  alt="Profile Picture"
+                  width={96}
+                  height={96}
+                  id="user"
+                  className="size-10 rounded-full border-2 border-primary object-cover"
+                />
+              ) : (
+                <Popover
+                  placement="bottom"
+                  showArrow={true}
+                  shouldBlockScroll={true}
+                  classNames={{
+                    content: ["p-0 border-none"],
+                  }}>
+                  <PopoverTrigger>
+                    <Image
+                      src={user?.imageUrl || ""}
+                      alt="Profile Picture"
+                      width={96}
+                      height={96}
+                      id="user"
+                      className="size-10 rounded-full border-2 border-primary object-cover"
+                    />
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <UserMenu />
+                  </PopoverContent>
+                </Popover>
+              )}
             </SignedIn>
             <SignedOut>
               <Link href="/sign-in">

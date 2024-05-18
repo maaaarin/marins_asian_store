@@ -17,18 +17,9 @@ export const UserProfile = () => {
   }
 
   return (
-    <div
-      className="w-full h-64 bg-slate-200 rounded-3xl flex-center bg-cover bg-center"
-      style={{
-        backgroundImage: "url(https://i.imgur.com/d6v2acZ.jpeg)",
-      }}>
-      <div
-        className="size-full flex-center flex-col gap-3 rounded-3xl"
-        style={{
-          background:
-            "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)",
-        }}>
-        <div className="size-24 relative group rounded-full ">
+    <div className="w-full h-64 bg-slate-200 rounded-3xl flex-center bg-cover bg-center profile-pattern">
+      <div className="size-full flex-center flex-col gap-7 rounded-3xl">
+        <div className="size-24 relative group rounded-full flex justify-center">
           <Image
             src={user?.imageUrl || ""}
             alt="alt"
@@ -39,7 +30,7 @@ export const UserProfile = () => {
           <input
             type="file"
             id="profile-image"
-            className="size-full absolute top-0 left-0 opacity-0 rounded-full"
+            className="size-full absolute top-0 left-0 opacity-0 rounded-full cursor-pointer"
             ref={profileImage}
             onChange={(e) => handleProfileImage(e.target)}
           />
@@ -52,11 +43,11 @@ export const UserProfile = () => {
               <path d="m65.887 6.2617c-0.90625-0.023438-1.8125 0.089843-2.6836 0.32422-2.3242 0.62109-4.4102 2.125-5.6953 4.3516l-2.9062 5.0312 15.797 10.133 3.3438-5.7891c2.5703-4.4531 1.0234-10.234-3.4297-12.805-1.3906-0.80469-2.9102-1.207-4.4258-1.2461z" />
             </svg>
           </div>
+          <span className="absolute -bottom-4 w-fit px-2 py-1 bg-secondary text-white rounded-full">
+            Lvl. 1
+          </span>
         </div>
-        <span className="w-fit px-2 py-1 bg-secondary text-white rounded-full">
-          Lvl. 10
-        </span>
-        <span className="text-white text-xl">
+        <span className=" text-white text-2xl">
           {user?.firstName?.concat(" ", user?.lastName || "")}
         </span>
       </div>

@@ -1,7 +1,11 @@
 import React from "react";
 import { Button, Input } from "@nextui-org/react";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 const Account = async () => {
+  const { userId } = auth();
+  const user = await currentUser();
+
   return (
     <div className="size-full flex flex-col gap-8">
       <h2 className="text-2xl font-semibold">Account</h2>
@@ -16,14 +20,14 @@ const Account = async () => {
             label="First Name"
             labelPlacement="outside"
             placeholder="Your first name"
-            defaultValue="Andrés"
+            defaultValue={user?.firstName || ""}
           />
           <Input
             type="text"
             label="Last Name"
             labelPlacement="outside"
             placeholder="Your last name"
-            defaultValue="Marín"
+            defaultValue={user?.lastName || ""}
           />
         </div>
       </section>
@@ -38,14 +42,14 @@ const Account = async () => {
             label="Email"
             labelPlacement="outside"
             placeholder="Your email"
-            defaultValue="andresfprivado@gmail.com"
+            defaultValue={user?.emailAddresses[0].emailAddress || ""}
           />
           <Input
             type="password"
             label="Password"
             labelPlacement="outside"
             placeholder="Your password"
-            defaultValue="asdasdas"
+            defaultValue="asdasdasasd"
           />
         </div>
       </section>
