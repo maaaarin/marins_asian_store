@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 
       const orderItems = lineItems?.map((item: any) => {
         return {
-          productId: item.price.product.metadata.productId,
+          _id: item.price.product.metadata.productId,
           name: item.price.product.name,
           picture: item.price.product.images[0],
           // price: (item.price.unit_amount / 100).toString(),

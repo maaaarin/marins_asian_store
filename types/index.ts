@@ -90,15 +90,13 @@ export type Order = {
     name: string | null | undefined;
     email: string | null | undefined;
   };
-  items:
-    | {
-        _id?: string;
-        productId: string | undefined;
+  items: {
+        _id: string | undefined;
         name: string;
         picture: string;
         price: number;
         quantity: number;
-      }[];
+      }[] | undefined;
   shippingAddress: {
     street: string | null | undefined;
     city: string | null | undefined;
