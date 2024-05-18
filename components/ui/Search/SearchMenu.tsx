@@ -81,7 +81,7 @@ export const SearchMenu = () => {
                   />
                 </svg>
                 <Link href={`${pathname}?query=Lotte+Fit%27s+Funyan+Gum`}>
-                  <span>Lotte Fit's Funyan Gum</span>
+                  <span>Lotte Fit&apos;s Funyan Gum</span>
                 </Link>
               </button>
             </li>
