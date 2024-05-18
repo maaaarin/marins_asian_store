@@ -141,8 +141,8 @@ export const SearchMenu = () => {
         <div className="w-9/12 h-auto flex flex-col gap-3">
           <span className="text-xl font-bold">Recommended</span>
           <div className="size-full flex gap-3">
-            {recommendedProducts.map((product) => (
-              <Link href={`/products/${product._id}`}>
+            {recommendedProducts.map((product: any, key: number) => (
+              <Link href={`/products/${product._id}`} key={key}>
                 <div
                   className="flex-1 min-w-32 max-w-52 aspect-square rounded-2xl flex p-3 items-center justify-center relative"
                   style={{ backgroundColor: product.color }}>

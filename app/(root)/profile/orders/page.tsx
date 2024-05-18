@@ -30,8 +30,8 @@ const Orders = async () => {
       <h2 className="text-2xl font-semibold">Orders</h2>
       <ul className="w-full h-auto flex flex-col gap-3">
         {/* Orders */}
-        {orders?.map((order: Order) => (
-          <li className="w-full h-auto bg-zinc-100  rounded-b-xl">
+        {orders?.map((order: Order, key: number) => (
+          <li key={key} className="w-full h-auto bg-zinc-100  rounded-b-xl">
             <div className="w-full h-auto bg-white border border-black rounded-xl flex justify-between items-center pl-4 pr-3 py-3">
               <ul className="h-full flex gap-8 items-center">
                 <li className="flex h-full gap-3 items-center">
