@@ -64,7 +64,7 @@ export const ModifyItemQuantity = ({ item }: Props) => {
   }
 
   return (
-    <div className="flex bg-white border border-black rounded-full gap-3 px-2 py-1">
+    <div className="w-min flex bg-white border border-black rounded-full items-center gap-3 px-2 py-1">
       <button onClick={handleDecreaseQuantity}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

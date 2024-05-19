@@ -186,7 +186,7 @@ export const Header = () => {
   }, [searchDisplay, cartDisplay]);
 
   return (
-    <header className="container mt-4 lg:fixed lg:right-0 lg:mt-0 lg:left-0 lg:top-4 h-16 z-50 flex justify-center items-center">
+    <header className="container fixed top-4 lg:right-0 lg:mt-0 lg:left-0 lg:top-4 h-16 z-50 flex justify-center items-center">
       <nav className="w-full lg:w-3/5 h-full flex justify-between items-center pl-4 pr-4 py-2 bg-white z-50 border border-black rounded-2xl ">
         <div className="w-auto mr-4 flex items-center gap-3 lg:hidden">
           <div className="size-8">

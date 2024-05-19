@@ -26,20 +26,29 @@ const CartContent = () => {
 
   return (
     <>
-      <div className="size-full flex flex-col overflow-auto px-4 rounded-3xl">
-        {cart.items.map((item: CartItemType, key: number) => (
-          <CartItem key={key} item={item} />
-        ))}
-      </div>
-      <div className="w-full h-auto flex py-3 pr-3 pl-8 bg-gray-100 rounded-full justify-between">
-        <div className="flex items-center gap-2">
+      <div className="w-full  px-4 lg:hidden">
+        <div className="w-full flex gap-2 items-center justify-center bg-gray-100 py-2 rounded-full">
           Earn
           <span className="py-1 px-2 bg-secondary rounded-full text-white">
             {totalPoints} points
           </span>
           from this order
         </div>
-        <div className="flex gap-3">
+      </div>
+      <div className="size-full flex flex-col gap-2 overflow-auto px-4 rounded-xl lg:gap-0 lg:rounded-3xl">
+        {cart.items.map((item: CartItemType, key: number) => (
+          <CartItem key={key} item={item} />
+        ))}
+      </div>
+      <div className="w-full h-auto flex p-4  bg-gray-100 items-center rounded-b-3xl lg:rounded-full lg:justify-between lg:py-3 lg:pr-3 lg:pl-8">
+        <div className="hidden items-center gap-2 lg:flex">
+          Earn
+          <span className="py-1 px-2 bg-secondary rounded-full text-white">
+            {totalPoints} points
+          </span>
+          from this order
+        </div>
+        <div className="w-full flex gap-3 flex-col lg:w-auto lg:flex-row">
           <div className="rounded-lg gap-5 flex items-center justify-between">
             Subtotal
             <span className="py-1 px-2 bg-neutral-200 rounded-lg">

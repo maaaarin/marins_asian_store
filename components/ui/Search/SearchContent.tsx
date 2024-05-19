@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { ProductCard } from "../Product/ProductCard";
 import { Product } from "@/types";
 import { getSearchProducts } from "@/lib/actions/product.actions";
+import styles from "./Search.module.scss";
 
 type Props = {
   searchQuery: string;
@@ -28,9 +29,14 @@ export const SearchContent = ({ searchQuery }: Props) => {
     };
   }, [searchQuery]);
   return (
-    <div className="size-full bg-white rounded-3xl px-8 py-10 pointer-events-auto">
+    <div className="size-full bg-white rounded-3xl px-3 py-4 pointer-events-auto lg:px-8 lg:py-10">
       <div className="size-full flex flex-col gap-3">
-        <div className="w-full h-auto flex justify-between">
+        <div className="text-center py-3 lg:hidden">
+          <span>{products.length}</span>
+          &nbsp;Results for&nbsp;
+          <span className="font-bold">{searchQuery}</span>
+        </div>
+        <div className="hidden w-full h-auto justify-between lg:flex">
           <button className="py-2 px-5 flex items-center gap-3 border border-slate-300 rounded-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,8 +66,9 @@ export const SearchContent = ({ searchQuery }: Props) => {
             <span>Filters</span>
           </button>
         </div>
-        <div className="size-full overflow-auto pt-5 rounded-3xl">
-          <div className="size-full grid grid-cols-4 gap-4">
+        <div
+          className={`${styles.searchResults} size-full overflow-auto rounded-3xl lg:pt-5`}>
+          <div className="size-full grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-4">
             {products.map((product: Product) => (
               <ProductCard key={product._id} product={product} />
             ))}

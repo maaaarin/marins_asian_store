@@ -31,7 +31,7 @@ const CheckoutButton = ({ userId }: Props) => {
       <Button
         size="lg"
         type="submit"
-        className="px-16 py-3 bg-primary rounded-full text-white">
+        className="w-full py-3 bg-primary rounded-full text-white lg:px-16">
         View Cart
       </Button>
     </form>

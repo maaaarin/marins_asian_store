@@ -45,12 +45,14 @@ export const CartItem = ({ item }: Props) => {
   }
 
   return (
-    <div className="w-full h-48 bg-gray-50 rounded-3xl p-4 flex items-center justify-between pr-8">
+    <div className="w-full h-36 flex items-center lg:h-48 lg:bg-gray-50 lg:rounded-3xl lg:p-4 lg:justify-between lg:pr-8">
       <div className="h-full flex items-center gap-5">
         <div
-          className="w-56 h-full rounded-2xl flex items-center justify-center relative"
+          className="w-40 lg:w-56 h-full rounded-2xl flex items-center justify-center relative"
           style={{ backgroundColor: `${product.color}` }}>
-          <AddWishlistButton productId={product._id} type={"cart"} />
+          <div className="hidden lg:block">
+            <AddWishlistButton productId={product._id} type={"cart"} />
+          </div>
           <button
             onClick={handleRemoveCartItem}
             onMouseOver={() => {
@@ -67,10 +69,22 @@ export const CartItem = ({ item }: Props) => {
             className="h-4/5 object-contain"
           />
         </div>
-        <span className="w-52">{product.name}</span>
+        <span className="hidden w-52 lg:block">{product.name}</span>
       </div>
-      <span>{product.price.toFixed(2)} €</span>
-      <ModifyItemQuantity item={item} />
+      <div className="w-auto h-full flex flex-col lg:hidden ml-4 gap-2">
+        <span className="w-auto mb-auto line-clamp-3 font-medium">
+          {product.name}
+        </span>
+        <span>{product.price.toFixed(2)} €</span>
+        <div className="flex gap-2">
+          <ModifyItemQuantity item={item} />
+          <AddWishlistButton productId={product._id} type="mobile" />
+        </div>
+      </div>
+      <span className="hidden lg:block">{product.price.toFixed(2)} €</span>
+      <div className="hidden lg:block">
+        <ModifyItemQuantity item={item} />
+      </div>
     </div>
   );
 };

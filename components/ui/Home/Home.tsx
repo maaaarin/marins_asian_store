@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const Home = () => {
   return (
-    <main className="container mt-4">
+    <main className="container mt-24 lg:mt-4">
       <div
         className={`${styles.bannersHeader} w-full justify-between lg:flex hidden`}>
         <div
@@ -213,7 +213,7 @@ export const Home = () => {
             height={250}
             className="size-full object-cover lg:hidden"
           />
-          <div className=" w-3/5 h-auto absolute bottom-0 p-3 lg:w-full">
+          <div className=" w-2/4 h-auto absolute bottom-0 p-3 lg:w-full">
             <div className="size-full bg-black rounded-xl flex flex-col justify-between p-4 relative">
               <div className="w-full flex items-center justify-between ">
                 <div className="flex flex-col text-white">
