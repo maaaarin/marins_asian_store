@@ -23,9 +23,9 @@ const ProductDetails = async ({ params: { id } }: Props) => {
 
   return (
     <>
-      <main className="container mt-24 flex gap-5">
+      <main className="container mt-24 flex flex-col gap-2 lg:gap-5 lg:flex-row">
         <div
-          className="min-w-96 h-96 border border-gray-300 rounded-3xl flex items-center justify-center"
+          className="w-full h-96 border border-gray-300 rounded-3xl flex items-center justify-center lg:w-auto lg:min-w-96"
           style={{
             background: `linear-gradient(to top, transparent 10%, ${product.color} 60%)`,
           }}>
@@ -37,9 +37,11 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             className=" object-contain"
           />
         </div>
-        <div className="flex-grow flex flex-col pt-8 gap-3">
-          <span className="text-2xl font-medium">{product.name}</span>
-          <div className="w-fit h-auto flex gap-2 px-4 py-2 rounded-full bg-zinc-50">
+        <div className="flex flex-col gap-3 lg:hidden ">
+          <span className="text-2xl font-medium text-center lg:text-left">
+            {product.name}
+          </span>
+          <div className="w-fit flex gap-2 px-4 py-2 rounded-full bg-zinc-50 mx-auto lg:mx-0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -77,11 +79,56 @@ const ProductDetails = async ({ params: { id } }: Props) => {
             </svg>
             <span>4.2</span>
           </div>
+        </div>
+        <div className="flex-grow flex flex-col gap-3 order-1 lg:order-none lg:mt-8">
+          <div className="hidden flex-col gap-3 lg:flex">
+            <span className="text-2xl font-medium text-center lg:text-left">
+              {product.name}
+            </span>
+            <div className="w-fit flex gap-2 px-4 py-2 rounded-full bg-zinc-50 mx-auto lg:mx-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="size-5 text-golden"
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="size-5 text-golden"
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="size-5 text-golden"
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="size-5 text-golden"
+                viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="size-5 text-golden"
+                viewBox="0 0 16 16">
+                <path d="M5.354 5.119 7.538.792A.52.52 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.54.54 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.5.5 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.6.6 0 0 1 .085-.302.51.51 0 0 1 .37-.245zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.56.56 0 0 1 .162-.505l2.907-2.77-4.052-.576a.53.53 0 0 1-.393-.288L8.001 2.223 8 2.226z" />
+              </svg>
+              <span>4.2</span>
+            </div>
+          </div>
           <ProductTabs product={product} />
         </div>
-        <div className="min-w-72 h-96 border border-gray-300  rounded-2xl flex flex-col gap-2 p-4">
+        <div className="w-full h-96 border border-gray-300  rounded-2xl flex flex-col gap-2 p-4 mt-4 lg:mt-0 lg:w-auto lg:min-w-72">
           <div className="flex gap-2 flex-grow">
-            <span className="w-fit px-4 py-2 bg-black rounded-xl text-white text-3xl flex items-center justify-center">
+            <span className="w-fit px-4 py-2 bg-black rounded-xl text-white text-3xl flex items-center justify-center mx-auto lg:mx-0">
               {product.price.toFixed(2).replace(".", ",")} €
             </span>
           </div>
@@ -123,8 +170,10 @@ const ProductDetails = async ({ params: { id } }: Props) => {
           <AddItemButton product={product} type="page" />
         </div>
       </main>
-      <section className="container mt-10">
-        <h2 className="text-2xl font-bold">Related Products</h2>
+      <section className="container mt-8 lg:mt-10">
+        <h2 className="text-2xl font-bold text-center lg:text-left">
+          Related Products
+        </h2>
         <div className="grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-4 mt-5">
           {relatedProducts.map((product: Product) => (
             <ProductCard key={product._id} product={product} />

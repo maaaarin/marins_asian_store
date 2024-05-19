@@ -20,7 +20,7 @@ export const ProductTabs = ({ product }: Props) => {
         </Tab>
         <Tab key="details" title="Details">
           <>
-            <div className="grid grid-rows-2 grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-3">
               <div className="flex gap-2 items-center">
                 <div className="size-12 bg-secondary rounded-lg grid place-items-center p-2">
                   <svg
@@ -96,7 +96,7 @@ export const ProductTabs = ({ product }: Props) => {
         </Tab>
         <Tab key="nutrition" title="Nutrition">
           <>
-            <div className="grid grid-rows-2 grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-3">
               <div className="flex gap-2 items-center">
                 <div className="size-12 bg-calories rounded-lg grid place-items-center p-2">
                   <svg
