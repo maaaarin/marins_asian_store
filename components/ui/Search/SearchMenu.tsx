@@ -75,8 +75,8 @@ export const SearchMenu = () => {
         <div className="w-full lg:w-1/4 flex flex-col gap-3 ">
           <span className="text-xl font-bold lg:pl-4">Popular Search</span>
           <ul className="flex flex-col gap-1 w-full ">
-            {popularSearchs.map((search) => (
-              <li>
+            {popularSearchs.map((search, key: number) => (
+              <li key={key}>
                 <button className="flex items-center w-full rounded-xl gap-3 p-2 hover:bg-slate-100 duration-500 lg:py-2 lg:px-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
