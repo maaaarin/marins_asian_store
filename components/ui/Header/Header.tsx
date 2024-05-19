@@ -37,6 +37,15 @@ import {
 import { Player } from "@lordicon/react";
 import { resetWishlist, setWishlist } from "@/lib/store/slices/wishlist.slice";
 import { getWishlist } from "@/lib/actions/wishlist.actions";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/widgets/sheet";
 
 export const Header = () => {
   // Clerk
@@ -189,14 +198,111 @@ export const Header = () => {
     <header className="container fixed top-4 right-0 left-0 lg:mt-0 lg:top-4 h-16 z-50 flex justify-center items-center">
       <nav className="w-full lg:w-3/5 h-full flex justify-between items-center pl-4 pr-4 py-2 bg-white z-50 border border-black rounded-2xl ">
         <div className="w-auto mr-4 flex items-center gap-3 lg:hidden">
-          <div className="size-8">
-            <svg fill="currentColor" viewBox="0 0 16 16" className="size-full">
-              <path
-                fill-rule="evenodd"
-                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+          <Sheet>
+            <SheetTrigger>
+              <div className="size-8">
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                  className="size-full">
+                  <path
+                    fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                  />
+                </svg>
+              </div>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <div className="mt-6">
+                <Link href="/sign-in">
+                  <SheetClose asChild>
+                    <div className="w-full h-20 rounded-xl flex flex-col text-white items-center justify-center bg-secondary bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.png')] py-3">
+                      <span className="text-lg font-semibold ">
+                        Sign In or Sign Up
+                      </span>
+                      <span className="text-sm ">Join us!</span>
+                    </div>
+                  </SheetClose>
+                </Link>
+                <div className="w-full h-auto flex flex-col gap-3 mt-4">
+                  <h2 className="text-center">Explore</h2>
+                  <ul className="w-full flex flex-col gap-2">
+                    <Link href="/categories/snack">
+                      <SheetClose asChild>
+                        <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
+                          Snacks
+                          <svg
+                            className="size-4"
+                            fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                            />
+                          </svg>
+                        </li>
+                      </SheetClose>
+                    </Link>
+                    <Link href="/categories/drink">
+                      <SheetClose asChild>
+                        <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
+                          Drinks
+                          <svg
+                            className="size-4"
+                            fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                            />
+                          </svg>
+                        </li>
+                      </SheetClose>
+                    </Link>
+                    <Link href="/categories/candy">
+                      <SheetClose asChild>
+                        <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
+                          Candy
+                          <svg
+                            className="size-4"
+                            fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                            />
+                          </svg>
+                        </li>
+                      </SheetClose>
+                    </Link>
+                    <Link href="/categories/soup">
+                      <SheetClose asChild>
+                        <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
+                          Soups
+                          <svg
+                            className="size-4"
+                            fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                            />
+                          </svg>
+                        </li>
+                      </SheetClose>
+                    </Link>
+                  </ul>
+                </div>
+              </div>
+              <Image
+                src="/assets/img/character_surprised.png"
+                alt="alt"
+                width={220}
+                height={300}
+                className="absolute -bottom-20 right-4"
               />
-            </svg>
-          </div>
+            </SheetContent>
+          </Sheet>
           <Link href="/" className={clsx({ hidden: searchDisplay })}>
             <Image src={logo} alt="alt" width={100} height={25} />
           </Link>
