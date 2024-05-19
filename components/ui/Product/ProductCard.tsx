@@ -15,17 +15,17 @@ type Props = {
 
 export const ProductCard = ({ product }: Props) => {
   return (
-    <div className="w-full product-card">
+    <div className="w-full">
       <div
-        className={`${styles.product}  hover:!-translate-y-2 w-full transition-all duration-400 rounded-3xl cursor-pointer border border-slate-300 relative`}>
+        className={`h-auto ${styles.product} hover:!-translate-y-2 w-full transition-all duration-400 rounded-3xl cursor-pointer border border-slate-300 relative`}>
         <div
-          className={`${styles.productHover} h-3/4 w-full invisible duration-500 opacity-0  flex items-center justify-center absolute backdrop-blur-sm rounded-t-3xl z-50 pointer-events-none`}>
+          className={`hidden ${styles.productHover} h-3/4 w-full invisible duration-500 opacity-0 items-center justify-center absolute backdrop-blur-sm rounded-t-3xl z-50 pointer-events-none lg:flex`}>
           <AddItemButton product={product} />
           <AddWishlistButton productId={product._id} />
         </div>
         <Link href={`/products/${product._id}`}>
           <div
-            className="h-3/4 flex items-center justify-center rounded-3xl p-6 relative overflow-hidden"
+            className="h-3/4 flex items-center justify-center rounded-3xl p-2 relative overflow-hidden lg:p-6"
             style={{
               background: `linear-gradient(180deg, ${product.color} 0%, transparent 100%)`,
             }}>
@@ -37,11 +37,23 @@ export const ProductCard = ({ product }: Props) => {
               className="h-full w-auto"
             />
           </div>
-          <div className="h-1/4 flex items-center justify-between px-4 py-2 gap-2">
+          <div className="hidden lg:flex h-1/4 items-center justify-between px-4 py-2 gap-2">
             <span className="size-fit line-clamp-2">{product.name}</span>
-            <span className="size-fit text-nowrap text-lg bg-black text-white rounded-full py-1 px-3">
+            <span className="hidden size-fit text-nowrap text-lg bg-black text-white rounded-full py-1 px-3 lg:block">
               {product.price.toFixed(2)} €
             </span>
+          </div>
+          <div className="h-auto flex-col flex items-center justify-between p-4 gap-2 lg:py-2  lg:hidden">
+            <span className="text-base size-fit line-clamp-2 text-center">
+              {product.name}
+            </span>
+            <div className="w-full relative flex items-center justify-center gap-2">
+              <AddWishlistButton productId={product._id} type="mobile" />
+              <span className="text-base size-fit text-nowrap bg-black text-white rounded-full py-1 px-3">
+                {product.price.toFixed(2)} €
+              </span>
+              <AddItemButton product={product} type="mobile" />
+            </div>
           </div>
         </Link>
       </div>

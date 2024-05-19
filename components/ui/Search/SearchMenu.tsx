@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
+import styles from "./Search.module.scss";
 
 export const SearchMenu = () => {
   const pathname = usePathname();
@@ -47,8 +48,8 @@ export const SearchMenu = () => {
 
   return (
     <div className="w-full h-auto bg-white rounded-3xl px-8 py-10 pointer-events-auto">
-      <div className="w-full h-auto flex gap-3">
-        <div className="w-1/4 flex flex-col gap-3 ">
+      <div className="flex-col lg:flex-row w-full h-auto flex gap-3">
+        <div className="w-full lg:w-1/4 flex flex-col gap-3 ">
           <span className="text-xl font-bold pl-4">Popular Search</span>
           <ul className="flex flex-col gap-1 w-full ">
             <li>
@@ -138,13 +139,14 @@ export const SearchMenu = () => {
             </li>
           </ul>
         </div>
-        <div className="w-9/12 h-auto flex flex-col gap-3">
+        <div className="w-full overflow-hidden lg:w-9/12 h-auto flex flex-col gap-3">
           <span className="text-xl font-bold">Recommended</span>
-          <div className="size-full flex gap-3">
+          <div
+            className={`${styles.searchRecommendations} size-full overflow-x-scroll flex gap-3 rounded-2xl lg:overflow-auto`}>
             {recommendedProducts.map((product: any, key: number) => (
               <Link href={`/products/${product._id}`} key={key}>
                 <div
-                  className="flex-1 min-w-32 max-w-52 aspect-square rounded-2xl flex p-3 items-center justify-center relative"
+                  className="flex-1 min-w-52 aspect-square rounded-2xl flex p-3 items-center justify-center relative lg:min-w-32 lg:max-width-52"
                   style={{ backgroundColor: product.color }}>
                   <Image
                     src={product.picture}

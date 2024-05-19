@@ -177,16 +177,40 @@ export const Header = () => {
     }
   }, [pathName]);
 
+  useEffect(() => {
+    if (searchDisplay || cartDisplay) {
+      document.body.classList.add("overflow-y-hidden");
+    } else {
+      document.body.classList.remove("overflow-y-hidden");
+    }
+  }, [searchDisplay, cartDisplay]);
+
   return (
-    <header className="container h-16 z-50 fixed top-4 right-0 left-0  flex justify-center items-center">
-      <nav className="w-3/5 h-full flex justify-between items-center pl-4 pr-4 py-2 bg-white z-50 border border-black rounded-2xl">
-        <Link href="/">
-          <Image src={logo} alt="alt" width={78} height={24} />
+    <header className="container mt-4 lg:fixed lg:right-0 lg:mt-0 lg:left-0 lg:top-4 h-16 z-50 flex justify-center items-center">
+      <nav className="w-full lg:w-3/5 h-full flex justify-between items-center pl-4 pr-4 py-2 bg-white z-50 border border-black rounded-2xl ">
+        <div className="w-auto mr-4 flex items-center gap-3 lg:hidden">
+          <div className="size-8">
+            <svg fill="currentColor" viewBox="0 0 16 16" className="size-full">
+              <path
+                fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+              />
+            </svg>
+          </div>
+          <Link href="/" className={clsx({ hidden: searchDisplay })}>
+            <Image src={logo} alt="alt" width={100} height={25} />
+          </Link>
+        </div>
+        <Link href="/" className="hidden lg:block">
+          <Image src={logo} alt="alt" width={96} height={25} />
         </Link>
         <ul
-          className={clsx("flex items-center gap-6 font-normal text-lg", {
-            hidden: searchDisplay || searchQuery,
-          })}>
+          className={clsx(
+            "hidden lg:flex items-center gap-6 font-normal text-lg ",
+            {
+              "!hidden": searchDisplay || searchQuery,
+            }
+          )}>
           <Link href="/categories/snack">
             <li>Snacks</li>
           </Link>
@@ -243,7 +267,7 @@ export const Header = () => {
               <FlavorTrail />
             </li>
           </SignedIn>
-          <li className="w-auto h-full flex-center cursor-pointer">
+          <li className="hidden lg:flex w-auto h-full items-center justify-center cursor-pointer">
             {/* User */}
             <SignedIn>
               {userDisable ? (
@@ -291,7 +315,7 @@ export const Header = () => {
       </nav>
       <div
         className={clsx(
-          "bg-black/60 fixed top-0 left-0 right-0 bottom-0 -z-10 pointer-events-auto animate-fade-in",
+          "bg-black/60 fixed top-0 left-0 right-0 bottom-0 z-20 pointer-events-auto animate-fade-in",
           { hidden: !cartDisplay && !searchDisplay && !searchQuery }
         )}
         onClick={() => {

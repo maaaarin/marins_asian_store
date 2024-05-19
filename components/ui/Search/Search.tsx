@@ -16,7 +16,7 @@ export const Search = ({ searchDisplay, searchQuery }: Props) => {
     <>
       {(searchDisplay || searchQuery) && (
         <div
-          className={`${styles.searchContainer} container fixed top-24 left-0 right-0 pointer-events-none animate-slide-in-blurred-top`}>
+          className={`${styles.searchContainer} w-full lg:container fixed top-24 left-0 right-0 pointer-events-none animate-slide-in-blurred-top`}>
           {searchQuery ? (
             <SearchContent searchQuery={searchQuery} />
           ) : (

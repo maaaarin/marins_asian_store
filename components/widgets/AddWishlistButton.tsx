@@ -67,6 +67,52 @@ export const AddWishlistButton = ({ productId, type }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
+  if (type === "mobile") {
+    return (
+      <div className="size-10 rounded-full relative flex items-center justify-center  !pointer-events-auto">
+        <Button
+          className="!size-10 min-w-0 min-h-0 bg-black/5"
+          radius="full"
+          size="md"
+          onClick={handleUpdateWishlist}></Button>
+        <div className="size-full absolute flex items-center justify-center p-2 pointer-events-none">
+          <div className={styles.heartContainer} title="Favorite">
+            <input
+              type="checkbox"
+              className={styles.checkbox}
+              checked={onWishlist}></input>
+            <div className={styles.svgContainer}>
+              <svg
+                viewBox="0 0 24 24"
+                className={styles.svgEmpty}
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z"></path>
+              </svg>
+              <svg
+                viewBox="0 0 24 24"
+                className={styles.svgFilled}
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z"></path>
+              </svg>
+              <svg
+                className={styles.svgCelebrate}
+                width="100"
+                height="100"
+                xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,10 20,20"></polygon>
+                <polygon points="10,50 20,50"></polygon>
+                <polygon points="20,80 30,70"></polygon>
+                <polygon points="90,10 80,20"></polygon>
+                <polygon points="90,50 80,50"></polygon>
+                <polygon points="80,80 70,70"></polygon>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (!userId && type === "page") {
     return (
       <Popover

@@ -10,6 +10,7 @@ export default authMiddleware({
     "/categories/soup",
     "/categories/candy",
     "/categories/drink",
+    "/order_success",
     "/api/:path*",
   ],
   ignoredRoutes: [

@@ -55,7 +55,9 @@ const CategoryContent = ({ products }: Props) => {
           <span>Sort</span>
         </Button>
       </div>
-      <div className="w-full grid grid-cols-4 gap-4" ref={productsRef}>
+      <div
+        className="w-full grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-4"
+        ref={productsRef}>
         {products.map((product: Product) => (
           <ProductCard key={product._id} product={product} />
         ))}

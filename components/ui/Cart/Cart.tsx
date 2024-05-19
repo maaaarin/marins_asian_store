@@ -26,7 +26,7 @@ export const Cart = ({ cartDisplay, closeDisplay }: Props) => {
         className={clsx(
           `${styles.cartContainer} container h-auto fixed top-24 right-0 left-0 flex justify-center pointer-events-none`,
           { "animate-slide-in-blurred-top": cartDisplay },
-          { "translate-y-[-1000px]": !cartDisplay }
+          { "translate-y-[-2500px]": !cartDisplay }
         )}>
         <div className="w-3/5 h-auto bg-white pt-6 flex flex-col gap-5 rounded-3xl point pointer-events-auto">
           <div className="w-full h-auto flex relative items-center justify-center px-8">

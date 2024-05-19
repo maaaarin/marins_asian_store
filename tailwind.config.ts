@@ -11,9 +11,9 @@ const config: Config = {
   ],
   theme: {
     screens: {
-      sm: "480px",
+      sm: "640px",
       md: "768px",
-      lg: "976px",
+      lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
     },
@@ -33,6 +33,9 @@ const config: Config = {
         carbh: "#C1F9E8",
         salt: "#CCFCA5",
         fat: "#FFE791",
+      },
+      height: {
+        banner: "40rem",
       },
     },
     container: {

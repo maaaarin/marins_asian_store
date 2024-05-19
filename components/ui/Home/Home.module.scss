@@ -6,19 +6,6 @@
     }
 }
 
-.bannersMain {
-    width: 100%;
-    height: 40rem;
-}
-
-.bannersFirstPanel {
-    width: 75%;
-}
-
-.bannersSecondPanel {
-    width: 25%;
-}
-
 .bannerTopCornerSecondary::after {
     content: '';
     width: 1.5rem;
@@ -62,3 +49,11 @@
     left: 0;
     background: radial-gradient(circle at top right, transparent 1.5rem, #FF4900 1.5rem);
 }
+
+@media (min-width: 640px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 1024px) {}
+
+@media (min-width: 1280px) {}

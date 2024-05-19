@@ -92,6 +92,30 @@ export const AddItemButton = ({ product, type }: Props) => {
     );
   }
 
+  if (type === "mobile") {
+    return (
+      <Button
+        isIconOnly
+        color="primary"
+        aria-label="Add Product"
+        radius="full"
+        size="md"
+        className="size-10 z-20 !pointer-events-auto"
+        onClick={handleAddItem}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          className="size-3/5 text-white"
+          viewBox="0 0 16 16">
+          <path
+            fillRule="evenodd"
+            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
+          />
+        </svg>
+      </Button>
+    );
+  }
+
   return (
     <Button
       isIconOnly

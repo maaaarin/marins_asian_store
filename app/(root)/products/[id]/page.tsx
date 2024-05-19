@@ -125,7 +125,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
       </main>
       <section className="container mt-10">
         <h2 className="text-2xl font-bold">Related Products</h2>
-        <div className="flex gap-4 mt-5">
+        <div className="grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-4 mt-5">
           {relatedProducts.map((product: Product) => (
             <ProductCard key={product._id} product={product} />
           ))}

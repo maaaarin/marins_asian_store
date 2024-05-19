@@ -1,4 +1,14 @@
-
-.searchContainer{
+.searchContainer {
     height: calc(100vh - 8rem);
+
+
+
+
+}
+
+.searchRecommendations {
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }

@@ -7,47 +7,51 @@ import Link from "next/link";
 export const Home = () => {
   return (
     <main className="container mt-4">
-      <div className={`${styles.bannersHeader} w-full flex justify-between`}>
+      <div
+        className={`${styles.bannersHeader} w-full justify-between lg:flex hidden`}>
         <div
           className={`${styles.bannerTopCornerSecondary} bg-pink-light rounded-t-2xl relative`}></div>
         <div
           className={`${styles.bannerTopCornerPrimary} bg-primary rounded-t-2xl relative`}></div>
       </div>
-      <div className={`${styles.bannersMain} flex gap-5`}>
-        <div className={`${styles.bannersFirstPanel} h-full flex flex-col`}>
-          <div className="w-full h-4/6 bg-pink-light text-2xl rounded-bl-3xl rounded-tr-3xl flex  justify-end  relative">
-            <div className="w-2/4 h-full flex flex-col justify-end gap-5 pb-8 pl-8">
+      <div className="w-full h-auto flex-col flex gap-5 lg:flex-row lg:h-banner">
+        <div className="w-full h-[30rem] flex flex-col lg:w-3/4 lg:h-full">
+          <div className="w-full h-full rounded-3xl z-20 bg-pink-light text-2xl flex justify-end relative lg:h-4/6 lg:rounded-none lg:rounded-bl-3xl lg:rounded-tr-3xl">
+            <div className="w-full h-full flex flex-col z-20 justify-end gap-5 pb-8 pl-8 lg:w-2/4">
               <Image
                 src="/assets/img/snack_friday.svg"
                 alt="Banner Image"
                 width={0}
                 height={0}
-                className="w-64 h-auto"
+                className="w-60 h-auto lg:w-64"
               />
               <div className="flex gap-2 items-center">
-                <span>Deals</span>
-                <div className="bg-primary rounded-full text-white px-3 py-2 text-xl">
-                  Up to 50%
+                <span>Enjoy</span>
+                <div className="bg-primary rounded-full text-white px-3 py-1 text-lg">
+                  NEW
                 </div>
-                <span>on All Store</span>
+                <span>snacks!</span>
               </div>
-              <Button
-                size="lg"
-                className="size-16 flex items-center bg-black rounded-full text-white w-fit px-6 py-1 gap-1">
-                <span>Discover</span>
-                <svg
-                  fill="currentColor"
-                  className="size-12"
-                  viewBox="0 0 16 16">
-                  <path
-                    fillRule="evenodd"
-                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                  />
-                </svg>
-              </Button>
+              <Link href="/categories/snack">
+                <Button
+                  size="lg"
+                  className="size-16 flex items-center bg-black rounded-full text-white w-fit px-6 py-1 gap-1">
+                  <span>Discover</span>
+                  <svg
+                    fill="currentColor"
+                    className="size-12"
+                    viewBox="0 0 16 16">
+                    <path
+                      fillRule="evenodd"
+                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                    />
+                  </svg>
+                </Button>
+              </Link>
             </div>
             {/* Banner Assets */}
-            <div className="w-2/4 h-full relative z-10">
+            {/* Desktop */}
+            <div className="hidden w-2/4 h-full relative z-10 lg:block">
               <Image
                 src="/assets/img/banner_character.png"
                 alt="Banner Character"
@@ -77,16 +81,54 @@ export const Home = () => {
                 className="size-32 object-contain absolute -right-8 top-40 animate-floating-6"
               />
             </div>
+            {/* Mobile */}
+            <div className="size-full absolute z-10 lg:hidden">
+              <Image
+                src="/assets/img/banner_character.png"
+                alt="Banner Character"
+                width={550}
+                height={550}
+                className="size-2/3 object-contain absolute top-8 right-0 animate-floating-4"
+              />
+              <Image
+                src="/assets/img/banner_asset_1.png"
+                alt="Banner Asset"
+                width={256}
+                height={256}
+                className="size-40 object-contain absolute right-0 bottom-0 animate-floating-6"
+              />
+              <Image
+                src="/assets/img/banner_asset_2.png"
+                alt="Banner Asset"
+                width={256}
+                height={256}
+                className="size-28 object-contain absolute top-8 right-2 animate-floating-6"
+              />
+              <Image
+                src="/assets/img/banner_asset_3.png"
+                alt="Banner Asset"
+                width={256}
+                height={256}
+                className="size-24 object-contain absolute right-56 top-36 animate-floating-6"
+              />
+            </div>
             {/* Background Element */}
             <Image
               src="/assets/img/banner_bg_1.svg"
               alt="Banner Background"
               width={0}
               height={0}
-              className="h-full w-auto absolute right-0 bottom-0"
+              className="hidden h-full w-auto absolute right-0 bottom-0 lg:block"
+            />
+            <Image
+              src="/assets/img/mobile/banner_bg.svg"
+              alt="Banner Background"
+              width={0}
+              height={0}
+              className="-z-20 flex w-full absolute right-0 top-0 lg:hidden rounded-t-2xl"
             />
           </div>
-          <div className="w-full h-2/6 flex">
+          <div className="hidden w-full h-2/6 lg:flex">
             <div className="w-2/4 h-full pt-5">
               <div className="size-full bg-orange rounded-t-3xl rounded-bl-3xl flex overflow-hidden">
                 <div className="w-2/4 flex flex-col gap-3 text-beige pl-8 py-8">
@@ -155,16 +197,24 @@ export const Home = () => {
             </div>
           </div>
         </div>
-        <div
-          className={`${styles.bannersSecondPanel} h-full rounded-b-3xl rounded-tl-3xl relative overflow-hidden`}>
+        <div className="w-full h-44 rounded-3xl relative overflow-hidden lg:w-1/4 lg:h-full lg:rounded-none lg:rounded-b-3xl lg:rounded-tl-3xl">
+          {/* Desktop  */}
           <Image
             src="/assets/img/second_banner.png"
             alt="Banner Product"
             fill
-            className="object-cover"
+            className="hidden object-cover lg:block"
           />
-          <div className=" w-full h-auto absolute bottom-0 p-3">
-            <div className="size-full bg-black rounded-xl flex flex-col justify-between p-4">
+          {/* Mobile  */}
+          <Image
+            src="/assets/img/second-banner-mobile.png"
+            alt="Banner Product"
+            width={600}
+            height={250}
+            className="size-full object-cover lg:hidden"
+          />
+          <div className=" w-2/4 h-auto absolute bottom-0 p-3 lg:w-full">
+            <div className="size-full bg-black rounded-xl flex flex-col justify-between p-4 relative">
               <div className="w-full flex items-center justify-between ">
                 <div className="flex flex-col text-white">
                   <span className="font-semibold text-xl">Kit Kat</span>
@@ -173,7 +223,7 @@ export const Home = () => {
                 <Link href="/products/6648d166db8778d425d194bd">
                   <Button
                     isIconOnly
-                    className="bg-white rounded-full text-black flex-center">
+                    className="absolute bottom-0 border-3 border-black bg-white rounded-full text-black flex-center lg:static">
                     <svg
                       fill="currentColor"
                       className="size-full"
