@@ -28,7 +28,7 @@ export const Cart = ({ cartDisplay, closeDisplay }: Props) => {
           { "animate-slide-in-blurred-top": cartDisplay },
           { "translate-y-[-2500px]": !cartDisplay }
         )}>
-        <div className="w-3/5 h-auto bg-white pt-6 flex flex-col gap-5 rounded-3xl point pointer-events-auto">
+        <div className="w-full h-auto bg-white pt-6 flex flex-col gap-5 rounded-3xl point pointer-events-auto lg:w-3/5">
           <div className="w-full h-auto flex relative items-center justify-center px-8">
             <button className="size-5 absolute left-8" onClick={closeDisplay}>
               <svg
