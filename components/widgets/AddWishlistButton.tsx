@@ -69,13 +69,12 @@ export const AddWishlistButton = ({ productId, type }: Props) => {
 
   if (type === "mobile") {
     return (
-      <div className="size-10 rounded-full relative flex items-center justify-center  !pointer-events-auto">
+      <div className="w-2/4 h-10 relative flex items-center justify-center !pointer-events-auto">
         <Button
-          className="!size-10 min-w-0 min-h-0 bg-black/5"
-          radius="full"
+          className="!size-full min-w-0 min-h-0 bg-black/5 rounded-full"
           size="md"
           onClick={handleUpdateWishlist}></Button>
-        <div className="size-full absolute flex items-center justify-center p-2 pointer-events-none">
+        <div className="h-3/5 aspect-square absolute flex items-center justify-center pointer-events-none">
           <div className={styles.heartContainer} title="Favorite">
             <input
               type="checkbox"

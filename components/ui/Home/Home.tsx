@@ -14,7 +14,7 @@ export const Home = () => {
         <div
           className={`${styles.bannerTopCornerPrimary} bg-primary rounded-t-2xl relative`}></div>
       </div>
-      <div className="w-full h-auto flex-col flex gap-5 lg:flex-row lg:h-banner">
+      <div className="w-full h-auto flex-col flex gap-2 lg:gap-5 lg:flex-row lg:h-banner">
         <div className="w-full h-[30rem] flex flex-col lg:w-3/4 lg:h-full">
           <div className="w-full h-full rounded-3xl z-20 bg-pink-light text-2xl flex justify-end relative lg:h-4/6 lg:rounded-none lg:rounded-bl-3xl lg:rounded-tr-3xl">
             <div className="w-full h-full flex flex-col z-20 justify-end gap-5 pb-8 pl-8 lg:w-2/4">
@@ -213,7 +213,7 @@ export const Home = () => {
             height={250}
             className="size-full object-cover lg:hidden"
           />
-          <div className=" w-2/4 h-auto absolute bottom-0 p-3 lg:w-full">
+          <div className=" w-3/5 h-auto absolute bottom-0 p-3 lg:w-full">
             <div className="size-full bg-black rounded-xl flex flex-col justify-between p-4 relative">
               <div className="w-full flex items-center justify-between ">
                 <div className="flex flex-col text-white">

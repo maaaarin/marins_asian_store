@@ -98,9 +98,8 @@ export const AddItemButton = ({ product, type }: Props) => {
         isIconOnly
         color="primary"
         aria-label="Add Product"
-        radius="full"
         size="md"
-        className="size-10 z-20 !pointer-events-auto"
+        className="w-2/4 h-10 z-20 !pointer-events-auto rounded-full"
         onClick={handleAddItem}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
