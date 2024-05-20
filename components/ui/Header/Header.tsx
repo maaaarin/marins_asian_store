@@ -46,6 +46,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/widgets/sheet";
+import { UserFeatures } from "../User/UserFeatures";
 
 export const Header = () => {
   // Clerk
@@ -175,14 +176,14 @@ export const Header = () => {
     }
   }
 
-  const [userDisable, setUserDisable] = useState(false);
+  const [isUserProfile, setIsUserProfile] = useState(false);
 
   // User disable display
   useEffect(() => {
     if (pathName.includes("profile")) {
-      setUserDisable(true);
+      setIsUserProfile(true);
     } else {
-      setUserDisable(false);
+      setIsUserProfile(false);
     }
   }, [pathName]);
 
@@ -214,85 +215,130 @@ export const Header = () => {
             </SheetTrigger>
             <SheetContent side="left">
               <div className="mt-6">
-                <Link href="/sign-in">
-                  <SheetClose asChild>
-                    <div className="w-full h-20 rounded-xl flex flex-col text-white items-center justify-center bg-secondary bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.svg')] py-3">
-                      <span className="text-lg font-semibold ">
-                        Sign In or Sign Up
-                      </span>
-                      <span className="text-sm ">Join us!</span>
-                    </div>
-                  </SheetClose>
-                </Link>
-                <div className="w-full h-auto flex flex-col gap-3 mt-4">
-                  <h2 className="text-center">Explore</h2>
-                  <ul className="w-full flex flex-col gap-2">
-                    <Link href="/categories/snack">
-                      <SheetClose asChild>
-                        <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
-                          Snacks
-                          <svg
-                            className="size-4"
-                            fill="currentColor"
-                            viewBox="0 0 16 16">
-                            <path
-                              fill-rule="evenodd"
-                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                <SignedOut>
+                  <Link href="/sign-in">
+                    <SheetClose asChild>
+                      <div className="w-full h-20 rounded-xl flex flex-col text-white items-center justify-center bg-secondary bg-no-repeat bg-cover bg-[url('/assets/img/guest-banner.svg')] py-3">
+                        <span className="text-lg font-semibold ">
+                          Sign In or Sign Up
+                        </span>
+                        <span className="text-sm ">Join us!</span>
+                      </div>
+                    </SheetClose>
+                  </Link>
+                </SignedOut>
+                <SignedIn>
+                  <Link href="/profile/account">
+                    <SheetClose asChild>
+                      <div className="w-full h-24 rounded-xl flex flex-col text-white items-center justify-center bg-secondary bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.svg')] py-3 relative">
+                        <svg
+                          className="size-5 text-white absolute top-0 right-0 m-3"
+                          fill="currentColor"
+                          viewBox="0 0 16 16">
+                          <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                        </svg>
+                        <div className="size-full flex-center gap-3 rounded-xl px-4 py-6 bg-cover bg-center ">
+                          <div className="size-14 flex justify-center relative">
+                            <Image
+                              src={user?.imageUrl || ""}
+                              alt="alt"
+                              width={96}
+                              height={96}
+                              className="size-full rounded-full border-2 border-secondary object-cover"
                             />
-                          </svg>
-                        </li>
-                      </SheetClose>
-                    </Link>
-                    <Link href="/categories/drink">
-                      <SheetClose asChild>
-                        <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
-                          Drinks
-                          <svg
-                            className="size-4"
-                            fill="currentColor"
-                            viewBox="0 0 16 16">
-                            <path
-                              fill-rule="evenodd"
-                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                            />
-                          </svg>
-                        </li>
-                      </SheetClose>
-                    </Link>
-                    <Link href="/categories/candy">
-                      <SheetClose asChild>
-                        <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
-                          Candy
-                          <svg
-                            className="size-4"
-                            fill="currentColor"
-                            viewBox="0 0 16 16">
-                            <path
-                              fill-rule="evenodd"
-                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                            />
-                          </svg>
-                        </li>
-                      </SheetClose>
-                    </Link>
-                    <Link href="/categories/soup">
-                      <SheetClose asChild>
-                        <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
-                          Soups
-                          <svg
-                            className="size-4"
-                            fill="currentColor"
-                            viewBox="0 0 16 16">
-                            <path
-                              fill-rule="evenodd"
-                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
-                            />
-                          </svg>
-                        </li>
-                      </SheetClose>
-                    </Link>
-                  </ul>
-                </div>
+                            <span className="absolute -bottom-2 w-fit px-2 py-1 text-xs bg-secondary text-white rounded-full">
+                              Lvl. 1
+                            </span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-white font-medium text-xl drop-shadow-sm">
+                              {user?.firstName?.concat(
+                                " ",
+                                user?.lastName || ""
+                              )}
+                            </span>
+                            <span className="text-xs bg-black rounded-full px-3 py-1 text-white">
+                              {user?.primaryEmailAddress?.emailAddress}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </SheetClose>
+                  </Link>
+                </SignedIn>
+                {isUserProfile ? (
+                  <UserFeatures />
+                ) : (
+                  <div className="w-full h-auto flex flex-col gap-3 mt-4">
+                    <h2 className="text-center">Explore</h2>
+                    <ul className="w-full flex flex-col gap-2">
+                      <Link href="/categories/snack">
+                        <SheetClose asChild>
+                          <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
+                            Snacks
+                            <svg
+                              className="size-4"
+                              fill="currentColor"
+                              viewBox="0 0 16 16">
+                              <path
+                                fill-rule="evenodd"
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                              />
+                            </svg>
+                          </li>
+                        </SheetClose>
+                      </Link>
+                      <Link href="/categories/drink">
+                        <SheetClose asChild>
+                          <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
+                            Drinks
+                            <svg
+                              className="size-4"
+                              fill="currentColor"
+                              viewBox="0 0 16 16">
+                              <path
+                                fill-rule="evenodd"
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                              />
+                            </svg>
+                          </li>
+                        </SheetClose>
+                      </Link>
+                      <Link href="/categories/candy">
+                        <SheetClose asChild>
+                          <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
+                            Candy
+                            <svg
+                              className="size-4"
+                              fill="currentColor"
+                              viewBox="0 0 16 16">
+                              <path
+                                fill-rule="evenodd"
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                              />
+                            </svg>
+                          </li>
+                        </SheetClose>
+                      </Link>
+                      <Link href="/categories/soup">
+                        <SheetClose asChild>
+                          <li className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 rounded-full">
+                            Soups
+                            <svg
+                              className="size-4"
+                              fill="currentColor"
+                              viewBox="0 0 16 16">
+                              <path
+                                fill-rule="evenodd"
+                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"
+                              />
+                            </svg>
+                          </li>
+                        </SheetClose>
+                      </Link>
+                    </ul>
+                  </div>
+                )}
               </div>
             </SheetContent>
           </Sheet>
@@ -369,7 +415,7 @@ export const Header = () => {
           <li className="hidden lg:flex w-auto h-full items-center justify-center cursor-pointer">
             {/* User */}
             <SignedIn>
-              {userDisable ? (
+              {isUserProfile ? (
                 <Image
                   src={user?.imageUrl || ""}
                   alt="Profile Picture"

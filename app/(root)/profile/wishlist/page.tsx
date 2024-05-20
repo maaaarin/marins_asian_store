@@ -31,13 +31,15 @@ const Wishlist = async () => {
 
   return (
     <div className="size-full overflow-auto flex flex-col gap-8">
-      <h2 className="text-2xl font-semibold">Wishlist</h2>
-      <ul className="w-full h-auto flex flex-col gap-3">
+      <h2 className="text-2xl font-semibold text-center lg:text-left">
+        Wishlist
+      </h2>
+      <ul className="w-full h-auto grid grid-cols-2 lg:grid-cols-1 gap-3">
         {/* Wishlist */}
         {wishlist?.map((product: Product, key: number) => (
           <li
             key={key}
-            className="w-full h-32 rounded-2xl flex items-center gap-8 border  relative py-4 px-8">
+            className="w-full h-auto rounded-xl flex flex-col items-center gap-4 border relative p-4 lg:rounded-2xl lg:h-32 lg:py-4 lg:px-8 lg:flex-row lg:gap-8">
             <Link href={`/products/${product._id}`}>
               <div className="w-auto h-full flex-center relative">
                 <div
@@ -52,7 +54,7 @@ const Wishlist = async () => {
                 />
               </div>
             </Link>
-            <div className="flex-grow h-full flex flex-col justify-center items-start gap-2">
+            <div className="flex-grow h-full flex flex-col justify-center items-center gap-2 lg:items-start">
               <span className="line-clamp-2">{product.name}</span>
               <div className="flex gap-2">
                 <span className="size-fit text-nowrap  bg-black text-white rounded-full py-1 px-3">

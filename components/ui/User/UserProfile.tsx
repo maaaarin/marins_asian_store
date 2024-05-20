@@ -17,7 +17,7 @@ export const UserProfile = () => {
   }
 
   return (
-    <div className="w-full h-64 bg-slate-200 rounded-3xl flex-center bg-cover bg-center profile-pattern">
+    <div className="w-full h-64 bg-slate-200 rounded-3xl flex-center bg-no-repeat bg-cover bg-[url('/assets/img/user_profile_banner.svg')]">
       <div className="size-full flex-center flex-col gap-7 rounded-3xl">
         <div className="size-24 relative group rounded-full flex justify-center">
           <Image

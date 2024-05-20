@@ -8,12 +8,14 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="container h-screen max-h-[56rem] mt-24 flex gap-5 ">
-      <section className="w-[30%] h-full flex flex-col gap-5 ">
+    <div className="container h-auto lg:h-screen lg:max-h-[56rem] mt-24 flex flex-col gap-5 lg:flex-row">
+      <section className="w-full h-full flex flex-col gap-5 lg:w-[30%]">
         <UserProfile />
-        <UserFeatures />
+        <div className="hidden lg:block">
+          <UserFeatures />
+        </div>
       </section>
-      <section className="w-[70%] h-full border  rounded-3xl p-8">
+      <section className="w-full h-full border rounded-3xl p-4 pt-6 lg:pt-0 lg:p-8 lg:w-[70%] ">
         {children}
       </section>
     </div>

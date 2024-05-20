@@ -27,7 +27,7 @@ export const CheckoutOrder = async (cart: Cart) => {
               }),
             },
           },
-          unit_amount: cartItem.product.price * 100,
+          unit_amount: Math.round(cartItem.product.price.toFixed(2) * 100),
         },
         quantity: cartItem.quantity,
       })),

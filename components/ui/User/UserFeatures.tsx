@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Player } from "@lordicon/react";
 import { usePathname } from "next/navigation";
+import { SheetClose } from "@/components/widgets/sheet";
 
 // Files
 import couponIcon from "@/public/assets/icons/coupon.json";
@@ -84,7 +85,7 @@ export const UserFeatures = () => {
 
   return (
     <div className="w-full h-auto flex-grow bg-zinc-50 rounded-3xl p-3">
-      <ul className="size-auto grid grid-cols-3 gap-2">
+      <ul className="size-auto grid grid-cols-2 lg:grid-cols-3 gap-2">
         {featuresList.map((feature) => {
           let featureLink = feature.name.toLowerCase();
           return (
