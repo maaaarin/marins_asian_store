@@ -312,6 +312,31 @@ export async function removeCartItem(
       );
       return JSON.parse(JSON.stringify(removeItem));
     }
+
+    // Then guest cart
+    const cartItem = await Cart.findOne(
+      { _id: cartId },
+      { items: { $elemMatch: { product: productId } } }
+    ).populate({
+      path: "items.product",
+      model: Product,
+      select: "_id name price picture color",
+    });
+
+    const removeItem = await Cart.findOneAndUpdate(
+      { _id: cartId },
+      {
+        $pull: { items: { product: productId } },
+        $inc: {
+          totalQuantity: -cartItem.items[0].quantity,
+          totalAmount: -(
+            cartItem.items[0].product.price * cartItem.items[0].quantity
+          ),
+        },
+      },
+      { new: true }
+    );
+    return JSON.parse(JSON.stringify(removeItem));
   } catch (error) {
     console.log(error);
   }

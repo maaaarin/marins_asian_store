@@ -38,6 +38,7 @@ export const CartItem = ({ item }: Props) => {
         const removeItemm = await removeCartItem(userId, product._id);
         return;
       }
+      console.log(cartId);
       const removeItemm = await removeCartItem(null, product._id, cartId);
     };
     dispatch(removeItem({ item }));

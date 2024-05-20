@@ -150,28 +150,22 @@ export const Header = () => {
     setPrevSubtotalCart(subtotalCart);
   }, [subtotalCart, prevSubtotalCart]);
 
-  const isFirstRender = useRef(true);
-
   useEffect(() => {
-    if (!isFirstRender.current) {
-      if (cartTotalQuantity > prevTotalQuantity) {
-        if (isAdded) {
-          if (timeoutRef.current) {
-            return;
-          }
+    if (cartTotalQuantity > prevTotalQuantity && prevTotalQuantity > 0) {
+      if (isAdded) {
+        if (timeoutRef.current) {
+          return;
         }
-        setIsAdded(true);
-        timeoutRef.current = setTimeout(() => {
-          setIsAdded(false);
-          timeoutRef.current = null;
-        }, 3250);
       }
-      setPrevTotalQuantity(cartTotalQuantity);
-      return;
-    } else {
-      isFirstRender.current = false;
+      setIsAdded(true);
+      timeoutRef.current = setTimeout(() => {
+        setIsAdded(false);
+        timeoutRef.current = null;
+      }, 3250);
     }
-  }, [cartTotalQuantity, setPrevTotalQuantity]);
+    setPrevTotalQuantity(cartTotalQuantity);
+    return;
+  }, [cartTotalQuantity]);
 
   // Wishlist
   useEffect(() => {
