@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React, { useRef } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -72,23 +73,22 @@ export const UserMenu = () => {
   function handleSingOut() {
     dispatch(resetCart());
     router.push("/");
+    signOut();
   }
 
   return (
-    <div className="size-auto bg-white rounded-3xl  flex flex-col pointer-events-auto">
+    <div className="w-64 h-auto bg-white rounded-3xl  flex flex-col pointer-events-auto">
       <div className="w-full h-auto">
         <div className="size-full flex items-center gap-3 rounded-xl px-4 py-6 bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.svg')]">
-          <div className="size-14 flex justify-center relative">
-            <Image
-              src={user?.imageUrl || ""}
-              alt="alt"
-              width={96}
-              height={96}
-              className="size-full rounded-full border-2 border-secondary object-cover"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-white font-medium text-xl drop-shadow-sm">
+          <Image
+            src={user?.imageUrl || ""}
+            alt="alt"
+            width={96}
+            height={96}
+            className="size-14 rounded-full border-2 border-secondary object-cover"
+          />
+          <div className="overflow-hidden flex flex-col">
+            <span className="w-full text-white font-medium text-lg drop-shadow-sm line-clamp-1 text-ellipsis">
               {user?.firstName?.concat(" ", user?.lastName || "")}
             </span>
             <span className="w-fit px-2 py-1 text-xs bg-secondary text-white rounded-full">
@@ -115,7 +115,7 @@ export const UserMenu = () => {
         })}
         <li
           className="flex gap-2 items-center px-4 py-2 rounded-full text-black hover:bg-red-50 duration-500 hover:text-red-300 cursor-pointer"
-          onClick={() => signOut(() => handleSingOut())}>
+          onClick={handleSingOut}>
           <svg fill="currentColor" className="size-5 " viewBox="0 0 16 16">
             <path
               fillRule="evenodd"

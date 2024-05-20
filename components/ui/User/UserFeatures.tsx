@@ -90,6 +90,7 @@ export const UserFeatures = () => {
   function handleSingOut() {
     dispatch(resetCart());
     router.push("/");
+    signOut();
   }
 
   return (
@@ -120,7 +121,7 @@ export const UserFeatures = () => {
       </ul>
       <div
         className="flex justify-center gap-2 items-center rounded-2xl mt-2 px-4 py-2 bg-zinc-100 text-black lg:hidden"
-        onClick={() => signOut(() => handleSingOut())}>
+        onClick={handleSingOut}>
         <svg fill="currentColor" className="size-5 " viewBox="0 0 16 16">
           <path
             fillRule="evenodd"

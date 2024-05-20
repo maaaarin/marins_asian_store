@@ -190,7 +190,7 @@ export const Home = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-44 rounded-3xl relative overflow-hidden lg:w-1/4 lg:h-full lg:rounded-none lg:rounded-b-3xl lg:rounded-tl-3xl">
+        <div className="w-full h-40 rounded-3xl relative overflow-hidden lg:w-1/4 lg:h-full lg:rounded-none lg:rounded-b-3xl lg:rounded-tl-3xl">
           {/* Desktop  */}
           <Image
             src="/assets/img/second_banner.png"

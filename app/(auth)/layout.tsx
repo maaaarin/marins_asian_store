@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-secondary/15 px-4 lg:px-0">
-      <div className="w-full lg:w-[45rem] h-auto lg:h-4/5 bg-white rounded-3xl flex flex-col lg:flex-row">
+    <main className="w-full min-h-svh flex items-center justify-center bg-secondary/15 p-4 lg:px-0 lg:h-screen">
+      <div className="w-full h-auto  bg-white rounded-3xl flex flex-col lg:flex-row lg:h-4/5 lg:w-[45rem]">
         <div className="w-full min-h-44 flex items-center justify-center  rounded-3xl p-8 relative bg-[url('/assets/img/register_mobile.png')] bg-cover bg-no-repeat  lg:bg-[url('/assets/img/register.png')] lg:w-2/5 lg:justify-normal lg:items-start lg:h-full">
           <Link href="/">
             <svg
@@ -63,10 +63,10 @@ export default function RootLayout({
             className="hidden h-2/4 w-auto absolute -bottom-4 -right-4 lg:block"
           />
         </div>
-        <div className="w-full  h-full p-8 pt-10 lg:pt-16 flex flex-col lg:w-3/5">
+        <div className="w-full h-full p-8 pt-10 lg:pt-16 flex flex-col lg:w-3/5">
           {children}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
