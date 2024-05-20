@@ -34,8 +34,8 @@ const Orders = async () => {
         {/* Orders */}
         {orders?.map((order: Order, key: number) => (
           <li key={key} className="w-full h-auto bg-zinc-100  rounded-b-xl">
-            <div className="w-full h-auto bg-white border border-black rounded-xl flex justify-between items-center p-3 lg:p-0 lg:pl-4 lg:pr-3 lg:py-3 flex-col lg:flex-row">
-              <div className="w-full flex h-full lg:gap-3 items-center justify-center mb-4 bg-primary lg:justify-normal rounded-full lg:rounded-none lg:bg-transparent lg:w-auto lg:mb-0">
+            <div className="w-full h-auto bg-white border border-black rounded-xl flex justify-between items-center p-2 lg:p-0 lg:pl-4 lg:pr-3 lg:py-3 flex-col lg:flex-row">
+              <div className="w-full flex h-full lg:gap-3 items-center justify-center mb-4 bg-primary lg:justify-normal rounded-xl lg:rounded-none lg:bg-transparent lg:w-auto lg:mb-0">
                 <div className="size-16 aspect-square rounded-full bg-primary flex-center p-3">
                   <svg
                     className="size-full text-white"
@@ -55,7 +55,7 @@ const Orders = async () => {
                   <span>{order.status}</span>
                 </div>
               </div>
-              <ul className="h-full grid  gap-x-8 gap-y-4 grid-flow-col-dense">
+              <ul className="h-full grid gap-x-5 gap-y-4 grid-flow-col-dense lg:gap-x-8">
                 <li className="flex flex-col">
                   <span className="text-sm font-semibold">Total</span>
                   <span>{order.totalAmount} €</span>
@@ -66,7 +66,7 @@ const Orders = async () => {
                 </li>
                 <li className="flex flex-col">
                   <span className="text-sm font-semibold">Shipped to</span>
-                  <span>
+                  <span className="line-clamp-1 text-ellipsis text-nowrap">
                     {order.shippingAddress.street +
                       ", " +
                       order.shippingAddress.city}
@@ -103,7 +103,7 @@ const Orders = async () => {
                 </div>
               </div>
             </div>
-            <div className="w-full h-40 flex gap-8 overflow-y-hidden overflow-x-scroll p-8 items-center">
+            <div className="w-full h-40 flex gap-8 overflow-auto px-8 items-center">
               {order.items!.map((item: any, key: number) => (
                 <div key={key} className="relative">
                   <Image
@@ -111,10 +111,10 @@ const Orders = async () => {
                     alt="Product Image"
                     width={250}
                     height={250}
-                    className="w-auto h-28 aspect-square object-contain"
+                    className="min-w-24 w-24 h-full object-contain"
                   />
                   {item.quantity > 1 && (
-                    <span className="absolute size-8 rounded-full bg-black text-white text-sm flex-center outline outline-4 outline-zinc-100 bottom-0 right-3">
+                    <span className="absolute size-8 rounded-full bg-black text-white text-sm flex-center outline outline-4 outline-zinc-100 bottom-0 right-0">
                       {item.quantity}
                     </span>
                   )}

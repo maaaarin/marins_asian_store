@@ -25,7 +25,7 @@ export const UserProfile = () => {
             alt="alt"
             width={128}
             height={128}
-            className="size-full object-cover rounded-full border-2 border-primary cursor-pointer"
+            className="size-full object-cover rounded-full border-2 border-secondary cursor-pointer"
           />
           <input
             type="file"

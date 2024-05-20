@@ -1,5 +1,5 @@
 .cartContainer {
-    max-height: calc(100vh - 8rem);
+    max-height: calc(100vh - 7rem);
 }
 
 .cartContent {
@@ -10,6 +10,6 @@
 
 @media (max-width: 640px) {
     .cartContainer {
-        max-height: calc(90vh - 8rem);
+        max-height: calc(100svh - 7rem);
     }
 }

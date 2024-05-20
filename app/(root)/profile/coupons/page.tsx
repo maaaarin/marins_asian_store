@@ -13,7 +13,7 @@ const Coupons = () => {
         height={150}
         className="mb-4"
       />
-      <h2 className="text-xl font-semibold mb-2">Not available!</h2>
+      <h2 className="text-xl font-semibold mb-2">Not available yet!</h2>
       <span>Still working on it!</span>
     </div>
   );

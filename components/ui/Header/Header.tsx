@@ -259,13 +259,7 @@ export const Header = () => {
                   <Link href="/profile/account">
                     <SheetClose asChild>
                       <div className="w-full h-24 rounded-xl flex flex-col text-white items-center justify-center bg-secondary bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.svg')] py-3 relative">
-                        <svg
-                          className="size-5 text-white absolute top-0 right-0 m-3"
-                          fill="currentColor"
-                          viewBox="0 0 16 16">
-                          <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-                        </svg>
-                        <div className="size-full flex-center gap-3 rounded-xl p-3  bg-cover bg-center lg:px-4 lg:py-6">
+                        <div className="size-full flex items-center gap-3 rounded-xl p-3  bg-cover bg-center lg:px-4 lg:py-6">
                           <div className="size-14 flex justify-center relative">
                             <Image
                               src={user?.imageUrl || ""}
@@ -274,9 +268,6 @@ export const Header = () => {
                               height={96}
                               className="size-full rounded-full border-2 border-secondary object-cover"
                             />
-                            <span className="absolute -bottom-2 w-fit px-2 py-1 text-xs bg-secondary text-white rounded-full">
-                              Lvl. 1
-                            </span>
                           </div>
                           <div className="flex flex-col">
                             <span className="text-white font-medium text-lg drop-shadow-sm">
@@ -285,8 +276,8 @@ export const Header = () => {
                                 user?.lastName || ""
                               )}
                             </span>
-                            <span className="w-32 text-xs bg-black rounded-full px-3 py-1 text-white line-clamp-1 flex-nowrap text-ellipsis">
-                              {user?.primaryEmailAddress?.emailAddress}
+                            <span className="w-fit px-2 py-1 text-xs bg-secondary text-white rounded-full">
+                              Lvl. 1
                             </span>
                           </div>
                         </div>

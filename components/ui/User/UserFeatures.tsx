@@ -2,8 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Player } from "@lordicon/react";
-import { usePathname } from "next/navigation";
-import { SheetClose } from "@/components/widgets/sheet";
+import { usePathname, useRouter } from "next/navigation";
 
 // Files
 import couponIcon from "@/public/assets/icons/coupon.json";
@@ -14,11 +13,16 @@ import ordersIcon from "@/public/assets/icons/orders.json";
 import achievementsIcon from "@/public/assets/icons/achievements.json";
 import clsx from "clsx";
 import Link from "next/link";
+import { useClerk } from "@clerk/nextjs";
+import { useDispatch } from "react-redux";
+import { resetCart } from "@/lib/store/slices/cart.slice";
 
 export const UserFeatures = () => {
   const pathname = usePathname();
   const [featureActive, setFeatureActive] = useState("");
-
+  const { signOut } = useClerk();
+  const dispatch = useDispatch();
+  const router = useRouter();
   // Animated icons
   const couponRef = useRef<Player>(null),
     accountRef = useRef<Player>(null),
@@ -83,6 +87,11 @@ export const UserFeatures = () => {
     },
   ];
 
+  function handleSingOut() {
+    dispatch(resetCart());
+    router.push("/");
+  }
+
   return (
     <div className="w-full h-auto flex-grow bg-zinc-50 rounded-3xl p-3">
       <ul className="size-auto grid grid-cols-2 lg:grid-cols-3 gap-2">
@@ -109,6 +118,21 @@ export const UserFeatures = () => {
           );
         })}
       </ul>
+      <div
+        className="flex justify-center gap-2 items-center rounded-2xl mt-2 px-4 py-2 bg-zinc-100 text-black lg:hidden"
+        onClick={() => signOut(() => handleSingOut())}>
+        <svg fill="currentColor" className="size-5 " viewBox="0 0 16 16">
+          <path
+            fillRule="evenodd"
+            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+          />
+          <path
+            fillRule="evenodd"
+            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+          />
+        </svg>
+        <span className="text-zinc-500">Sign Out</span>
+      </div>
     </div>
   );
 };

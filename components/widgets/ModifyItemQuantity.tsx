@@ -45,6 +45,9 @@ export const ModifyItemQuantity = ({ item }: Props) => {
           userId,
           item.product._id
         );
+        if (decreaseQuantity) {
+          dispatch(decreaseItemQuantity({ item }));
+        }
         return;
       }
       const decreaseQuantity = await decreaseCartItem(
@@ -52,8 +55,10 @@ export const ModifyItemQuantity = ({ item }: Props) => {
         item.product._id,
         cartId
       );
+      if (decreaseQuantity) {
+        dispatch(decreaseItemQuantity({ item }));
+      }
     };
-    dispatch(decreaseItemQuantity({ item }));
     decreaseItem();
   }
 

@@ -77,25 +77,22 @@ export const UserMenu = () => {
   return (
     <div className="size-auto bg-white rounded-3xl  flex flex-col pointer-events-auto">
       <div className="w-full h-auto">
-        <div className="size-full flex-center gap-3 rounded-xl px-4 py-6 bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.svg')]">
+        <div className="size-full flex items-center gap-3 rounded-xl px-4 py-6 bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.svg')]">
           <div className="size-14 flex justify-center relative">
             <Image
               src={user?.imageUrl || ""}
               alt="alt"
               width={96}
               height={96}
-              className="size-full rounded-full border-2 border-primary object-cover"
+              className="size-full rounded-full border-2 border-secondary object-cover"
             />
-            <span className="absolute -bottom-2 w-fit px-2 py-1 text-xs bg-secondary text-white rounded-full">
-              Lvl. 1
-            </span>
           </div>
           <div className="flex flex-col">
             <span className="text-white font-medium text-xl drop-shadow-sm">
               {user?.firstName?.concat(" ", user?.lastName || "")}
             </span>
-            <span className="text-xs bg-black rounded-full px-3 py-1 text-white">
-              {user?.primaryEmailAddress?.emailAddress}
+            <span className="w-fit px-2 py-1 text-xs bg-secondary text-white rounded-full">
+              Lvl. 1
             </span>
           </div>
         </div>
