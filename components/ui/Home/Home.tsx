@@ -23,7 +23,7 @@ export const Home = () => {
                 alt="Banner Image"
                 width={0}
                 height={0}
-                className="w-60 h-auto lg:w-64"
+                className="w-44 h-auto lg:w-64"
               />
               <div className="flex gap-2 items-center">
                 <span>Enjoy</span>
@@ -96,13 +96,6 @@ export const Home = () => {
                 width={256}
                 height={256}
                 className="size-40 object-contain absolute right-0 bottom-0 animate-floating-6"
-              />
-              <Image
-                src="/assets/img/banner_asset_2.png"
-                alt="Banner Asset"
-                width={256}
-                height={256}
-                className="size-28 object-contain absolute top-8 right-2 animate-floating-6"
               />
               <Image
                 src="/assets/img/banner_asset_3.png"

@@ -216,7 +216,7 @@ export const Header = () => {
               <div className="mt-6">
                 <Link href="/sign-in">
                   <SheetClose asChild>
-                    <div className="w-full h-20 rounded-xl flex flex-col text-white items-center justify-center bg-secondary bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.png')] py-3">
+                    <div className="w-full h-20 rounded-xl flex flex-col text-white items-center justify-center bg-secondary bg-no-repeat bg-cover bg-[url('/assets/img/user-banner.svg')] py-3">
                       <span className="text-lg font-semibold ">
                         Sign In or Sign Up
                       </span>
@@ -294,13 +294,6 @@ export const Header = () => {
                   </ul>
                 </div>
               </div>
-              <Image
-                src="/assets/img/character_surprised.png"
-                alt="alt"
-                width={220}
-                height={300}
-                className="absolute -bottom-20 right-4"
-              />
             </SheetContent>
           </Sheet>
           <Link href="/" className={clsx({ hidden: searchDisplay })}>

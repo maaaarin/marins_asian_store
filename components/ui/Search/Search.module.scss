@@ -1,9 +1,5 @@
 .searchContainer {
     height: calc(100vh - 8rem);
-
-
-
-
 }
 
 .searchRecommendations,
@@ -11,5 +7,11 @@
 
     &::-webkit-scrollbar {
         display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .searchContainer {
+        height: calc(90vh - 8rem);
     }
 }

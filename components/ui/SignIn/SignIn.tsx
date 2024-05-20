@@ -184,7 +184,7 @@ export const SignIn = ({ setForgotPassword }: any) => {
           </div>
         </form>
       </div>
-      <div className="w-full h-auto flex gap-2 items-center mt-auto">
+      <div className="w-full h-auto flex gap-2 items-center mt-8 lg:mt-auto">
         <span>New here?</span>
         <Link href="/sign-up">
           <Button className="bg-black text-white" radius="full">

@@ -1,3 +1,15 @@
 .cartContainer {
     max-height: calc(100vh - 8rem);
 }
+
+.cartContent {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .cartContainer {
+        max-height: calc(90vh - 8rem);
+    }
+}

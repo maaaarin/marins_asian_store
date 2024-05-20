@@ -11,6 +11,7 @@ import {
 } from "@/lib/store/slices/cart.slice";
 import { useAuth } from "@clerk/nextjs";
 import CheckoutButton from "@/components/widgets/CheckoutButton";
+import styles from "./Cart.module.scss";
 
 const CartContent = () => {
   const { userId } = useAuth();
@@ -35,7 +36,8 @@ const CartContent = () => {
           from this order
         </div>
       </div>
-      <div className="size-full flex flex-col gap-2 overflow-auto px-4 rounded-xl lg:gap-0 lg:rounded-3xl">
+      <div
+        className={`${styles.cartContent} size-full flex flex-col gap-4 overflow-auto px-4 rounded-xl lg:gap-0 lg:rounded-3xl`}>
         {cart.items.map((item: CartItemType, key: number) => (
           <CartItem key={key} item={item} />
         ))}
