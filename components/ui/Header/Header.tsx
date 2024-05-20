@@ -47,6 +47,7 @@ import {
   SheetTrigger,
 } from "@/components/widgets/sheet";
 import { UserFeatures } from "../User/UserFeatures";
+import ItemAddedToast from "@/components/widgets/ItemAddedToast";
 
 export const Header = () => {
   // Clerk
@@ -86,9 +87,11 @@ export const Header = () => {
 
   // Cart
   const dispatch = useDispatch();
-  const countCartItems = useSelector(countCartItemsSelector),
+  const cartTotalQuantity = useSelector(totalQuantityCartSelector),
     subtotalCart = useSelector(subtotalCartSelector),
-    [prevSubtotalCart, setPrevSubtotalCart] = useState(subtotalCart);
+    countCartItems = useSelector(countCartItemsSelector),
+    [prevSubtotalCart, setPrevSubtotalCart] = useState(subtotalCart),
+    [prevTotalQuantity, setPrevTotalQuantity] = useState(cartTotalQuantity);
 
   useEffect(() => {
     dispatch(resetCart());
@@ -136,12 +139,39 @@ export const Header = () => {
     }
   }
 
+  // Detect new products
+  const [isAdded, setIsAdded] = useState(false);
+  const timeoutRef = useRef<any>(null);
+
   useEffect(() => {
     if (subtotalCart > prevSubtotalCart) {
       cartIconAnimation();
     }
     setPrevSubtotalCart(subtotalCart);
   }, [subtotalCart, prevSubtotalCart]);
+
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      if (cartTotalQuantity > prevTotalQuantity) {
+        if (isAdded) {
+          if (timeoutRef.current) {
+            return;
+          }
+        }
+        setIsAdded(true);
+        timeoutRef.current = setTimeout(() => {
+          setIsAdded(false);
+          timeoutRef.current = null;
+        }, 3250);
+      }
+      setPrevTotalQuantity(cartTotalQuantity);
+      return;
+    } else {
+      isFirstRender.current = false;
+    }
+  }, [cartTotalQuantity, setPrevTotalQuantity]);
 
   // Wishlist
   useEffect(() => {
@@ -237,7 +267,7 @@ export const Header = () => {
                           viewBox="0 0 16 16">
                           <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
                         </svg>
-                        <div className="size-full flex-center gap-3 rounded-xl px-4 py-6 bg-cover bg-center ">
+                        <div className="size-full flex-center gap-3 rounded-xl p-3  bg-cover bg-center lg:px-4 lg:py-6">
                           <div className="size-14 flex justify-center relative">
                             <Image
                               src={user?.imageUrl || ""}
@@ -251,13 +281,13 @@ export const Header = () => {
                             </span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-white font-medium text-xl drop-shadow-sm">
+                            <span className="text-white font-medium text-lg drop-shadow-sm">
                               {user?.firstName?.concat(
                                 " ",
                                 user?.lastName || ""
                               )}
                             </span>
-                            <span className="text-xs bg-black rounded-full px-3 py-1 text-white">
+                            <span className="w-32 text-xs bg-black rounded-full px-3 py-1 text-white line-clamp-1 flex-nowrap text-ellipsis">
                               {user?.primaryEmailAddress?.emailAddress}
                             </span>
                           </div>
@@ -396,9 +426,9 @@ export const Header = () => {
               className="relative grid place-items-center cursor-pointer"
               onClick={handleCartDisplay}>
               <Player ref={cartRef} icon={cartIcon} size={32} />
-              {countCartItems ? (
+              {cartTotalQuantity ? (
                 <div className="size-5 bg-primary rounded-full absolute -top-2 -right-2  text-xs text-white outline outline-4 outline-white flex items-center justify-center">
-                  {countCartItems}
+                  {cartTotalQuantity}
                 </div>
               ) : (
                 ""
@@ -466,6 +496,7 @@ export const Header = () => {
         onClick={() => {
           closeDisplay();
         }}></div>
+      {isAdded && !cartDisplay && <ItemAddedToast />}
     </header>
   );
 };

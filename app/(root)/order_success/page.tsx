@@ -11,7 +11,7 @@ const OrderSuccessPage = async () => {
 
   return (
     <main className="container mt-24 flex align-items-center justify-center">
-      <div className="w-auto h-[60vh] border rounded-3xl flex flex-col items-center py-12 px-24 gap-5">
+      <div className="w-full  h-[60vh] border rounded-3xl flex flex-col items-center justify-center gap-5 lg:w-3/5">
         <h1 className="text-2xl font-semibold">Thank you!</h1>
         <div className="w-48 aspect-square rounded-full bg-zinc-100 relative flex justify-center my-6">
           <Image

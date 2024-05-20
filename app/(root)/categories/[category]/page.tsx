@@ -26,7 +26,7 @@ const Category = async ({ params: { category } }: Props) => {
     <>
       <main className="container mt-24">
         <div className="size-full flex flex-col gap-5">
-          <div className="w-full h-52 bg-secondary rounded-3xl bg-center bg-[url('/assets/img/category-mobile.png')] lg:bg-[url('/assets/img/category.png')] bg-cover flex items-center justify-center flex-col relative">
+          <div className="w-full h-52 bg-secondary rounded-3xl bg-center bg-[url('/assets/img/category-mobile.svg')] lg:bg-[url('/assets/img/category.png')] bg-cover flex items-center justify-center flex-col relative">
             <Image
               className="hidden absolute -top-8 left-28 w-32 lg:block"
               src={`/assets/img/category_${category}_1.png`}

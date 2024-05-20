@@ -135,7 +135,7 @@ const config: Config = {
       "floating-6": "floating 6s ease-in-out infinite",
       "fade-in": "fade 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
       "fade-out":
-        "fade 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both reverse",
+        "fade 0.5s 2.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both reverse",
       display: "display 0.5s linear forwards",
       "caret-blink": "caret-blink 1.25s ease-out infinite",
     },

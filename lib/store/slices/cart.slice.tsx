@@ -22,29 +22,33 @@ const cartSlice = createSlice({
       );
       if (item) {
         item.quantity++;
+        state.totalQuantity++;
       } else {
         state.items.push({ product: { ...action.payload }, quantity: 1 });
         state.totalQuantity++;
       }
     },
     removeItem: (state, action) => {
+      let actualItem = action.payload.item;
       const itemIndex = state.items.findIndex(
         (item) => item.product._id === action.payload.item.product._id
       );
       state.items.splice(itemIndex, 1);
-      state.totalQuantity--;
+      state.totalQuantity -= actualItem.quantity;
     },
     increaseItemQuantity: (state, action) => {
       const itemIndex = state.items.findIndex(
         (item) => item.product._id === action.payload.item.product._id
       );
       state.items[itemIndex].quantity++;
+      state.totalQuantity++;
     },
     decreaseItemQuantity: (state, action) => {
       const itemIndex = state.items.findIndex(
         (item) => item.product._id === action.payload.item.product._id
       );
       state.items[itemIndex].quantity--;
+      state.totalQuantity--;
     },
     setCart: (state, action) => {
       const { userClerkId, items, totalAmount, totalQuantity, expireAt, _id } =

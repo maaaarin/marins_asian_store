@@ -21,7 +21,6 @@ const CartContent = () => {
     totalPoints = useSelector(totalPointsCartSelector);
 
   useEffect(() => {
-    console.log(cart);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalCartItems, subtotalCart]);
 
