@@ -151,7 +151,11 @@ export const Header = () => {
   }, [subtotalCart, prevSubtotalCart]);
 
   useEffect(() => {
-    if (cartTotalQuantity > prevTotalQuantity && prevTotalQuantity > 0) {
+    if (
+      cartTotalQuantity > prevTotalQuantity &&
+      prevTotalQuantity > 0 &&
+      !cartDisplay
+    ) {
       if (isAdded) {
         if (timeoutRef.current) {
           return;
@@ -165,7 +169,7 @@ export const Header = () => {
     }
     setPrevTotalQuantity(cartTotalQuantity);
     return;
-  }, [cartTotalQuantity]);
+  }, [cartTotalQuantity, cartDisplay]);
 
   // Wishlist
   useEffect(() => {
