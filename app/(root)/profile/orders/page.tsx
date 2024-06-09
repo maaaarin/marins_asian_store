@@ -51,22 +51,36 @@ const Orders = async () => {
                   </svg>
                 </div>
                 <div className="flex flex-col text-white lg:text-black">
-                  <span className="text-sm font-semibold">Status</span>
-                  <span>{order.status}</span>
+                  <span className="text-xs font-semibold  lg:text-sm">
+                    Status
+                  </span>
+                  <span className="text-sm line-clamp-1 text-ellipsis text-nowrap lg:text-base">
+                    {order.status}
+                  </span>
                 </div>
               </div>
               <ul className="h-full grid gap-x-5 gap-y-4 grid-flow-col-dense lg:gap-x-8">
                 <li className="flex flex-col">
-                  <span className="text-sm font-semibold">Total</span>
-                  <span>{order.totalAmount} €</span>
+                  <span className="text-xs font-semibold  lg:text-sm">
+                    Total
+                  </span>
+                  <span className="text-sm line-clamp-1 text-ellipsis text-nowrap lg:text-base">
+                    {order.totalAmount} €
+                  </span>
                 </li>
                 <li className="flex flex-col">
-                  <span className="text-sm font-semibold">Placed At</span>
-                  <span>{format(order.createdAt, "dd/MM/yyyy")}</span>
+                  <span className="text-xs font-semibold  lg:text-sm">
+                    Placed At
+                  </span>
+                  <span className="text-sm line-clamp-1 text-ellipsis text-nowrap lg:text-base">
+                    {format(order.createdAt, "dd/MM/yyyy")}
+                  </span>
                 </li>
                 <li className="flex flex-col">
-                  <span className="text-sm font-semibold">Shipped to</span>
-                  <span className="line-clamp-1 text-ellipsis text-nowrap">
+                  <span className="text-xs font-semibold lg:text-sm">
+                    Shipped to
+                  </span>
+                  <span className="text-sm line-clamp-1 text-ellipsis text-nowrap lg:text-base">
                     {order.shippingAddress.street +
                       ", " +
                       order.shippingAddress.city}

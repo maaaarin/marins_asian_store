@@ -91,6 +91,7 @@ export const Header = () => {
     subtotalCart = useSelector(subtotalCartSelector),
     countCartItems = useSelector(countCartItemsSelector),
     [prevSubtotalCart, setPrevSubtotalCart] = useState(subtotalCart),
+    [prevCountCartItems, setPrevCountCartItems] = useState(countCartItems),
     [prevTotalQuantity, setPrevTotalQuantity] = useState(cartTotalQuantity);
 
   useEffect(() => {
@@ -139,7 +140,7 @@ export const Header = () => {
     }
   }
 
-  // Detect new products
+  // Detect new products / cart added toast
   const [isAdded, setIsAdded] = useState(false);
   const timeoutRef = useRef<any>(null);
 
@@ -154,6 +155,7 @@ export const Header = () => {
     if (
       cartTotalQuantity > prevTotalQuantity &&
       prevTotalQuantity > 0 &&
+      countCartItems > 0 &&
       !cartDisplay
     ) {
       if (isAdded) {

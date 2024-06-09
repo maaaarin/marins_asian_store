@@ -44,8 +44,8 @@ export const FlavorTrail = () => {
   function getRewardPoints() {}
 
   const userProgress = {
-    level: 3,
-    flavorPoints: 720,
+    level: 1,
+    flavorPoints: 560,
   };
 
   const [currentLevel, setCurrentLevel] = useState(1);

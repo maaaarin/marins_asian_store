@@ -9,7 +9,7 @@ export const SearchMenu = () => {
 
   const recommendedProducts = [
     {
-      _id: "6648ebfadb8778d425dd49fc",
+      _id: "664919f0db8778d425f1881e",
       name: "Frito-Lay Cheetos - Cheddar Cheese & Jalapeño",
       description:
         "Indulge in the delicious combination of cheddar cheese and jalapeño flavor with these crunchy corn puff snacks from Frito-Lay!",
@@ -18,7 +18,7 @@ export const SearchMenu = () => {
       picture: "https://i.imgur.com/ARKjRzw.png",
     },
     {
-      _id: "6648ebfadb8778d425dd49fd",
+      _id: "664919f0db8778d425f1881f",
       name: "Nobel Studio UG x Chibi Soda Candy",
       description:
         "Enjoy these delicious soda-flavored candies, created in collaboration between Nobel Studio UG and Chibi. Each candy is packed with a bubbly flavor that you'll love.",
@@ -27,7 +27,7 @@ export const SearchMenu = () => {
       picture: "https://i.imgur.com/qsqJ3qj.png",
     },
     {
-      _id: "6648ebfadb8778d425dd49ff",
+      _id: "664919f0db8778d425f18820",
       name: "Sanrio Characters Summer Fruit Jelly",
       description:
         "Enjoy the refreshing taste of summer with Sanrio Characters Summer Fruit Jelly. Each jelly cup features your favorite Sanrio characters and is packed with a fruity flavor that's perfect for hot days.",
@@ -36,7 +36,7 @@ export const SearchMenu = () => {
       picture: "https://i.imgur.com/6iUZNJv.png",
     },
     {
-      _id: "6648ebfadb8778d425dd4a00",
+      _id: "664919f0db8778d425f18821",
       name: "Lotte Fit's Funyan Gum - Mixed Berry",
       description:
         "Enjoy the burst of mixed berry flavor with Lotte Fit's Funyan Gum. These sugar-free gums are perfect for freshening your breath and satisfying your sweet cravings.",

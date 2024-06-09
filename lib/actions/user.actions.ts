@@ -25,3 +25,4 @@ export async function getUserById(clerkId: string | undefined) {
     console.log(error);
   }
 }
+

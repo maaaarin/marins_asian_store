@@ -109,26 +109,11 @@ export type Order = {
   createdAt: Date;
 };
 
-type UserOrder = {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  shippingAddress: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    country?: string;
-  };
-  paymentMethod: string;
-};
-
 export type Achievement = {
   _id: string;
   name: string;
   description: string;
   reward: string;
-  condition?: number;
   goal: number;
 };
 
